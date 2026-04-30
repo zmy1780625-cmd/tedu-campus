@@ -178,26 +178,166 @@ section { padding: 96px 0; }
 }
 .pillars-agent-img img { width: 100%; height: auto; display: block; }
 
-/* ========== Cases ========== */
-.cases-section { background: var(--color-bg-section); }
-.cases-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-.case-card {
-  background: var(--color-white); border-radius: var(--radius-lg);
-  overflow: hidden; border: 1px solid var(--border-color);
-  transition: all .35s ease;
+/* ========== Cases - 3D Carousel ========== */
+.cases-section {
+  background: linear-gradient(170deg, #0B1829 0%, #0F2847 45%, #0A1628 100%);
+  position: relative; overflow: hidden;
 }
-.case-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
-.case-image { width: 100%; height: 200px; object-fit: cover; display: block; }
-.case-info { padding: 20px 22px; }
-.case-school {
-  font-size: 17px; font-weight: 700; color: var(--text-primary); margin-bottom: 14px;
-  display: flex; align-items: center; gap: 8px;
+/* Ambient glow for carousel */
+.cases-section::before {
+  content: ''; position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  width: 600px; height: 400px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,82,217,0.12) 0%, transparent 70%);
+  filter: blur(60px); pointer-events: none;
 }
-.case-school .icon-school { width: 20px; height: 20px; fill: var(--color-primary); }
-.case-stats { display: flex; gap: 20px; }
-.case-stat { flex: 1; }
-.case-stat-val { font-size: 22px; font-weight: 800; color: var(--color-primary); line-height: 1.2; }
-.case-stat-lbl { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+.cases-carousel-wrap { perspective: 1200px; padding: 20px 0 40px; }
+.cases-carousel {
+  position: relative; width: 100%; height: 420px;
+  display: flex; align-items: center; justify-content: center;
+}
+.case-slide {
+  position: absolute; width: 360px; height: 380px;
+  left: 50%; top: 50%; margin-left: -180px; margin-top: -190px;
+  border-radius: 18px; overflow: hidden;
+  cursor: pointer; transition: all .65s cubic-bezier(.23,1,.32,1);
+  transform-style: preserve-3d;
+  /* Multi-layer shadow = thickness */
+  box-shadow:
+    0 2px 4px rgba(0,0,0,0.08),
+    0 4px 8px rgba(0,0,0,0.06),
+    0 8px 16px rgba(0,0,0,0.10),
+    0 16px 32px rgba(0,0,0,0.08),
+    0 24px 48px rgba(0,0,0,0.05),
+    inset 0 1px 0 rgba(255,255,255,0.6);
+  opacity: 0; pointer-events: none;
+}
+.case-slide.active {
+  opacity: 1; pointer-events: auto; z-index: 30;
+  transform: translateX(0) scale(1) rotateY(0deg);
+  box-shadow:
+    0 4px 8px rgba(0,0,0,0.10),
+    0 8px 16px rgba(0,0,0,0.12),
+    0 16px 32px rgba(0,0,0,0.14),
+    0 24px 64px rgba(0,82,217,0.15),
+    0 36px 80px rgba(0,0,0,0.06),
+    inset 0 1px 0 rgba(255,255,255,0.7);
+}
+/* Prev / Next stacked cards */
+.case-slide.prev {
+  opacity: 0.7; z-index: 10;
+  transform: translateX(-78%) scale(0.85) rotateY(14deg) translateZ(-80px);
+  box-shadow:
+    0 4px 12px rgba(0,0,0,0.18),
+    0 12px 28px rgba(0,0,0,0.16),
+    0 24px 48px rgba(0,0,0,0.12),
+    inset 0 1px 0 rgba(255,255,255,0.35);
+  filter: brightness(0.88);
+}
+.case-slide.next {
+  opacity: 0.7; z-index: 10;
+  transform: translateX(78%) scale(0.85) rotateY(-14deg) translateZ(-80px);
+  box-shadow:
+    0 4px 12px rgba(0,0,0,0.18),
+    0 12px 28px rgba(0,0,0,0.16),
+    0 24px 48px rgba(0,0,0,0.12),
+    inset 0 1px 0 rgba(255,255,255,0.35);
+  filter: brightness(0.88);
+}
+/* Far cards */
+.case-slide.prev-far {
+  opacity: 0.25; z-index: 5;
+  transform: translateX(-130%) scale(0.62) rotateY(22deg) translateZ(-160px);
+  filter: brightness(0.65);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.2);
+}
+.case-slide.next-far {
+  opacity: 0.25; z-index: 5;
+  transform: translateX(130%) scale(0.62) rotateY(-22deg) translateZ(-160px);
+  filter: brightness(0.65);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.2);
+}
+
+/* Card inner content */
+.case-inner {
+  width: 100%; height: 100%; background: #fff;
+  display: flex; flex-direction: column;
+  border-radius: 18px; overflow: hidden;
+  position: relative;
+}
+/* Gradient header area */
+.case-card-visual {
+  height: 140px; position: relative; overflow: hidden;
+  display: flex; align-items: flex-end; padding: 20px 22px;
+}
+.case-card-visual .visual-gradient {
+  position: absolute; inset: 0;
+}
+.case-card-visual .school-badge {
+  position: relative; z-index: 2;
+  color: white; font-size: 19px; font-weight: 800;
+  letter-spacing: -0.01em; text-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.case-card-body {
+  flex: 1; padding: 18px 22px 20px;
+  display: flex; flex-direction: column;
+}
+.case-card-desc {
+  font-size: 13.5px; color: var(--text-secondary);
+  line-height: 1.72; flex: 1;
+  display: -webkit-box; -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical; overflow: hidden;
+}
+.case-card-meta {
+  display: flex; gap: 10px; margin-top: 14px;
+}
+.case-tag-pill {
+  font-size: 11px; font-weight: 700; padding: 4px 12px;
+  border-radius: 20px; white-space: nowrap;
+  background: var(--color-primary-light); color: var(--color-primary);
+}
+.case-link-btn {
+  font-size: 12px; font-weight: 700; color: var(--color-primary);
+  padding: 5px 14px; border-radius: 8px; border: 1.5px solid var(--color-primary);
+  text-decoration: none; transition: all .2s; margin-left: auto;
+  display: inline-flex; align-items: center; gap: 4px;
+}
+.case-link-btn:hover {
+  background: var(--color-primary); color: white;
+}
+.case-link-btn svg { width: 13px; height: 13px; fill: currentColor; }
+
+/* Dots indicator */
+.carousel-dots {
+  display: flex; justify-content: center; gap: 10px; margin-top: 24px;
+}
+.carousel-dot {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: rgba(255,255,255,0.25); cursor: pointer;
+  transition: all .35s ease; border: none;
+}
+.carousel-dot:hover { background: rgba(255,255,255,0.45); }
+.carousel-dot.active {
+  width: 28px; border-radius: 5px;
+  background: var(--color-accent);
+}
+
+/* Entry animation for carousel */
+@keyframes caseEnterUp {
+  from { opacity: 0; transform: translateY(40px) scale(0.94); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.cases-carousel-wrap.animate-in .case-slide.active {
+  animation: caseEnterUp .75s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+@media (max-width: 768px) {
+  .case-slide { width: 300px; margin-left: -150px; margin-top: -175px; height: 350px; }
+  .case-slide.prev { transform: translateX(-72%) scale(0.84) rotateY(10deg) translateZ(-60px); }
+  .case-slide.next { transform: translateX(72%) scale(0.84) rotateY(-10deg) translateZ(-60px); }
+  .case-slide.prev-far, .case-slide.next-far { display: none; }
+  .carousel-dots { margin-top: 16px; }
+}
 
 /* ========== Benefits (8 cards) ========== */
 .benefits-section { background: var(--color-white); }
@@ -526,52 +666,104 @@ section { padding: 96px 0; }
   </div>
 </section>
 
-<!-- Cases -->
+<!-- Cases - 3D Carousel -->
 <section class="cases-section">
   <div class="container">
     <div class="section-header">
-      <div class="section-tag">CASES</div>
-      <h2 class="section-title">我们做过的事</h2>
+      <div class="section-tag" style="background:rgba(0,82,217,0.2);color:#6BAFFF;">CASES</div>
+      <h2 class="section-title" style="color:white;">我们做过的事</h2>
     </div>
-    <div class="cases-grid">
-      <div class="case-card scroll-reveal">
-        <img src="img_tsinghua.jpg" alt="清华大学活动" class="case-image">
-        <div class="case-info">
-          <div class="case-school">
-            <svg class="icon-school" viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/></svg>
-            清华大学
+    <div class="cases-carousel-wrap scroll-reveal">
+      <div class="cases-carousel" id="casesCarousel">
+
+        <!-- Card 1: 上海交通大学 -->
+        <a href="https://mp.weixin.qq.com/s/uoSktf4fRu8ASrei4ivDVQ" target="_blank" class="case-slide active" data-index="0">
+          <div class="case-inner">
+            <div class="case-card-visual">
+              <div class="visual-gradient" style="background:linear-gradient(135deg,#1a3a6c,#0d2847 50%,#0052D9);"></div>
+              <span class="school-badge">上海交通大学</span>
+            </div>
+            <div class="case-card-body">
+              <p class="case-card-desc">腾讯AI百校行之「科学养虾实训营」在上海交通大学举办，超200名师生参与。活动设「初识龙虾」「实战演练」「虾力觉醒」三环节，解析AI趋势，教学腾讯WorkBuddy工具实操，并以交大130周年校庆为题创作多元作品。</p>
+              <div class="case-card-meta">
+                <span class="case-tag-pill">AI百校行</span>
+                <span class="case-tag-pill" style="background:rgba(0,180,120,0.1);color:#00B578;">200+人</span>
+                <span class="case-link-btn">查看详情
+                  <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+                </span>
+              </div>
+            </div>
           </div>
-          <div class="case-stats">
-            <div class="case-stat"><div class="case-stat-val">2天</div><div class="case-stat-lbl">活动时长</div></div>
-            <div class="case-stat"><div class="case-stat-val">150+</div><div class="case-stat-lbl">装机台数</div></div>
+        </a>
+
+        <!-- Card 2: 南京理工大学 -->
+        <a href="https://mp.weixin.qq.com/s/Q5CQ4YEaiVPAbptxACe7ng" target="_blank" class="case-slide next" data-index="1">
+          <div class="case-inner">
+            <div class="case-card-visual">
+              <div class="visual-gradient" style="background:linear-gradient(135deg,#1a4a3c,#0d3024 50%,#00B578);"></div>
+              <span class="school-badge">南京理工大学</span>
+            </div>
+            <div class="case-card-body">
+              <p class="case-card-desc">南京理工大学计算机学院与腾讯云联合举办的「腾讯AI百校行」养虾实训活动。聚焦AI智能体部署与应用，通过技术分享、实操演示及一对一指导，帮助师生从零搭建专属AI助手，现场参与超300人，反响热烈。</p>
+              <div class="case-card-meta">
+                <span class="case-tag-pill" style="color:#00B578;background:rgba(0,180,120,0.08);">智能体部署</span>
+                <span class="case-tag-pill" style="background:rgba(0,180,120,0.1);color:#00B578;">300+人</span>
+                <span class="case-link-btn" style="color:#00B578;border-color:#00B578;">查看详情
+                  <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+                </span>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="case-card scroll-reveal">
-        <img src="img_bjtu.jpg" alt="北京交通大学活动" class="case-image">
-        <div class="case-info">
-          <div class="case-school">
-            <svg class="icon-school" viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/></svg>
-            北京交通大学
+        </a>
+
+        <!-- Card 3: 大连理工大学 -->
+        <a href="https://mp.weixin.qq.com/s/Q0q8qe9KKhhXpfUmvCcE8A" target="_blank" class="case-slide next-far" data-index="2">
+          <div class="case-inner">
+            <div class="case-card-visual">
+              <div class="visual-gradient" style="background:linear-gradient(135deg,#3d2800,#2a1c00 50%,#FF6B35);"></div>
+              <span class="school-badge">大连理工大学</span>
+            </div>
+            <div class="case-card-body">
+              <p class="case-card-desc">活动以「科学养虾实训营」为主题，由大连理工大学未来技术学院与腾讯云联合举办，吸引了165名师生参与。内容包括技术分享和实操教学，重点介绍腾讯OpenClaw智能体框架和WorkBuddy智能体工作台的应用。</p>
+              <div class="case-card-meta">
+                <span class="case-tag-pill" style="color:#FF6B35;background:rgba(255,107,53,0.08);">OpenClaw</span>
+                <span class="case-tag-pill" style="background:rgba(255,107,53,0.1);color:#FF6B35;">165人</span>
+                <span class="case-link-btn" style="color:#FF6B35;border-color:#FF6B35;">查看详情
+                  <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+                </span>
+              </div>
+            </div>
           </div>
-          <div class="case-stats">
-            <div class="case-stat"><div class="case-stat-val">900+</div><div class="case-stat-lbl">报名参与</div></div>
-            <div class="case-stat"><div class="case-stat-val">1100+</div><div class="case-stat-lbl">社群人数</div></div>
+        </a>
+
+        <!-- Card 4: 华中师范大学 -->
+        <a href="https://mp.weixin.qq.com/s/-Gwngv2cOZc9UPZEkeGs1Q" target="_blank" class="case-slide prev-far" data-index="3">
+          <div class="case-inner">
+            <div class="case-card-visual">
+              <div class="visual-gradient" style="background:linear-gradient(135deg,#2a1840,#1a0f28 50%,#7C3AED);"></div>
+              <span class="school-badge">华中师范大学</span>
+            </div>
+            <div class="case-card-body">
+              <p class="case-card-desc">「腾讯AI百校行」在华中师范大学举行，230名师生参与。以「AI Agent智能体实训营」为主题，专家分享AI技术原理与教育场景应用、讲师手把手指导腾讯WorkBuddy平台实操、设置数据分析闯关任务，参训者均获培训证书。</p>
+              <div class="case-card-meta">
+                <span class="case-tag-pill" style="color:#7C3AED;background:rgba(124,58,237,0.08);">Agent实训</span>
+                <span class="case-tag-pill" style="background:rgba(124,58,237,0.1);color:#7C3AED;">230人</span>
+                <span class="case-link-btn" style="color:#7C3AED;border-color:#7C3AED;">查看详情
+                  <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+                </span>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="case-card scroll-reveal">
-        <img src="img_scu.jpg" alt="四川大学活动" class="case-image">
-        <div class="case-info">
-          <div class="case-school">
-            <svg class="icon-school" viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/></svg>
-            四川大学
-          </div>
-          <div class="case-stats">
-            <div class="case-stat"><div class="case-stat-val">300+</div><div class="case-stat-lbl">线下参与</div></div>
-            <div class="case-stat"><div class="case-stat-val">3000+</div><div class="case-stat-lbl">线上观看</div></div>
-          </div>
-        </div>
+        </a>
+
+      </div><!-- /carousel -->
+
+      <!-- Dots -->
+      <div class="carousel-dots" id="carouselDots">
+        <button class="carousel-dot active" data-index="0"></button>
+        <button class="carousel-dot" data-index="1"></button>
+        <button class="carousel-dot" data-index="2"></button>
+        <button class="carousel-dot" data-index="3"></button>
       </div>
     </div>
   </div>
@@ -1022,6 +1214,70 @@ function toggleFaq(btn) {
 function togglePanel(header) {
   header.parentElement.classList.toggle('open');
 }
+
+// ====== 3D Cases Carousel ======
+(function() {
+  const carousel = document.getElementById('casesCarousel');
+  const dotsWrap = document.getElementById('carouselDots');
+  if (!carousel || !dotsWrap) return;
+  const slides = Array.from(carousel.querySelectorAll('.case-slide'));
+  const dots = Array.from(dotsWrap.querySelectorAll('.carousel-dot'));
+  const total = slides.length;
+  let current = 0, autoTimer = null;
+
+  function getPos(i) { return ((i - current) % total + total) % total; }
+  function classForPos(p) {
+    if (p === 0) return 'active';
+    if (p === total - 1 || p === 1) return p === 1 ? 'next' : 'prev';
+    return p === 2 ? 'next-far' : 'prev-far';
+  }
+
+  function goTo(idx) {
+    current = idx;
+    slides.forEach((s, i) => {
+      s.className = 'case-slide ' + classForPos(getPos(i));
+      s.dataset.index = i;
+    });
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+  }
+
+  function next() { goTo((current + 1) % total); }
+  function prev() { goTo((current - 1 + total) % total); }
+
+  // Dot click
+  dots.forEach(d => d.addEventListener('click', () => goTo(+d.dataset.index)));
+
+  // Card click (non-active → navigate)
+  slides.forEach(s => s.addEventListener('click', e => {
+    if (s.classList.contains('prev')) prev();
+    else if (s.classList.contains('next')) next();
+    // active / far cards follow link naturally via <a> tag
+  }));
+
+  // Auto-play
+  function startAuto() { stopAuto(); autoTimer = setInterval(next, 4500); }
+  function stopAuto() { if (autoTimer) clearInterval(autoTimer); }
+
+  // Pause on hover
+  carousel.addEventListener('mouseenter', stopAuto);
+  carousel.addEventListener('mouseleave', startAuto);
+
+  // Entry animation trigger
+  const wrap = document.querySelector('.cases-carousel-wrap');
+  const entryObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        wrap.classList.add('animate-in');
+        startAuto();
+        entryObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  entryObs.observe(wrap);
+
+  // Init
+  goTo(0);
+})();
 
 // Scroll Reveal
 const obs = new IntersectionObserver((entries) => {
