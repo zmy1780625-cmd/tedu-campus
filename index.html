@@ -471,11 +471,11 @@ section { padding: 96px 0; }
 .activity-body { padding: 24px 24px 22px; }
 .activity-body h3 { font-size: 18px; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; line-height: 1.3; }
 .activity-body .activity-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 16px; }
-.activity-highlights { display: flex; flex-direction: column; gap: 8px; }
+.activity-highlights { display: flex; flex-direction: row; gap: 8px; flex-wrap: wrap; }
 .activity-hl {
-  display: flex; align-items: center; gap: 10px;
-  font-size: 13px; color: var(--text-secondary);
-  padding: 8px 12px; background: var(--color-bg-section);
+  display: flex; align-items: center; gap: 6px;
+  font-size: 12px; color: var(--text-secondary);
+  padding: 6px 10px; background: var(--color-bg-section);
   border-radius: 8px; transition: all .2s;
 }
 .activity-hl:hover { background: var(--color-primary-light); color: var(--color-primary); }
@@ -507,6 +507,8 @@ section { padding: 96px 0; }
 }
 .step-item:hover .step-num { background: var(--color-primary); color: white; box-shadow: var(--shadow-blue); }
 .step-label { font-size: 15px; font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
+.step-label a { color: var(--color-primary); transition: color .2s; }
+.step-label a:hover { color: var(--color-primary-dark); }
 .step-desc { font-size: 12px; color: var(--text-muted); max-width: 110px; line-height: 1.5; }
 
 /* ========== FAQ ========== */
@@ -990,8 +992,8 @@ section { padding: 96px 0; }
           <h3><a href="https://doc.weixin.qq.com/sheet/e3_AR4AyAZuAMkCNrJ2ZfxpwRlGSfZ9p?scode=AJEAIQdfAAoDBGtIA0AR4AyAZuAMk&tab=BB08J2" target="_blank">策划校园 AI 互动展</a></h3>
           <p class="activity-desc">在校园核心区域摆展台，让同学边玩边学，零门槛体验腾讯云 AI 产品。</p>
           <div class="activity-highlights">
-            <div class="activity-hl"><span class="hl-num">01</span>HAI / Lighthouse 算力产品体验站</div>
-            <div class="activity-hl"><span class="hl-num">02</span>CloudStudio AI Coding 实战台</div>
+            <div class="activity-hl"><span class="hl-num">01</span>AI Agent 产品体验站</div>
+            <div class="activity-hl"><span class="hl-num">02</span>AI Coding 实战台</div>
             <div class="activity-hl"><span class="hl-num">03</span>智能体游乐场 + IMA 知识库魔法屋</div>
           </div>
         </div>
@@ -1058,17 +1060,17 @@ section { padding: 96px 0; }
     <div class="process-steps scroll-reveal">
       <div class="step-item">
         <div class="step-num">1</div>
-        <div class="step-label">确认主题</div>
+        <div class="step-label"><a href="https://docs.qq.com/aio/DQm5HREFzQUVDT1RX?p=XoFqeSIdDQdwf0kjiIbiXV" target="_blank">确认主题</a></div>
         <div class="step-desc">确定活动目标与方向</div>
       </div>
       <div class="step-item">
         <div class="step-num">2</div>
-        <div class="step-label">输出方案</div>
+        <div class="step-label"><a href="https://docs.qq.com/aio/DQm5HREFzQUVDT1RX?p=AVtyGJfJFYz1KwMMg5KijR" target="_blank">输出方案</a></div>
         <div class="step-desc">输出完整策划案</div>
       </div>
       <div class="step-item">
         <div class="step-num">3</div>
-        <div class="step-label">提交申请</div>
+        <div class="step-label"><a href="https://doc.weixin.qq.com/forms/AJEAIQdfAAoABoATAZGACkCNe3NPP2fnf" target="_blank">提交申请</a></div>
         <div class="step-desc">等待审批批复</div>
       </div>
       <div class="step-item">
@@ -1078,7 +1080,7 @@ section { padding: 96px 0; }
       </div>
       <div class="step-item">
         <div class="step-num">5</div>
-        <div class="step-label">复盘总结</div>
+        <div class="step-label"><a href="https://docs.qq.com/aio/DQm5HREFzQUVDT1RX?p=SnId4dmXMzLbJTqLSat3We" target="_blank">复盘总结</a></div>
         <div class="step-desc">乐享平台输出总结</div>
       </div>
     </div>
