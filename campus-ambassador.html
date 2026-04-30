@@ -133,29 +133,10 @@ a { color: var(--color-primary); text-decoration: none; transition: color .25s; 
 }
 
 /* --- Network Particle Canvas --- */
-.hero-canvas {
-  position:absolute; inset:0; z-index:0; pointer-events:none;
-}
-.hero-canvas canvas{width:100%;height:100%;display:block;}
+.hero-canvas { display:none; }
 
 /* Ambient glow orbs with mouse parallax */
-.hero-orbs{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
-.orb{
-  position:absolute;border-radius:50%;filter:blur(80px);
-  will-change:transform;transition:transform .8s cubic-bezier(.25,.46,.45,.94);
-}
-.orb-1{
-  width:500px;height:500px;top:-10%;right:-5%;
-  background:radial-gradient(circle,rgba(0,82,217,0.08) 0%,rgba(0,82,217,0.02) 40%,transparent 70%);
-}
-.orb-2{
-  width:400px;height:400px;bottom:-5%;left:-3%;
-  background:radial-gradient(circle,rgba(124,58,237,0.06) 0%,rgba(124,58,237,0.015) 40%,transparent 70%);
-}
-.orb-3{
-  width:300px;height:300px;top:40%;left:45%;
-  background:radial-gradient(circle,rgba(0,164,255,0.05) 0%,rgba(0,164,255,0.01) 50%,transparent 70%);
-}
+.hero-orbs { display:none; }
 
 .hero-badge {
   display:inline-flex; align-items:center; gap:8px;
@@ -858,14 +839,6 @@ section{padding:100px 0;}
 
 <!-- Hero -->
 <section class="hero">
-  <!-- Network Particle Canvas -->
-  <div class="hero-canvas"><canvas id="heroCanvas"></canvas></div>
-  <!-- Mouse-following glow orbs -->
-  <div class="hero-orbs" id="heroOrbs">
-    <div class="orb orb-1" data-speed="0.02"></div>
-    <div class="orb orb-2" data-speed="-0.015"></div>
-    <div class="orb orb-3" data-speed="0.025"></div>
-  </div>
 
   <div class="container" style="position:relative;z-index:1;">
     <div class="hero-badge">
@@ -1472,109 +1445,6 @@ section{padding:100px 0;}
 </button>
 
 <script>
-// ====== Hero Canvas Network Particle System (Tencent Cloud Style) ======
-(function(){
-  const canvas=document.getElementById('heroCanvas');
-  if(!canvas)return;
-  const ctx=canvas.getContext('2d');
-  let W,H,particles=[],mouse={x:null,y:null},animId;
-
-  function resize(){
-    W=canvas.width=canvas.parentElement.offsetWidth;
-    H=canvas.height=canvas.parentElement.offsetHeight;
-    initParticles();
-  }
-
-  function initParticles(){
-    particles=[];
-    const count=Math.floor((W*H)/12000);
-    for(let i=0;i<count;i++){
-      particles.push({
-        x:Math.random()*W,
-        y:Math.random()*H,
-        vx:(Math.random()-0.5)*0.4,
-        vy:(Math.random()-0.5)*0.4,
-        radius:Math.random()*1.8+0.6,
-        opacity:Math.random()*0.5+0.25
-      });
-    }
-  }
-
-  function animate(){
-    ctx.clearRect(0,0,W,H);
-    // Update & draw particles
-    for(let i=0;i<particles.length;i++){
-      const p=particles[i];
-      p.x+=p.vx;p.y+=p.vy;
-      if(p.x<0||p.x>W)p.vx*=-1;
-      if(p.y<0||p.y>H)p.vy*=-1;
-
-      // Mouse influence
-      if(mouse.x!==null){
-        const dx=mouse.x-p.x,dy=mouse.y-p.y,dist=Math.sqrt(dx*dx+dy*dy);
-        if(dist<160){
-          const f=(160-dist)/160;
-          p.x-=dx*f*0.008;p.y-=dy*f*0.008;
-        }
-      }
-
-      // Draw particle with glow
-      ctx.beginPath();
-      ctx.arc(p.x,p.y,p.radius,0,Math.PI*2);
-      ctx.fillStyle='rgba(0,100,220,'+p.opacity+')';
-      ctx.fill();
-
-      // Glow halo
-      ctx.beginPath();
-      ctx.arc(p.x,p.y,p.radius*3,0,Math.PI*2);
-      ctx.fillStyle='rgba(0,100,220,'+(p.opacity*0.06)+')';
-      ctx.fill();
-
-      // Connect nearby particles
-      for(let j=i+1;j<particles.length;j++){
-        const q=particles[j];
-        const dx=p.x-q.x,dy=p.y-q.y,dist=Math.sqrt(dx*dx+dy*dy);
-        if(dist<130){
-          const alpha=(1-dist/130)*0.1;
-          ctx.beginPath();
-          ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);
-          ctx.strokeStyle='rgba(0,100,220,'+alpha+')';
-          ctx.lineWidth=0.6;
-          ctx.stroke();
-        }
-      }
-    }
-    animId=requestAnimationFrame(animate);
-  }
-
-  // Mouse tracking
-  document.querySelector('.hero').addEventListener('mousemove',function(e){
-    const r=this.getBoundingClientRect();
-    mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top;
-  });
-  document.querySelector('.hero').addEventListener('mouseleave',function(){mouse.x=null;mouse.y=null;});
-
-  window.addEventListener('resize',resize);
-  resize();
-  animate();
-})();
-
-// ====== Mouse Parallax for Orbs ======
-(function(){
-  const hero=document.querySelector('.hero');
-  const orbs=document.querySelectorAll('.orb');
-  if(!orbs.length)return;
-  hero.addEventListener('mousemove',function(e){
-    const r=this.getBoundingClientRect();
-    const mx=((e.clientX-r.left)/r.width-0.5)*2;
-    const my=((e.clientY-r.top)/r.height-0.5)*2;
-    orbs.forEach(function(orb){
-      const speed=parseFloat(orb.dataset.speed)||0.02;
-      orb.style.transform='translate('+mx*speed*100+'px,'+my*speed*100+'px)';
-    });
-  });
-})();
-
 // ====== Number Counter Animation ======
 function animateCounters(){
   document.querySelectorAll('.stat-num[data-target]').forEach(el=>{
