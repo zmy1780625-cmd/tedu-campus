@@ -68,8 +68,8 @@ a { color: var(--color-primary); text-decoration: none; transition: color .2s; }
 /* ========== Hero ========== */
 .hero {
   position: relative; overflow: hidden;
-  background: linear-gradient(145deg, #0B1829 0%, #0F2847 50%, #0A1628 100%);
-  padding: 120px 0 100px; text-align: center; color: white;
+  background: url('生成无文字背景图 (1).png') center center / cover no-repeat;
+  padding: 100px 0 90px; text-align: center; color: #111827;
 }
 /* --- Photon Particles --- */
 .photon-canvas {
@@ -94,28 +94,28 @@ a { color: var(--color-primary); text-decoration: none; transition: color .2s; }
   50%  { transform: translateY(calc(var(--float-range) * -1)); }
   100% { transform: translateY(0); }
 }
-/* Ambient glow orbs */
+/* Ambient glow orbs (light bg) */
 .hero::before {
   content: ''; position: absolute; top: -180px; right: -180px;
   width: 520px; height: 520px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(0,82,217,0.15) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(0,82,217,0.06) 0%, transparent 70%);
   filter: blur(70px);
 }
 .hero::after {
   content: ''; position: absolute; bottom: -120px; left: -80px;
   width: 380px; height: 380px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(0,164,255,0.08) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(0,164,255,0.04) 0%, transparent 70%);
   filter: blur(60px);
 }
 .hero-badge {
   display: inline-flex; align-items: center; gap: 8px;
-  background: rgba(0,82,217,0.2); border: 1px solid rgba(0,82,217,0.3);
-  padding: 6px 20px; border-radius: 24px; font-size: 13px; color: #6BAFFF; margin-bottom: 32px; letter-spacing: 0.03em;
+  background: rgba(0,82,217,0.1); border: 1px solid rgba(0,82,217,0.2);
+  padding: 6px 20px; border-radius: 24px; font-size: 13px; color: #0052D9; margin-bottom: 32px; letter-spacing: 0.03em;
 }
 .hero-badge .icon-badge { width: 16px; height: 16px; fill: currentColor; }
 .hero-title { font-size: 56px; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 20px; position: relative; z-index: 1; line-height: 1.15; }
-.hero-title span { background: linear-gradient(135deg, #3B9EFF, #00D4FF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-.hero-subtitle { font-size: 17px; color: rgba(255,255,255,0.55); max-width: 560px; margin: 0 auto 40px; line-height: 1.7; position: relative; z-index: 1; }
+.hero-title span { background: linear-gradient(135deg, #0052D9, #00A4FF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero-subtitle { font-size: 17px; color: #5B657E; max-width: 560px; margin: 0 auto 40px; line-height: 1.7; position: relative; z-index: 1; }
 .hero-actions { display: flex; gap: 14px; justify-content: center; position: relative; z-index: 1; }
 
 .btn {
@@ -149,7 +149,7 @@ section { padding: 96px 0; }
 /* ========== Pillars ========== */
 .pillars-section { background: var(--color-white); }
 .pillars-layout { display: grid; grid-template-columns: 1fr 320px; gap: 48px; align-items: center; }
-.pillars-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.pillars-grid { display: flex; flex-direction: column; gap: 20px; }
 .pillar-card {
   background: var(--color-white); border: 1px solid var(--border-color);
   border-radius: var(--radius-lg); padding: 36px 24px; text-align: center;
@@ -191,14 +191,14 @@ section { padding: 96px 0; }
   background: radial-gradient(circle, rgba(0,82,217,0.05) 0%, transparent 70%);
   filter: blur(60px); pointer-events: none;
 }
-.cases-carousel-wrap { perspective: 1200px; padding: 20px 0 40px; }
+.cases-carousel-wrap { perspective: 1200px; padding: 10px 0 30px; }
 .cases-carousel {
-  position: relative; width: 100%; height: 460px;
+  position: relative; width: 100%; height: 420px;
   display: flex; align-items: center; justify-content: center;
 }
 .case-slide {
-  position: absolute; width: 360px; height: 420px;
-  left: 50%; top: 50%; margin-left: -180px; margin-top: -210px;
+  position: absolute; width: 360px; height: 380px;
+  left: 50%; top: 50%; margin-left: -180px; margin-top: -190px;
   border-radius: 18px; overflow: hidden;
   cursor: pointer; transition: all .65s cubic-bezier(.23,1,.32,1);
   transform-style: preserve-3d;
@@ -267,8 +267,8 @@ section { padding: 96px 0; }
 }
 /* Image header area */
 .case-card-visual {
-  height: 180px; position: relative; overflow: hidden;
-  display: flex; align-items: flex-end; padding: 18px 22px;
+  height: 155px; position: relative; overflow: hidden;
+  display: flex; align-items: flex-end; padding: 16px 20px;
 }
 .case-card-visual .visual-img {
   position: absolute; inset: 0;
@@ -285,7 +285,7 @@ section { padding: 96px 0; }
   letter-spacing: -0.01em; text-shadow: 0 2px 10px rgba(0,0,0,0.5);
 }
 .case-card-body {
-  flex: 1; padding: 18px 22px 20px;
+  flex: 1; padding: 14px 20px 16px;
   display: flex; flex-direction: column;
 }
 .case-card-desc {
@@ -545,10 +545,16 @@ section { padding: 96px 0; }
   padding: 52px 0 28px;
 }
 .footer-inner { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 36px; gap: 40px; }
-.footer-brand { max-width: 280px; }
-.footer-brand .logo { font-size: 17px; font-weight: 700; color: white; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
-.footer-brand .logo .icon-logo { width: 20px; height: 20px; fill: var(--color-accent); }
-.footer-brand p { font-size: 13px; line-height: 1.7; color: rgba(255,255,255,0.4); }
+.footer-brand { max-width: 200px; }
+.footer-qrcode-inline {
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px; padding: 20px 24px;
+}
+.qrcode-img { width: 110px; height: 110px; border-radius: 10px; background: white; padding: 5px; }
+.qrcode-text strong { display: block; font-size: 13px; color: rgba(255,255,255,0.85); margin-bottom: 4px; text-align: center; }
+.qrcode-text p { font-size: 11px; color: rgba(255,255,255,0.35); margin: 0; line-height: 1.5; text-align: center; }
 .footer-links h4 { font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.75); margin-bottom: 14px; }
 .footer-links ul { list-style: none; }
 .footer-links li { margin-bottom: 8px; }
@@ -607,7 +613,7 @@ section { padding: 96px 0; }
     <a href="#activities" class="nav-link">推荐活动</a>
     <a href="#faq" class="nav-link">常见问题</a>
   </div>
-  <a href="https://docs.qq.com/form/page/DQnBIUXVuaUZVQnFC" class="nav-cta" target="_blank">立即申请</a>
+  <a href="https://doc.weixin.qq.com/forms/AJEAIQdfAAoABoATAZGACkCNe3NPP2fnf#/fill" class="nav-cta" target="_blank">活动申请</a>
 </nav>
 
 <!-- Hero -->
@@ -623,12 +629,9 @@ section { padding: 96px 0; }
     <h1 class="hero-title">腾讯云Tedu<br><span>校园推广大使</span></h1>
     <p class="hero-subtitle">在高校推广云计算与 AI 技术，连接腾讯资源与校园生态<br>用实践积累经验，用影响力定义未来</p>
     <div class="hero-actions">
-      <a href="https://docs.qq.com/form/page/DQnBIUXVuaUZVQnFC" class="btn btn-primary" target="_blank">
+      <a href="https://doc.weixin.qq.com/forms/AJEAIQdfAAoABoATAZGACkCNe3NPP2fnf#/fill" class="btn btn-primary" target="_blank">
         <svg class="icon-btn" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
-        立即申请
-      </a>
-      <a href="https://doc.weixin.qq.com/forms/AJEAIQdfAAoABoATAZGACkCNe3NPP2fnf" class="btn btn-outline" target="_blank">
-        活动申请 ↓
+        活动申请
       </a>
     </div>
   </div>
@@ -666,7 +669,7 @@ section { padding: 96px 0; }
         </div>
       </div>
       <div class="pillars-agent-img scroll-reveal">
-        <img src="img_agent.png" alt="AI Agent 生态">
+        <img src="Agent产品全景图.png" alt="Agent 产品生态全景">
       </div>
     </div>
   </div>
@@ -766,6 +769,27 @@ section { padding: 96px 0; }
           </div>
         </a>
 
+        <!-- Card 5: 南方科技大学 -->
+        <a href="https://mp.weixin.qq.com/s/M99pcbqz_5WPyjv35rPJjg" target="_blank" class="case-slide" data-index="4">
+          <div class="case-inner">
+            <div class="case-card-visual">
+              <img class="visual-img" src="img_sustech.jpg" alt="南方科技大学活动现场">
+              <div class="visual-overlay"></div>
+              <span class="school-badge">南方科技大学</span>
+            </div>
+            <div class="case-card-body">
+              <p class="case-card-desc">结合该校科技文化节，南方科技大学站活动以「科学养虾实训营」为主题，吸引了211名师生参与。活动涵盖现场装机、互动挑战与实操环节，并设有专家分享与WorkBuddy实操教学，展示了AI智能体从对话到执行的能力。</p>
+              <div class="case-card-meta">
+                <span class="case-tag-pill" style="color:#E0AA00;background:rgba(224,170,0,0.08);">科技文化节</span>
+                <span class="case-tag-pill" style="background:rgba(224,170,0,0.1);color:#E0AA00;">211人</span>
+                <span class="case-link-btn" style="color:#E0AA00;border-color:#E0AA00;">查看详情
+                  <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+                </span>
+              </div>
+            </div>
+          </div>
+        </a>
+
       </div><!-- /carousel -->
 
       <!-- Dots -->
@@ -774,6 +798,7 @@ section { padding: 96px 0; }
         <button class="carousel-dot" data-index="1"></button>
         <button class="carousel-dot" data-index="2"></button>
         <button class="carousel-dot" data-index="3"></button>
+        <button class="carousel-dot" data-index="4"></button>
       </div>
     </div>
   </div>
@@ -1127,11 +1152,13 @@ section { padding: 96px 0; }
   <div class="container">
     <div class="footer-inner">
       <div class="footer-brand">
-        <div class="logo">
-          <svg class="icon-logo" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          腾讯云Tedu校园推广大使
+        <div class="footer-qrcode-inline">
+          <img src="腾讯教育公众号1.png" alt="腾讯教育公众号" class="qrcode-img">
+          <div class="qrcode-text">
+            <strong>扫码关注「腾讯教育」公众号</strong>
+            <p>获取最新活动资讯与技术干货</p>
+          </div>
         </div>
-        <p>连接腾讯云与高校学生，在技术推广中成长，在实践中积累经验。期待热爱云计算与 AI 的你加入！</p>
       </div>
       <div class="footer-links">
         <h4>快速导航</h4>
