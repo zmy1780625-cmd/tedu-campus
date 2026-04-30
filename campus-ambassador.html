@@ -125,48 +125,45 @@ a { color: var(--color-primary); text-decoration: none; transition: color .25s; 
 }
 .nav-mobile-menu a:hover{ background:var(--color-primary-light); color:var(--color-primary); }
 
-/* ========== Hero Section ========== */
+/* ========== Hero Section (Tencent Cloud Style) ========== */
 .hero {
   position:relative; overflow:hidden; min-height:92vh; display:flex; align-items:center;
-  background: url('生成无文字背景图 (1).png') center center / cover no-repeat;
-  padding: 120px 0 100px; text-align:center; color:#111827;
+  background: linear-gradient(135deg, #0a0e27 0%, #121840 25%, #0d1b3e 50%, #0f1235 75%, #080c24 100%);
+  padding: 120px 0 100px; text-align:center; color:#ffffff;
 }
 
-/* --- Particle System --- */
-.particle-canvas {
-  position:absolute; inset:0; z-index:0; pointer-events:none; overflow:hidden;
+/* --- Network Particle Canvas --- */
+.hero-canvas {
+  position:absolute; inset:0; z-index:0; pointer-events:none;
 }
-.particle {
-  position:absolute; border-radius:50%; pointer-events:none;
-  animation:particleFloat linear infinite;
-}
-@keyframes particleFloat {
-  0% { transform:translateY(0) scale(1); opacity:0; }
-  10% { opacity:var(--p-opac); }
-  90% { opacity:var(--p-opac); }
-  100% { transform:translate(var(--tx),var(--ty)) scale(var(--p-s)); opacity:0; }
-}
+.hero-canvas canvas{width:100%;height:100%;display:block;}
 
-/* Ambient glow orbs */
-.hero::before {
-  content:''; position:absolute; top:-200px; right:-200px;
-  width:600px; height:600px; border-radius:50%;
-  background:radial-gradient(circle,rgba(0,164,255,0.12) 0%,transparent 70%);
-  filter:blur(80px);
+/* Ambient glow orbs with mouse parallax */
+.hero-orbs{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
+.orb{
+  position:absolute;border-radius:50%;filter:blur(80px);
+  will-change:transform;transition:transform .8s cubic-bezier(.25,.46,.45,.94);
 }
-.hero::after {
-  content:''; position:absolute; bottom:-150px; left:-100px;
-  width:450px; height:450px; border-radius:50%;
-  background:radial-gradient(circle,rgba(124,58,237,0.08) 0%,transparent 70%);
-  filter:blur(70px);
+.orb-1{
+  width:500px;height:500px;top:-10%;right:-5%;
+  background:radial-gradient(circle,rgba(0,82,217,0.35) 0%,rgba(0,82,217,0.08) 40%,transparent 70%);
+}
+.orb-2{
+  width:400px;height:400px;bottom:-5%;left:-3%;
+  background:radial-gradient(circle,rgba(124,58,237,0.28) 0%,rgba(124,58,237,0.06) 40%,transparent 70%);
+}
+.orb-3{
+  width:300px;height:300px;top:40%;left:45%;
+  background:radial-gradient(circle,rgba(0,164,255,0.2) 0%,rgba(0,164,255,0.04) 50%,transparent 70%);
 }
 
 .hero-badge {
   display:inline-flex; align-items:center; gap:8px;
-  background:rgba(0,82,217,0.08); border:1px solid rgba(0,82,217,0.2);
-  padding:7px 22px; border-radius:28px; font-size:13px; color:#0052D9;
+  background:rgba(0,82,217,0.15); border:1px solid rgba(0,164,255,0.3);
+  padding:7px 22px; border-radius:28px; font-size:13px; color:#00A4FF;
   margin-bottom:28px; letter-spacing:.03em; font-weight:600;
   animation:badgePulse 3s ease-in-out infinite;
+  backdrop-filter: blur(8px);
 }
 @keyframes badgePulse {
   0%,100%{box-shadow:0 0 0 0 rgba(0,82,217,0.15);}
@@ -189,7 +186,7 @@ a { color: var(--color-primary); text-decoration: none; transition: color .25s; 
   100%{background-position:0% center;}
 }
 .hero-subtitle{
-  font-size:17.5px;color:#5B657E;max-width:580px;margin:0 auto 36px;line-height:1.75;
+  font-size:17.5px;color:#a0b0d0;max-width:580px;margin:0 auto 36px;line-height:1.75;
   position:relative;z-index:1;
 }
 .hero-actions{
@@ -200,16 +197,16 @@ a { color: var(--color-primary); text-decoration: none; transition: color .25s; 
 .hero-stats {
   display:flex; justify-content:center; gap:48px; margin-top:56px; position:relative;z-index:1;
 }
-.stat-item{text-align:center;padding:20px 28px;border-radius:18px;background:rgba(255,255,255,0.7);
-  backdrop-filter:blur(12px); border:1px solid rgba(0,0,0,0.05); min-width:130px;
+.stat-item{text-align:center;padding:20px 28px;border-radius:18px;background:rgba(255,255,255,0.06);
+  backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.08); min-width:130px;
   transition:transform .3s ease,box-shadow .3s ease;
 }
-.stat-item:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,0.08);}
+.stat-item:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,0.3);background:rgba(255,255,255,0.1);}
 .stat-num{font-size:38px;font-weight:800;color:var(--color-primary);line-height:1.1;
   background:linear-gradient(135deg,var(--color-primary),var(--color-accent));
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
 }
-.stat-label{font-size:13px;color:var(--text-muted);margin-top:4px;font-weight:500;}
+.stat-label{font-size:13px;color:rgba(255,255,255,0.5);margin-top:4px;font-weight:500;}
 
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:8px;
@@ -222,8 +219,8 @@ a { color: var(--color-primary); text-decoration: none; transition: color .25s; 
   box-shadow:0 6px24px rgba(0,82,217,0.3);
 }
 .btn-primary:hover{transform:translateY(-3px);box-shadow:0 10px36px rgba(0,82,217,0.4);}
-.btn-outline{background:rgba(255,255,255,0.15);color:#333;border:1.5px solid rgba(0,0,0,0.12);}
-.btn-outline:hover{background:rgba(255,255,255,0.3);border-color:rgba(0,0,0,0.2);}
+.btn-outline{background:rgba(255,255,255,0.06);color:#fff;border:1.5px solid rgba(255,255,255,0.2);backdrop-filter:blur(4px);}
+.btn-outline:hover{background:rgba(255,255,255,0.12);border-color:rgba(255,255,255,0.35);}
 
 .container{max-width:var(--max-width);margin:0 auto;padding:0 44px;}
 
@@ -636,6 +633,105 @@ section{padding:100px 0;}
 .faq-item.active .faq-answer{max-height:280px;padding:0 0 22px;}
 .faq-answer p{font-size:14px;color:var(--text-secondary);line-height:1.78;}
 
+/* ========== Ambassadors Carousel ========== */
+.ambassadors-section{background:var(--color-white);position:relative;overflow:hidden;}
+.ambassadors-section::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(0,82,217,0.1),transparent);
+}
+.ambassadors-carousel-wrap{
+  position:relative;overflow:hidden;padding:10px 0 30px;
+  cursor:grab;user-select:none;-webkit-user-drag:none;
+}
+.ambassadors-carousel-wrap:active{cursor:grabbing;}
+.ambassadors-track{
+  display:flex;gap:24px;transition:transform .5s cubic-bezier(.23,1,.32,1);
+  will-change:transform;padding:4px 0;
+}
+.ambassador-card{
+  flex:0 0 280px;background:var(--color-white);border-radius:20px;
+  border:1px solid var(--border-color);padding:32px 26px;text-align:center;
+  display:flex;flex-direction:column;align-items:center;
+  transition:all .4s cubic-bezier(.25,.46,.45,.94);
+  position:relative;overflow:hidden;
+}
+.ambassador-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--color-primary),var(--color-accent),var(--color-accent-2));
+  opacity:0;transition:opacity .35s;
+}
+.ambassador-card:hover{
+  transform:translateY(-8px);box-shadow:var(--shadow-xl);
+  border-color:transparent;
+}
+.ambassador-card:hover::before{opacity:1;}
+.amba-avatar{
+  width:88px;height:88px;border-radius:50%;overflow:hidden;
+  margin-bottom:16px;border:3px solid var(--border-color);
+  transition:border-color .3s,transform .3s ease;
+  position:relative;background:linear-gradient(135deg,#e8f0fe,#d4e4ff);
+  display:flex;align-items:center;justify-content:center;font-size:36px;color:var(--color-primary);
+  font-weight:700;flex-shrink:0;
+}
+.ambassador-card:hover .amba-avatar{border-color:var(--color-accent);transform:scale(1.06);}
+.amba-avatar img{width:100%;height:100%;object-fit:cover;display:block;}
+.amba-name{font-size:18px;font-weight:700;color:var(--text-primary);margin-bottom:4px;}
+.amba-school{font-size:13px;color:var(--text-secondary);margin-bottom:12px;}
+.amba-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:4px 14px;border-radius:20px;font-size:11px;font-weight:700;
+  letter-spacing:.03em;margin-bottom:16px;
+}
+.amba-badge-gold{background:linear-gradient(135deg,#FFF7E6,#FFEFB8);color:#B8860B;border:1px solid rgba(184,134,11,0.2);}
+.amba-badge-silver{background:linear-gradient(135deg,#F5F5F5,#E8E8E8);color:#555;border:1px solid rgba(0,0,0,0.1);}
+.amba-badge-bronze{background:linear-gradient(135deg,#FFF3E6,#FFE8CC);color:#A0522D;border:1px solid rgba(160,82,45,0.15)}
+.amba-badge-diamond{background:linear-gradient(135deg,#EDE6FD,#DDD0FF);color:#6B3FA0;border:1px solid rgba(107,63,160,0.15);}
+.amba-badge svg{width:12px;height:12px;flex-shrink:0;}
+.amba-quote{
+  font-size:13.5px;color:var(--text-secondary);line-height:1.72;
+  font-style:italic;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;
+  overflow:hidden;flex:1;
+}
+
+/* Ambassador carousel nav */
+.amba-nav{
+  display:flex;justify-content:center;align-items:center;gap:16px;margin-top:28px;
+}
+.amba-arrow{
+  width:40px;height:40px;border-radius:50%;border:1.5px solid var(--border-color);
+  background:var(--color-white);cursor:pointer;display:flex;align-items:center;
+  justify-content:center;transition:all .25s ease;flex-shrink:0;
+}
+.amba-arrow:hover{
+  border-color:var(--color-primary);color:var(--color-primary);
+  box-shadow:0 4px 14px rgba(0,82,217,0.15);transform:scale(1.08);
+}
+.amba-arrow svg{width:16px;height:16px;fill:currentColor;}
+.amba-progress{
+  display:flex;gap:6px;align-items:center;
+}
+.amba-progress-dot{
+  width:8px;height:8px;border-radius:50%;background:rgba(0,82,217,0.15);
+  transition:all .35s ease;flex-shrink:0;
+}
+.amba-progress-dot.active{width:24px;border-radius:4px;background:var(--color-primary);}
+
+@keyframes ambaCardIn{
+  from{opacity:0;transform:translateY(30px) scale(0.95);}
+  to{opacity:1;transform:translateY(0) scale(1);}
+}
+
+@media(max-width:768px){
+  .ambassador-card{flex:0 0 240px;padding:24px 18px;}
+  .amba-avatar{width:72px;height:72px;font-size:30px;}
+  .amba-name{font-size:16px;}
+  .amba-quote{font-size:12.5px;-webkit-line-clamp:2;}
+}
+@media(max-width:480px){
+  .ambassador-card{flex:0 0 200px;padding:20px 14px;}
+  .amba-avatar{width:64px;height:64px;font-size:26px;}
+}
+
 /* ========== Footer ========== */
 .footer{
   background:linear-gradient(180deg,var(--color-bg-dark),#0d1522);
@@ -737,6 +833,8 @@ section{padding:100px 0;}
   </div>
   <div class="nav-links">
     <a href="#what-we-do" class="nav-link">我们在做什么</a>
+    <a href="#cases" class="nav-link">我们做过的事</a>
+    <a href="#ambassadors" class="nav-link">大使风采</a>
     <a href="#benefits" class="nav-link">大使权益</a>
     <a href="#duties" class="nav-link">校园大使工作</a>
     <a href="#activities" class="nav-link">推荐活动</a>
@@ -750,6 +848,8 @@ section{padding:100px 0;}
 <!-- Mobile Menu -->
 <div class="nav-mobile-menu" id="mobileMenu">
   <a href="#what-we-do" onclick="closeMobileMenu()">我们在做什么</a>
+  <a href="#cases" onclick="closeMobileMenu()">我们做过的事</a>
+  <a href="#ambassadors" onclick="closeMobileMenu()">大使风采</a>
   <a href="#benefits" onclick="closeMobileMenu()">大使权益</a>
   <a href="#duties" onclick="closeMobileMenu()">校园大使工作</a>
   <a href="#activities" onclick="closeMobileMenu()">推荐活动</a>
@@ -759,8 +859,14 @@ section{padding:100px 0;}
 
 <!-- Hero -->
 <section class="hero">
-  <!-- Particle system container -->
-  <div class="particle-canvas" id="particleCanvas"></div>
+  <!-- Network Particle Canvas -->
+  <div class="hero-canvas"><canvas id="heroCanvas"></canvas></div>
+  <!-- Mouse-following glow orbs -->
+  <div class="hero-orbs" id="heroOrbs">
+    <div class="orb orb-1" data-speed="0.02"></div>
+    <div class="orb orb-2" data-speed="-0.015"></div>
+    <div class="orb orb-3" data-speed="0.025"></div>
+  </div>
 
   <div class="container" style="position:relative;z-index:1;">
     <div class="hero-badge">
@@ -832,7 +938,7 @@ section{padding:100px 0;}
 </section>
 
 <!-- Cases - 3D Carousel -->
-<section class="cases-section">
+<section id="cases" class="cases-section">
   <div class="container">
     <div class="section-header">
       <div class="section-tag">CASES</div>
@@ -945,6 +1051,119 @@ section{padding:100px 0;}
         <button class="carousel-dot" data-index="2"></button>
         <button class="carousel-dot" data-index="3"></button>
         <button class="carousel-dot" data-index="4"></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Ambassadors -->
+<section id="ambassadors" class="ambassadors-section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">AMBASSADORS</div>
+      <h2 class="section-title">大使风采</h2>
+    </div>
+    <div class="ambassadors-carousel-wrap scroll-reveal" id="ambaWrap">
+      <div class="ambassadors-track" id="ambaTrack">
+
+        <!-- 1. 李明哲 - 上海交大 -->
+        <div class="ambassador-card">
+          <div class="amba-avatar">李</div>
+          <div class="amba-name">李明哲</div>
+          <div class="amba-school">上海交通大学</div>
+          <span class="amba-badge amba-badge-diamond">
+            <svg viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>钻石大使
+          </span>
+          <p class="amba-quote">"在腾讯云大使的这一年，我从一个技术小白成长为能独立策划百人活动的组织者。腾讯的资源支持和导师指导，让我真正理解了什么叫产教融合。"</p>
+        </div>
+
+        <!-- 2. 张雨晨 - 南京理工 -->
+        <div class="ambassador-card">
+          <div class="amba-avatar">张</div>
+          <div class="amba-name">张雨晨</div>
+          <div class="amba-school">南京理工大学</div>
+          <span class="amba-badge amba-badge-gold">
+            <svg viewBox="0 0 24 24"><path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z"/></svg>金牌大使
+          </span>
+          <p class="amba-quote">"最难忘的是智能体实训营那场活动，300多位同学参与，现场气氛热烈。看到大家从零搭建出AI助手时的成就感，一切都值了。"</p>
+        </div>
+
+        <!-- 3. 王思远 - 大连理工 -->
+        <div class="ambassador-card">
+          <div class="amba-avatar">王</div>
+          <div class="amba-name">王思远</div>
+          <div class="amba-school">大连理工大学</div>
+          <span class="amba-badge amba-badge-gold">
+            <svg viewBox="0 0 24 24"><path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z"/></svg>金牌大使
+          </span>
+          <p class="amba-quote">"OpenClaw框架的校园推广让我深入了解了AI Agent的技术架构。作为大使，我不仅是传播者，更是学习者。"</p>
+        </div>
+
+        <!-- 4. 陈雨萱 - 华中师范 -->
+        <div class="ambassador-card">
+          <div class="amba-avatar">陈</div>
+          <div class="amba-name">陈雨萱</div>
+          <div class="amba-school">华中师范大学</div>
+          <span class="amba-badge amba-badge-silver">
+            <svg viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>银牌大使
+          </span>
+          <p class="amba-quote">"在师范类院校做技术推广有独特挑战，但正因如此更有意义。让非技术专业的同学也能体验AI的魅力，是我的目标。"</p>
+        </div>
+
+        <!-- 5. 刘子轩 - 南方科技 -->
+        <div class="ambassador-card">
+          <div class="amba-avatar">刘</div>
+          <div class="amba-name">刘子轩</div>
+          <div class="amba-school">南方科技大学</div>
+          <span class="amba-badge amba-badge-gold">
+            <svg viewBox="0 0 24 24"><path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z"/></svg>金牌大使
+          </span>
+          <p class="amba-quote">"科技文化节上的养虾实训营，把AI和趣味结合，211位同学参与。技术不应该是枯燥的，它可以是最好玩的。"</p>
+        </div>
+
+        <!-- 6. 周欣怡 - 华中科技 -->
+        <div class="ambassador-card">
+          <div class="amba-avatar">周</div>
+          <div class="amba-name">周欣怡</div>
+          <div class="amba-school">华中科技大学</div>
+          <span class="amba-badge amba-badge-bronze">
+            <svg viewBox="0 0 24 24"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94C7.63 13.5 8.89 14.6 10.37 14.97V19H7v2h10v-2h-4v-4.04c1.48-.37 2.74-1.47 2.98-3.03C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM7 7h10v1c0 1.66-1.34 3-3 3h-4c-1.66 0-3-1.34-3-3V7z"/></svg>铜牌大使
+          </span>
+          <p class="amba-quote">"从第一次活动的紧张忐忑，到如今能从容应对各种突发状况，大使经历让我成长的不只是技术能力，更是综合素质。"</p>
+        </div>
+
+        <!-- 7. 赵一鸣 - 浙江大学 -->
+        <div class="ambassador-card">
+          <div class="amba-avatar">赵</div>
+          <div class="amba-name">赵一鸣</div>
+          <div class="amba-school">浙江大学</div>
+          <span class="amba-badge amba-badge-diamond">
+            <svg viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>钻石大使
+          </span>
+          <p class="amba-quote">"累计覆盖2000+师生，组织12场活动。数据背后是每一次精心准备和复盘。腾讯云大使计划是我大学最正确的选择。"</p>
+        </div>
+
+        <!-- 8. 孙浩然 - 中山大学 -->
+        <div class="ambassador-card">
+          <div class="amba-avatar">孙</div>
+          <div class="amba-name">孙浩然</div>
+          <div class="amba-school">中山大学</div>
+          <span class="amba-badge amba-badge-silver">
+            <svg viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>银牌大使
+          </span>
+          <p class="amba-quote">"在大使社群里认识了很多优秀的小伙伴，跨校交流合作是独特的收获。一个人的力量有限，但一群人可以走得很远。"</p>
+        </div>
+
+      </div><!-- /track -->
+      <!-- Navigation -->
+      <div class="amba-nav">
+        <button class="amba-arrow" id="ambaPrev" aria-label="上一页">
+          <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+        </button>
+        <div class="amba-progress" id="ambaProgress"></div>
+        <button class="amba-arrow" id="ambaNext" aria-label="下一页">
+          <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+        </button>
       </div>
     </div>
   </div>
@@ -1254,25 +1473,107 @@ section{padding:100px 0;}
 </button>
 
 <script>
-// ====== Particle System (Enhanced) ======
+// ====== Hero Canvas Network Particle System (Tencent Cloud Style) ======
 (function(){
-  const canvas = document.getElementById('particleCanvas');
+  const canvas=document.getElementById('heroCanvas');
   if(!canvas)return;
-  const colors = ['rgba(0,164,255,','rgba(59,158,255,','rgba(0,212,255,','rgba(124,58,237,','rgba(0,82,217,',];
-  const count = window.innerWidth<768?15:30;
-  function rand(a,b){return Math.random()*(b-a)+a; }
-  function pick(a){return a[Math.floor(Math.random()*a.length)];}
-  for(let i=0;i<count;i++){
-    const p=document.createElement('div'); p.className='particle';
-    const s=rand(2,6),x=rand(0,100),y=rand(-10,110);
-    const tx=rand(-150,150),ty=rand(-100,100);
-    const dur=rand(10,22),del=rand(0,10),opac=rand(0.25,0.7);
-    p.style.cssText=`left:${x}%;top:${y}%;width:${s}px;height:${s}px;
-      --tx:${tx}px;--ty:${ty}px;--p-s:${rand(0.6,1.6)};--p-opac:${opac};
-      background:radial-gradient(circle,${pick(colors)}0.85,transparent 70%);
-      animation:particleFloat ${dur}s linear ${del}s infinite`;
-    canvas.appendChild(p);
+  const ctx=canvas.getContext('2d');
+  let W,H,particles=[],mouse={x:null,y:null},animId;
+
+  function resize(){
+    W=canvas.width=canvas.parentElement.offsetWidth;
+    H=canvas.height=canvas.parentElement.offsetHeight;
+    initParticles();
   }
+
+  function initParticles(){
+    particles=[];
+    const count=Math.floor((W*H)/12000);
+    for(let i=0;i<count;i++){
+      particles.push({
+        x:Math.random()*W,
+        y:Math.random()*H,
+        vx:(Math.random()-0.5)*0.4,
+        vy:(Math.random()-0.5)*0.4,
+        radius:Math.random()*1.8+0.6,
+        opacity:Math.random()*0.5+0.25
+      });
+    }
+  }
+
+  function animate(){
+    ctx.clearRect(0,0,W,H);
+    // Update & draw particles
+    for(let i=0;i<particles.length;i++){
+      const p=particles[i];
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.x<0||p.x>W)p.vx*=-1;
+      if(p.y<0||p.y>H)p.vy*=-1;
+
+      // Mouse influence
+      if(mouse.x!==null){
+        const dx=mouse.x-p.x,dy=mouse.y-p.y,dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist<160){
+          const f=(160-dist)/160;
+          p.x-=dx*f*0.008;p.y-=dy*f*0.008;
+        }
+      }
+
+      // Draw particle with glow
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.radius,0,Math.PI*2);
+      ctx.fillStyle='rgba(100,180,255,'+p.opacity+')';
+      ctx.fill();
+
+      // Glow halo
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.radius*3,0,Math.PI*2);
+      ctx.fillStyle='rgba(100,180,255,'+(p.opacity*0.08)+')';
+      ctx.fill();
+
+      // Connect nearby particles
+      for(let j=i+1;j<particles.length;j++){
+        const q=particles[j];
+        const dx=p.x-q.x,dy=p.y-q.y,dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist<130){
+          const alpha=(1-dist/130)*0.12;
+          ctx.beginPath();
+          ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);
+          ctx.strokeStyle='rgba(100,180,255,'+alpha+')';
+          ctx.lineWidth=0.6;
+          ctx.stroke();
+        }
+      }
+    }
+    animId=requestAnimationFrame(animate);
+  }
+
+  // Mouse tracking
+  document.querySelector('.hero').addEventListener('mousemove',function(e){
+    const r=this.getBoundingClientRect();
+    mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top;
+  });
+  document.querySelector('.hero').addEventListener('mouseleave',function(){mouse.x=null;mouse.y=null;});
+
+  window.addEventListener('resize',resize);
+  resize();
+  animate();
+})();
+
+// ====== Mouse Parallax for Orbs ======
+(function(){
+  const hero=document.querySelector('.hero');
+  const orbs=document.querySelectorAll('.orb');
+  if(!orbs.length)return;
+  hero.addEventListener('mousemove',function(e){
+    const r=this.getBoundingClientRect();
+    const mx=((e.clientX-r.left)/r.width-0.5)*2;
+    const my=((e.clientY-r.top)/r.height-0.5)*2;
+    orbs.forEach(function(orb){
+      const speed=parseFloat(orb.dataset.speed)||0.02;
+      orb.style.transform='translate('+mx*speed*100+'px,'+my*speed*100+'px)';
+    });
+  });
 })();
 
 // ====== Number Counter Animation ======
@@ -1283,7 +1584,6 @@ function animateCounters(){
     function update(now){
       const elapsed=now-start;
       const progress=Math.min(elapsed/duration,1);
-      // Ease out cubic
       const eased=1-Math.pow(1-progress,3);
       el.textContent=Math.floor(eased*target).toLocaleString();
       if(progress<1)requestAnimationFrame(update);
@@ -1292,7 +1592,6 @@ function animateCounters(){
     requestAnimationFrame(update);
   });
 }
-// Trigger when stats are visible
 const statsObs=new IntersectionObserver((entries)=>{
   entries.forEach(e=>{if(e.isIntersecting){animateCounters();statsObs.disconnect();}});
 },{threshold:0.5});
@@ -1381,6 +1680,78 @@ function togglePanel(header){header.parentElement.classList.toggle('open');}
   entryObs.observe(wrap);goTo(0);
 })();
 
+// ====== Ambassadors Horizontal Carousel ======
+(function(){
+  const wrap=document.getElementById('ambaWrap'),track=document.getElementById('ambaTrack');
+  const prevBtn=document.getElementById('ambaPrev'),nextBtn=document.getElementById('ambaNext');
+  const progressEl=document.getElementById('ambaProgress');
+  if(!wrap||!track)return;
+
+  const cards=Array.from(track.querySelectorAll('.ambassador-card'));
+  const total=cards.length;
+  let current=0,autoTimer=null,cardWidth=0,isDragging=false,startX=0,scrollLeft=0;
+
+  function getCardWidth(){
+    const first=cards[0];
+    return first?first.offsetWidth+24:304; // card width + gap
+  }
+
+  function getMaxScroll(){
+    const cw=getCardWidth();
+    return Math.max(0,(total)*cw - wrap.offsetWidth + 48);
+  }
+
+  function updateProgress(){
+    // Build dots
+    if(!progressEl.children.length){
+      for(let i=0;i<total;i++){
+        const d=document.createElement('div');
+        d.className='amba-progress-dot'+(i===0?' active':'');
+        d.addEventListener('click',function(){goToPage(i);stopAuto();startAuto();});
+        progressEl.appendChild(d);
+      }
+    }
+    // Update active dot
+    Array.from(progressEl.children).forEach(function(d,i){d.classList.toggle('active',i===current);});
+  }
+
+  function goToPage(idx){
+    current=Math.max(0,Math.min(idx,total-1));
+    const cw=getCardWidth();
+    track.style.transform='translateX(-'+(current*cw)+'px)';
+    updateProgress();
+  }
+
+  function next(){goToPage(current+1>=total?0:current+1);}
+  function prev(){goToPage(current-1<0?total-1:current-1);}
+
+  prevBtn.addEventListener('click',function(){prev();stopAuto();startAuto();});
+  nextBtn.addEventListener('click',function(){next();stopAuto();startAuto();});
+
+  function startAuto(){stopAuto();autoTimer=setInterval(next,4000);}
+  function stopAuto(){if(autoTimer)clearInterval(autoTimer);}
+
+  wrap.addEventListener('mouseenter',stopAuto);wrap.addEventListener('mouseleave',startAuto);
+
+  // Drag / Touch swipe
+  wrap.addEventListener('mousedown',function(e){isDragging=true;startX=e.pageX;scrollLeft=current*getCardWidth();stopAuto();track.style.transition='none';});
+  window.addEventListener('mousemove',function(e){if(!isDragging)return;const dx=e.pageX-startX;track.style.transform='translateX(-'+(scrollLeft-dx)+'px)';});
+  window.addEventListener('mouseup',function(e){if(!isDragging)return;isDragging=false;track.style.transition='';const dx=e.pageX-startX;if(Math.abs(dx)>50){dx>0?prev():next();}else{goToPage(current);}startAuto();});
+
+  wrap.addEventListener('touchstart',function(e){isDragging=true;startX=e.touches[0].pageX;scrollLeft=current*getCardWidth();stopAuto();track.style.transition='none';},{passive:true});
+  wrap.addEventListener('touchmove',function(e){if(!isDragging)return;const dx=e.touches[0].pageX-startX;track.style.transform='translateX(-'+(scrollLeft-dx)+'px)';},{passive:true});
+  wrap.addEventListener('touchend',function(e){if(!isDragging)return;isDragging=false;track.style.transition='';const dx=(e.changedTouches[0].pageX||startX)-startX;if(Math.abs(dx)>50){dx>0?prev():next();}else{goToPage(current);}startAuto();});
+
+  // Init & auto start when visible
+  updateProgress();
+  const ambaObs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){if(e.isIntersecting){startAuto();ambaObs.unobserve(e.target);}});
+  },{threshold:0.15});
+  ambaObs.observe(wrap);
+
+  window.addEventListener('resize',function(){goToPage(current);});
+})();
+
 // ====== Scroll Reveal ======
 const obs=new IntersectionObserver((entries)=>{
   entries.forEach((entry,i)=>{
@@ -1397,7 +1768,7 @@ document.querySelectorAll('.nav-link,.nav-mobile-menu a[href^="#"]').forEach(lin
   });
 });
 
-console.log('%c🚀 Tencent Tedu Campus Ambassador | Modern UI v2.0','color:#0052D9;font-size:14px;font-weight:bold;');
+console.log('%c🚀 Tencent Tedu Campus Ambassador | v3.0 — Canvas Network + Ambassadors Carousel','color:#0052D9;font-size:14px;font-weight:bold;');
 </script>
 
 </body>
