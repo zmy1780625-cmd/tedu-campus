@@ -641,22 +641,7 @@ section{padding:100px 0;}
 .ambassador-card:hover .amba-avatar{border-color:var(--color-accent);transform:scale(1.06);}
 .amba-avatar img{width:100%;height:100%;object-fit:cover;display:block;}
 .amba-name{font-size:18px;font-weight:700;color:var(--text-primary);margin-bottom:4px;}
-.amba-school{font-size:13px;color:var(--text-secondary);margin-bottom:12px;}
-.amba-badge{
-  display:inline-flex;align-items:center;gap:5px;
-  padding:4px 14px;border-radius:20px;font-size:11px;font-weight:700;
-  letter-spacing:.03em;margin-bottom:16px;
-}
-.amba-badge-gold{background:linear-gradient(135deg,#FFF7E6,#FFEFB8);color:#B8860B;border:1px solid rgba(184,134,11,0.2);}
-.amba-badge-silver{background:linear-gradient(135deg,#F5F5F5,#E8E8E8);color:#555;border:1px solid rgba(0,0,0,0.1);}
-.amba-badge-bronze{background:linear-gradient(135deg,#FFF3E6,#FFE8CC);color:#A0522D;border:1px solid rgba(160,82,45,0.15)}
-.amba-badge-diamond{background:linear-gradient(135deg,#EDE6FD,#DDD0FF);color:#6B3FA0;border:1px solid rgba(107,63,160,0.15);}
-.amba-badge svg{width:12px;height:12px;flex-shrink:0;}
-.amba-quote{
-  font-size:13.5px;color:var(--text-secondary);line-height:1.72;
-  font-style:italic;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;
-  overflow:hidden;flex:1;
-}
+.amba-school{font-size:13px;color:var(--text-secondary);}
 
 /* Ambassador carousel nav */
 .amba-nav{
@@ -690,7 +675,6 @@ section{padding:100px 0;}
   .ambassador-card{flex:0 0 240px;padding:24px 18px;}
   .amba-avatar{width:72px;height:72px;font-size:30px;}
   .amba-name{font-size:16px;}
-  .amba-quote{font-size:12.5px;-webkit-line-clamp:2;}
 }
 @media(max-width:480px){
   .ambassador-card{flex:0 0 200px;padding:20px 14px;}
@@ -1002,92 +986,130 @@ section{padding:100px 0;}
     <div class="ambassadors-carousel-wrap scroll-reveal" id="ambaWrap">
       <div class="ambassadors-track" id="ambaTrack">
 
-        <!-- 1. 李明哲 - 上海交大 -->
+        <!-- 1. 杨宝增 -->
+        <div class="ambassador-card">
+          <div class="amba-avatar">杨</div>
+          <div class="amba-name">杨宝增</div>
+          <div class="amba-school">北京邮电大学</div>
+        </div>
+
+        <!-- 2. 饶棋涛 -->
+        <div class="ambassador-card">
+          <div class="amba-avatar">饶</div>
+          <div class="amba-name">饶棋涛</div>
+          <div class="amba-school">北京邮电大学</div>
+        </div>
+
+        <!-- 3. 尼尕热·玉散 -->
+        <div class="ambassador-card">
+          <div class="amba-avatar">尼</div>
+          <div class="amba-name">尼尕热·玉散</div>
+          <div class="amba-school">北京邮电大学</div>
+        </div>
+
+        <!-- 4. 李政远 -->
         <div class="ambassador-card">
           <div class="amba-avatar">李</div>
-          <div class="amba-name">李明哲</div>
-          <div class="amba-school">上海交通大学</div>
-          <span class="amba-badge amba-badge-diamond">
-            <svg viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>钻石大使
-          </span>
-          <p class="amba-quote">"在腾讯云大使的这一年，我从一个技术小白成长为能独立策划百人活动的组织者。腾讯的资源支持和导师指导，让我真正理解了什么叫产教融合。"</p>
+          <div class="amba-name">李政远</div>
+          <div class="amba-school">西安电子科技大学</div>
         </div>
 
-        <!-- 2. 张雨晨 - 南京理工 -->
+        <!-- 5. 宋欣莲 -->
+        <div class="ambassador-card">
+          <div class="amba-avatar">宋</div>
+          <div class="amba-name">宋欣莲</div>
+          <div class="amba-school">西安电子科技大学</div>
+        </div>
+
+        <!-- 6. 闫鹏祥 -->
+        <div class="ambassador-card">
+          <div class="amba-avatar">闫</div>
+          <div class="amba-name">闫鹏祥</div>
+          <div class="amba-school">西安电子科技大学</div>
+        </div>
+
+        <!-- 7. 张皓翔 -->
         <div class="ambassador-card">
           <div class="amba-avatar">张</div>
-          <div class="amba-name">张雨晨</div>
-          <div class="amba-school">南京理工大学</div>
-          <span class="amba-badge amba-badge-gold">
-            <svg viewBox="0 0 24 24"><path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z"/></svg>金牌大使
-          </span>
-          <p class="amba-quote">"最难忘的是智能体实训营那场活动，300多位同学参与，现场气氛热烈。看到大家从零搭建出AI助手时的成就感，一切都值了。"</p>
+          <div class="amba-name">张皓翔</div>
+          <div class="amba-school">北京航空航天大学</div>
         </div>
 
-        <!-- 3. 王思远 - 大连理工 -->
+        <!-- 8. 卢厚华 -->
         <div class="ambassador-card">
-          <div class="amba-avatar">王</div>
-          <div class="amba-name">王思远</div>
-          <div class="amba-school">大连理工大学</div>
-          <span class="amba-badge amba-badge-gold">
-            <svg viewBox="0 0 24 24"><path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z"/></svg>金牌大使
-          </span>
-          <p class="amba-quote">"OpenClaw框架的校园推广让我深入了解了AI Agent的技术架构。作为大使，我不仅是传播者，更是学习者。"</p>
+          <div class="amba-avatar">卢</div>
+          <div class="amba-name">卢厚华</div>
+          <div class="amba-school">北京航空航天大学</div>
         </div>
 
-        <!-- 4. 陈雨萱 - 华中师范 -->
-        <div class="ambassador-card">
-          <div class="amba-avatar">陈</div>
-          <div class="amba-name">陈雨萱</div>
-          <div class="amba-school">华中师范大学</div>
-          <span class="amba-badge amba-badge-silver">
-            <svg viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>银牌大使
-          </span>
-          <p class="amba-quote">"在师范类院校做技术推广有独特挑战，但正因如此更有意义。让非技术专业的同学也能体验AI的魅力，是我的目标。"</p>
-        </div>
-
-        <!-- 5. 刘子轩 - 南方科技 -->
+        <!-- 9. 刘雨菲 -->
         <div class="ambassador-card">
           <div class="amba-avatar">刘</div>
-          <div class="amba-name">刘子轩</div>
-          <div class="amba-school">南方科技大学</div>
-          <span class="amba-badge amba-badge-gold">
-            <svg viewBox="0 0 24 24"><path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z"/></svg>金牌大使
-          </span>
-          <p class="amba-quote">"科技文化节上的养虾实训营，把AI和趣味结合，211位同学参与。技术不应该是枯燥的，它可以是最好玩的。"</p>
+          <div class="amba-name">刘雨菲</div>
+          <div class="amba-school">北京交通大学</div>
         </div>
 
-        <!-- 6. 周欣怡 - 华中科技 -->
+        <!-- 10. 王世琦 -->
         <div class="ambassador-card">
-          <div class="amba-avatar">周</div>
-          <div class="amba-name">周欣怡</div>
+          <div class="amba-avatar">王</div>
+          <div class="amba-name">王世琦</div>
+          <div class="amba-school">香港科技大学（广州）</div>
+        </div>
+
+        <!-- 11. 肖金鑫 -->
+        <div class="ambassador-card">
+          <div class="amba-avatar">肖</div>
+          <div class="amba-name">肖金鑫</div>
           <div class="amba-school">华中科技大学</div>
-          <span class="amba-badge amba-badge-bronze">
-            <svg viewBox="0 0 24 24"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94C7.63 13.5 8.89 14.6 10.37 14.97V19H7v2h10v-2h-4v-4.04c1.48-.37 2.74-1.47 2.98-3.03C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM7 7h10v1c0 1.66-1.34 3-3 3h-4c-1.66 0-3-1.34-3-3V7z"/></svg>铜牌大使
-          </span>
-          <p class="amba-quote">"从第一次活动的紧张忐忑，到如今能从容应对各种突发状况，大使经历让我成长的不只是技术能力，更是综合素质。"</p>
         </div>
 
-        <!-- 7. 赵一鸣 - 浙江大学 -->
+        <!-- 12. 董亚鹏 -->
         <div class="ambassador-card">
-          <div class="amba-avatar">赵</div>
-          <div class="amba-name">赵一鸣</div>
-          <div class="amba-school">浙江大学</div>
-          <span class="amba-badge amba-badge-diamond">
-            <svg viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>钻石大使
-          </span>
-          <p class="amba-quote">"累计覆盖2000+师生，组织12场活动。数据背后是每一次精心准备和复盘。腾讯云大使计划是我大学最正确的选择。"</p>
+          <div class="amba-avatar">董</div>
+          <div class="amba-name">董亚鹏</div>
+          <div class="amba-school">北京工业大学</div>
         </div>
 
-        <!-- 8. 孙浩然 - 中山大学 -->
+        <!-- 13. 孙正金 -->
         <div class="ambassador-card">
           <div class="amba-avatar">孙</div>
-          <div class="amba-name">孙浩然</div>
-          <div class="amba-school">中山大学</div>
-          <span class="amba-badge amba-badge-silver">
-            <svg viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>银牌大使
-          </span>
-          <p class="amba-quote">"在大使社群里认识了很多优秀的小伙伴，跨校交流合作是独特的收获。一个人的力量有限，但一群人可以走得很远。"</p>
+          <div class="amba-name">孙正金</div>
+          <div class="amba-school">深圳大学</div>
+        </div>
+
+        <!-- 14. 吴基融 -->
+        <div class="ambassador-card">
+          <div class="amba-avatar">吴</div>
+          <div class="amba-name">吴基融</div>
+          <div class="amba-school">深圳技术大学</div>
+        </div>
+
+        <!-- 15. 文章 -->
+        <div class="ambassador-card">
+          <div class="amba-avatar">文</div>
+          <div class="amba-name">文章</div>
+          <div class="amba-school">四川大学</div>
+        </div>
+
+        <!-- 16. 穆再排尔·穆合塔尔 -->
+        <div class="ambassador-card">
+          <div class="amba-avatar">穆</div>
+          <div class="amba-name">穆再排尔·穆合塔尔</div>
+          <div class="amba-school">南京航空航天大学</div>
+        </div>
+
+        <!-- 17. 胡秀洋 -->
+        <div class="ambassador-card">
+          <div class="amba-avatar">胡</div>
+          <div class="amba-name">胡秀洋</div>
+          <div class="amba-school">南京理工大学</div>
+        </div>
+
+        <!-- 18. 李威俊 -->
+        <div class="ambassador-card">
+          <div class="amba-avatar">李</div>
+          <div class="amba-name">李威俊</div>
+          <div class="amba-school">深圳信息职业技术大学</div>
         </div>
 
       </div><!-- /track -->
