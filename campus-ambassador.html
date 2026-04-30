@@ -127,9 +127,9 @@ a { color: var(--color-primary); text-decoration: none; transition: color .25s; 
 
 /* ========== Hero Section (Tencent Cloud Style) ========== */
 .hero {
-  position:relative; overflow:hidden; min-height:92vh; display:flex; align-items:center;
-  background: linear-gradient(135deg, #0a0e27 0%, #121840 25%, #0d1b3e 50%, #0f1235 75%, #080c24 100%);
-  padding: 120px 0 100px; text-align:center; color:#ffffff;
+  position:relative; overflow:hidden; min-height:70vh; display:flex; align-items:center;
+  background: linear-gradient(135deg, #1a2a5e 0%, #224093 25%, #1b3a6e 50%, #243f8c 75%, #1e3568 100%);
+  padding: 90px 0 64px; text-align:center; color:#ffffff;
 }
 
 /* --- Network Particle Canvas --- */
@@ -146,15 +146,15 @@ a { color: var(--color-primary); text-decoration: none; transition: color .25s; 
 }
 .orb-1{
   width:500px;height:500px;top:-10%;right:-5%;
-  background:radial-gradient(circle,rgba(0,82,217,0.35) 0%,rgba(0,82,217,0.08) 40%,transparent 70%);
+  background:radial-gradient(circle,rgba(0,120,255,0.45) 0%,rgba(0,82,217,0.15) 40%,transparent 70%);
 }
 .orb-2{
   width:400px;height:400px;bottom:-5%;left:-3%;
-  background:radial-gradient(circle,rgba(124,58,237,0.28) 0%,rgba(124,58,237,0.06) 40%,transparent 70%);
+  background:radial-gradient(circle,rgba(100,80,230,0.38) 0%,rgba(124,58,237,0.12) 40%,transparent 70%);
 }
 .orb-3{
   width:300px;height:300px;top:40%;left:45%;
-  background:radial-gradient(circle,rgba(0,164,255,0.2) 0%,rgba(0,164,255,0.04) 50%,transparent 70%);
+  background:radial-gradient(circle,rgba(0,200,255,0.32) 0%,rgba(0,164,255,0.08) 50%,transparent 70%);
 }
 
 .hero-badge {
@@ -171,7 +171,7 @@ a { color: var(--color-primary); text-decoration: none; transition: color .25s; 
 }
 .hero-badge .icon-badge{width:16px;height:16px;fill:currentColor;}
 .hero-title{
-  font-size:60px;font-weight:800;letter-spacing:-.03em;margin-bottom:20px;
+  font-size:48px;font-weight:800;letter-spacing:-.03em;margin-bottom:14px;
   position:relative;z-index:1;line-height:1.12;
 }
 .hero-title span{
@@ -186,7 +186,7 @@ a { color: var(--color-primary); text-decoration: none; transition: color .25s; 
   100%{background-position:0% center;}
 }
 .hero-subtitle{
-  font-size:17.5px;color:#a0b0d0;max-width:580px;margin:0 auto 36px;line-height:1.75;
+  font-size:16px;color:#a0b0d0;max-width:540px;margin:0 auto 24px;line-height:1.7;
   position:relative;z-index:1;
 }
 .hero-actions{
@@ -195,14 +195,14 @@ a { color: var(--color-primary); text-decoration: none; transition: color .25s; 
 
 /* --- Stats Bar --- */
 .hero-stats {
-  display:flex; justify-content:center; gap:48px; margin-top:56px; position:relative;z-index:1;
+  display:flex; justify-content:center; gap:32px; margin-top:36px; position:relative;z-index:1;
 }
-.stat-item{text-align:center;padding:20px 28px;border-radius:18px;background:rgba(255,255,255,0.06);
-  backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.08); min-width:130px;
+.stat-item{text-align:center;padding:14px 24px;border-radius:16px;background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.1); min-width:110px;
   transition:transform .3s ease,box-shadow .3s ease;
 }
-.stat-item:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,0.3);background:rgba(255,255,255,0.1);}
-.stat-num{font-size:38px;font-weight:800;color:var(--color-primary);line-height:1.1;
+.stat-item:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,0.2);background:rgba(255,255,255,0.13);}
+.stat-num{font-size:30px;font-weight:800;color:var(--color-primary);line-height:1.1;
   background:linear-gradient(135deg,var(--color-primary),var(--color-accent));
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
 }
@@ -795,12 +795,12 @@ section{padding:100px 0;}
   .navbar{padding:0 24px;height:58px;}
   .nav-links,.nav-cta{display:none;}
   .nav-hamburger{display:flex;}
-  .hero{padding:110px 0 70px;min-height:auto;}
+  .hero{padding:90px 0 50px;min-height:58vh;}
   .hero-title{font-size:36px;}
   .hero-subtitle{font-size:15px;}
   .hero-actions{flex-direction:column;align-items:center;}
-  .hero-stats{flex-direction:column;gap:16px;align-items:center;margin-top:40px;}
-  .stat-item{width:100%;max-width:280px;padding:18px 24px;}
+  .hero-stats{flex-direction:column;gap:12px;align-items:center;margin-top:28px;}
+  .stat-item{width:100%;max-width:280px;padding:12px 20px;}
   .section-title{font-size:27px;}
   .pillars-grid,.cases-grid,.duties-grid{grid-template-columns:1fr;}
   .benefits-grid{grid-template-columns:1fr;}
