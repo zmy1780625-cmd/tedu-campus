@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>腾讯云Tedu校园推广大使</title>
+<style>
+/* ========== CSS Variables ========== */
+:root {
+  --color-primary: #0052D9;
+  --color-primary-dark: #003EB0;
+  --color-primary-light: rgba(0,82,217,0.06);
+  --color-accent: #00A4FF;
+  --color-bg-dark: #0A1628;
+  --color-bg-section: #F7F8FC;
+  --color-white: #FFFFFF;
+  --text-primary: #111827;
+  --text-secondary: #5B657E;
+  --text-muted: #9AA0AD;
+  --border-color: #EEF0F4;
+  --font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --max-width: 1100px;
+  --radius: 12px;
+  --radius-lg: 20px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 20px rgba(0,0,0,0.06);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.08);
+  --shadow-blue: 0 8px 32px rgba(0,82,217,0.18);
+}
+
+/* ========== Reset ========== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-family); color: var(--text-primary);
+  background: var(--color-white); line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--color-primary); text-decoration: none; transition: color .2s; }
+
+/* ========== SVG Icon Base ========== */
+.icon { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.icon svg { width: 1em; height: 1em; fill: currentColor; }
+
+/* ========== Navbar ========== */
+.navbar {
+  position: sticky; top: 0; z-index: 1000;
+  background: rgba(255,255,255,0.92); backdrop-filter: blur(16px);
+  height: 60px; padding: 0 48px;
+  border-bottom: 1px solid var(--border-color);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo { display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.01em; }
+.nav-logo-icon {
+  width: 30px; height: 30px; background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  border-radius: 8px; display: flex; align-items: center; justify-content: center;
+}
+.nav-logo-icon svg { width: 18px; height: 18px; fill: white; }
+.nav-links { display: flex; gap: 2px; }
+.nav-link { font-size: 14px; color: var(--text-secondary); padding: 8px 18px; border-radius: 8px; transition: all .2s; }
+.nav-link:hover { color: var(--color-primary); background: var(--color-primary-light); }
+.nav-cta {
+  background: var(--color-primary); color: white; padding: 8px 22px; border-radius: 8px;
+  font-size: 13px; font-weight: 600; transition: all .25s; cursor: pointer; border: none;
+}
+.nav-cta:hover { background: var(--color-primary-dark); box-shadow: var(--shadow-blue); transform: translateY(-1px); }
+
+/* ========== Hero ========== */
+.hero {
+  position: relative; overflow: hidden;
+  background: linear-gradient(145deg, #0B1829 0%, #0F2847 50%, #0A1628 100%);
+  padding: 120px 0 100px; text-align: center; color: white;
+}
+/* --- Photon Particles --- */
+.photon-canvas {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+}
+.photon {
+  position: absolute; border-radius: 50%; pointer-events: none;
+  opacity: 0;
+}
+@keyframes photonDrift1 {
+  0%   { transform: translate(0,0) scale(0.3); opacity: 0; }
+  15%  { opacity: var(--p-max-opacity); }
+  85%  { opacity: var(--p-max-opacity); }
+  100% { transform: translate(var(--dx), var(--dy)) scale(var(--p-scale)); opacity: 0; }
+}
+@keyframes photonPulse {
+  0%, 100% { box-shadow: 0 0 var(--p-glow) var(--p-color), 0 0 calc(var(--p-glow)*2) transparent; }
+  50%      { box-shadow: 0 0 calc(var(--p-glow)*2) var(--p-color), 0 0 calc(var(--p-glow)*4) transparent; }
+}
+@keyframes photonFloatY {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(calc(var(--float-range) * -1)); }
+  100% { transform: translateY(0); }
+}
+/* Ambient glow orbs */
+.hero::before {
+  content: ''; position: absolute; top: -180px; right: -180px;
+  width: 520px; height: 520px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,82,217,0.15) 0%, transparent 70%);
+  filter: blur(70px);
+}
+.hero::after {
+  content: ''; position: absolute; bottom: -120px; left: -80px;
+  width: 380px; height: 380px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,164,255,0.08) 0%, transparent 70%);
+  filter: blur(60px);
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(0,82,217,0.2); border: 1px solid rgba(0,82,217,0.3);
+  padding: 6px 20px; border-radius: 24px; font-size: 13px; color: #6BAFFF; margin-bottom: 32px; letter-spacing: 0.03em;
+}
+.hero-badge .icon-badge { width: 16px; height: 16px; fill: currentColor; }
+.hero-title { font-size: 56px; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 20px; position: relative; z-index: 1; line-height: 1.15; }
+.hero-title span { background: linear-gradient(135deg, #3B9EFF, #00D4FF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero-subtitle { font-size: 17px; color: rgba(255,255,255,0.55); max-width: 560px; margin: 0 auto 40px; line-height: 1.7; position: relative; z-index: 1; }
+.hero-actions { display: flex; gap: 14px; justify-content: center; position: relative; z-index: 1; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 14px 32px; border-radius: 10px; font-size: 15px; font-weight: 600;
+  cursor: pointer; transition: all .25s ease; border: none; text-decoration: none;
+}
+.btn .icon-btn { width: 17px; height: 17px; fill: currentColor; }
+.btn-primary { background: var(--color-primary); color: white; }
+.btn-primary:hover { background: var(--color-primary-dark); box-shadow: var(--shadow-blue); transform: translateY(-2px); }
+.btn-outline { background: transparent; color: white; border: 1.5px solid rgba(255,255,255,0.25); }
+.btn-outline:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.5); }
+
+.container { max-width: var(--max-width); margin: 0 auto; padding: 0 40px; }
+
+/* ========== Section Base ========== */
+section { padding: 96px 0; }
+.section-header { text-align: center; margin-bottom: 64px; }
+.section-tag {
+  display: inline-block; font-size: 12px; font-weight: 700; color: var(--color-primary);
+  background: var(--color-primary-light); padding: 5px 18px; border-radius: 24px;
+  margin-bottom: 16px; letter-spacing: 0.12em;
+}
+.section-title { font-size: 34px; font-weight: 800; color: var(--text-primary); margin-bottom: 0; letter-spacing: -0.02em; }
+.section-title::after {
+  content: ''; display: block; width: 48px; height: 3px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  border-radius: 2px; margin: 20px auto 0;
+}
+
+/* ========== Pillars ========== */
+.pillars-section { background: var(--color-white); }
+.pillars-layout { display: grid; grid-template-columns: 1fr 320px; gap: 48px; align-items: center; }
+.pillars-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.pillar-card {
+  background: var(--color-white); border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg); padding: 36px 24px; text-align: center;
+  transition: all .35s cubic-bezier(.34,1.56,.64,1);
+  position: relative; overflow: hidden;
+}
+.pillar-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  opacity: 0; transition: opacity .3s;
+}
+.pillar-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+.pillar-card:hover::before { opacity: 1; }
+.pillar-icon {
+  width: 56px; height: 56px; border-radius: 16px;
+  background: linear-gradient(135deg, rgba(0,82,217,0.08), rgba(0,82,217,0.03));
+  display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;
+}
+.pillar-icon .icon-pillar { width: 28px; height: 28px; }
+.pillar-name { font-size: 20px; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; }
+.pillar-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
+
+.pillars-agent-img {
+  border-radius: var(--radius-lg); overflow: hidden;
+  box-shadow: var(--shadow-md); border: 1px solid var(--border-color);
+}
+.pillars-agent-img img { width: 100%; height: auto; display: block; }
+
+/* ========== Cases ========== */
+.cases-section { background: var(--color-bg-section); }
+.cases-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.case-card {
+  background: var(--color-white); border-radius: var(--radius-lg);
+  overflow: hidden; border: 1px solid var(--border-color);
+  transition: all .35s ease;
+}
+.case-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+.case-image { width: 100%; height: 200px; object-fit: cover; display: block; }
+.case-info { padding: 20px 22px; }
+.case-school {
+  font-size: 17px; font-weight: 700; color: var(--text-primary); margin-bottom: 14px;
+  display: flex; align-items: center; gap: 8px;
+}
+.case-school .icon-school { width: 20px; height: 20px; fill: var(--color-primary); }
+.case-stats { display: flex; gap: 20px; }
+.case-stat { flex: 1; }
+.case-stat-val { font-size: 22px; font-weight: 800; color: var(--color-primary); line-height: 1.2; }
+.case-stat-lbl { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+/* ========== Benefits (8 cards) ========== */
+.benefits-section { background: var(--color-white); }
+.benefits-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.benefit-card {
+  background: var(--color-bg-section); border-radius: var(--radius);
+  padding: 26px 20px; border: 1px solid transparent;
+  transition: all .3s ease;
+}
+.benefit-card:hover { background: var(--color-white); box-shadow: var(--shadow-md); border-color: var(--border-color); transform: translateY(-3px); }
+.benefit-icon { margin-bottom: 12px; }
+.benefit-icon .icon-benefit { width: 32px; height: 32px; fill: var(--color-primary); }
+.benefit-name { font-size: 15px; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; }
+.benefit-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+
+/* ========== Duties & Resources (Compact) ========== */
+.duties-section { background: var(--color-bg-section); }
+.duties-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.duty-card {
+  background: var(--color-white); border-radius: var(--radius-lg);
+  padding: 36px 32px; border: 1px solid var(--border-color);
+}
+.duty-card-title {
+  font-size: 18px; font-weight: 700; color: var(--text-primary);
+  margin-bottom: 24px; display: flex; align-items: center; gap: 10px;
+}
+.duty-card-title .icon-duty { width: 22px; height: 22px; fill: var(--color-primary); }
+.duty-list { list-style: none; }
+.duty-list li {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 12px 0; border-bottom: 1px solid var(--border-color);
+  font-size: 14px; color: var(--text-secondary); line-height: 1.6;
+}
+.duty-list li:last-child { border-bottom: none; }
+.duty-num {
+  width: 24px; height: 24px; border-radius: 50%; background: var(--color-primary);
+  color: white; font-size: 12px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;
+}
+
+.resource-cats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.resource-cat {
+  background: var(--color-bg-section); border-radius: var(--radius);
+  padding: 20px 16px; text-align: center;
+  border: 1px solid var(--border-color);
+  transition: all .25s ease;
+}
+.resource-cat:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); border-color: var(--color-primary); }
+.resource-cat-icon { margin-bottom: 10px; }
+.resource-cat-icon .icon-res { width: 28px; height: 28px; fill: var(--color-primary); }
+.resource-cat-name { font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; }
+.resource-cat-items { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.resource-cat-items li {
+  font-size: 12px; color: var(--text-secondary);
+  padding: 5px 10px; background: var(--color-white);
+  border-radius: 6px; border: 1px solid var(--border-color);
+}
+
+/* ========== Scoring (Collapsible) ========== */
+.scoring-section { background: var(--color-white); }
+.scoring-panel {
+  border: 1px solid rgba(0,82,217,0.12); border-radius: var(--radius-lg);
+  overflow: hidden; background: var(--color-white);
+}
+.scoring-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 22px 28px; cursor: pointer; user-select: none;
+  background: linear-gradient(135deg, #F4F7FF, #FFFFFF);
+  transition: background .2s;
+}
+.scoring-header:hover { background: linear-gradient(135deg, #ECF1FF, #FAFBFF); }
+.scoring-header h3 {
+  font-size: 15px; font-weight: 500; color: var(--text-secondary); margin: 0;
+  display: flex; align-items: center; gap: 8px;
+}
+.scoring-header h3 strong { color: var(--color-primary); font-weight: 600; }
+.scoring-header .icon-lightbulb { width: 18px; height: 18px; fill: var(--color-primary); flex-shrink: 0; }
+.scoring-arrow { font-size: 13px; color: var(--color-primary); transition: transform .3s; }
+.scoring-panel.open .scoring-arrow { transform: rotate(180deg); }
+.scoring-body {
+  max-height: 0; overflow: hidden; transition: max-height .45s ease;
+}
+.scoring-panel.open .scoring-body { max-height: 3000px; }
+.scoring-inner { padding: 4px 0 16px; }
+
+.score-table-wrap { overflow-x: auto; }
+.score-table { width: 100%; border-collapse: collapse; min-width: 750px; }
+.score-table thead th {
+  background: var(--color-bg-dark); color: white; padding: 12px 16px;
+  font-size: 13px; font-weight: 600; text-align: left; white-space: nowrap;
+}
+.score-table thead th:first-child { border-radius: var(--radius) 0 0 0; }
+.score-table thead th:last-child { border-radius: 0 var(--radius) 0 0; }
+.score-table tbody td {
+  padding: 12px 16px; font-size: 13px; color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-color); vertical-align: top;
+}
+.score-table tbody tr:last-child td { border-bottom: none; }
+.score-table tbody tr:hover { background: var(--color-bg-section); }
+.score-pos { color: #00B578; font-weight: 600; }
+.score-neg { color: #EF4444; font-weight: 600; }
+.score-subtitle { font-size: 15px; font-weight: 700; color: var(--text-primary); margin: 20px 0 12px 4px; display: flex; align-items: center; gap: 6px; }
+.score-subtitle .icon-check { width: 16px; height: 16px; fill: #00B578; }
+.score-subtitle .icon-x { width: 16px; height: 16px; fill: #EF4444; }
+
+/* ========== Activity Cards ========== */
+.activities-section { background: var(--color-bg-section); }
+.activity-showcase { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.activity-card {
+  background: var(--color-white); border-radius: var(--radius-lg);
+  overflow: hidden; border: 1px solid var(--border-color);
+  transition: all .4s cubic-bezier(.25,.46,.45,.94);
+}
+.activity-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: transparent; }
+.activity-visual {
+  position: relative; height: 180px; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.activity-visual .visual-bg { position: absolute; inset: 0; }
+.activity-visual .visual-content { position: relative; z-index: 2; text-align: center; color: white; }
+.visual-content .icon-act { width: 44px; height: 44px; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.35)); }
+.activity-visual .visual-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.15em;
+  opacity: 0.8; padding: 4px 14px; background: rgba(255,255,255,0.12);
+  border-radius: 16px; backdrop-filter: blur(4px); margin-top: 6px; display: inline-block;
+}
+.activity-tag {
+  position: absolute; top: 14px; right: 14px; z-index: 3;
+  background: rgba(0,82,217,0.88); color: white;
+  font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 16px;
+  display: flex; align-items: center; gap: 4px;
+}
+.activity-tag .icon-tag { width: 12px; height: 12px; fill: white; }
+.activity-body { padding: 24px 24px 22px; }
+.activity-body h3 { font-size: 18px; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; line-height: 1.3; }
+.activity-body .activity-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 16px; }
+.activity-highlights { display: flex; flex-direction: column; gap: 8px; }
+.activity-hl {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 13px; color: var(--text-secondary);
+  padding: 8px 12px; background: var(--color-bg-section);
+  border-radius: 8px; transition: all .2s;
+}
+.activity-hl:hover { background: var(--color-primary-light); color: var(--color-primary); }
+.hl-num {
+  width: 22px; height: 22px; border-radius: 6px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  color: white; font-size: 11px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+
+/* ========== Process Steps ========== */
+.process-section { background: var(--color-white); }
+.process-steps {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  position: relative; padding: 40px 0 12px;
+}
+.process-steps::before {
+  content: ''; position: absolute; top: 30px; left: 60px; right: 60px;
+  height: 2px; background: linear-gradient(90deg, var(--color-primary), var(--color-accent)); border-radius: 2px;
+}
+.step-item { display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; flex: 1; }
+.step-num {
+  width: 60px; height: 60px; border-radius: 50%;
+  background: var(--color-white); border: 2.5px solid var(--color-primary);
+  color: var(--color-primary); font-size: 20px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 14px; position: relative; z-index: 1;
+  transition: all .3s;
+}
+.step-item:hover .step-num { background: var(--color-primary); color: white; box-shadow: var(--shadow-blue); }
+.step-label { font-size: 15px; font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
+.step-desc { font-size: 12px; color: var(--text-muted); max-width: 110px; line-height: 1.5; }
+
+/* ========== FAQ ========== */
+.faq-section { background: var(--color-bg-section); }
+.faq-list { max-width: 720px; margin: 0 auto; }
+.faq-item { border-bottom: 1px solid var(--border-color); }
+.faq-question {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 0; cursor: pointer; background: none; border: none; width: 100%;
+  text-align: left; font-size: 15px; font-weight: 600; color: var(--text-primary);
+  transition: color .2s; user-select: none;
+}
+.faq-question:hover { color: var(--color-primary); }
+.faq-icon {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--color-bg-section); display: flex; align-items: center; justify-content: center;
+  font-size: 14px; color: var(--text-muted); transition: all .3s; flex-shrink: 0; margin-left: 14px;
+}
+.faq-item.active .faq-icon { background: var(--color-primary); color: white; transform: rotate(45deg); }
+.faq-answer { max-height: 0; overflow: hidden; transition: max-height .35s ease, padding .3s ease; }
+.faq-item.active .faq-answer { max-height: 260px; padding: 0 0 20px; }
+.faq-answer p { font-size: 14px; color: var(--text-secondary); line-height: 1.75; }
+
+/* ========== Footer ========== */
+.footer {
+  background: var(--color-bg-dark); color: rgba(255,255,255,0.45);
+  padding: 52px 0 28px;
+}
+.footer-inner { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 36px; gap: 40px; }
+.footer-brand { max-width: 280px; }
+.footer-brand .logo { font-size: 17px; font-weight: 700; color: white; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.footer-brand .logo .icon-logo { width: 20px; height: 20px; fill: var(--color-accent); }
+.footer-brand p { font-size: 13px; line-height: 1.7; color: rgba(255,255,255,0.4); }
+.footer-links h4 { font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.75); margin-bottom: 14px; }
+.footer-links ul { list-style: none; }
+.footer-links li { margin-bottom: 8px; }
+.footer-links a { color: rgba(255,255,255,0.4); font-size: 13px; transition: color .2s; }
+.footer-links a:hover { color: var(--color-accent); }
+.footer-btm {
+  border-top: 1px solid rgba(255,255,255,0.07);
+  padding-top: 22px; text-align: center; font-size: 12px; color: rgba(255,255,255,0.25);
+}
+
+/* ========== Animations ========== */
+.scroll-reveal {
+  opacity: 0; transform: translateY(28px);
+  transition: all .65s cubic-bezier(.25,.46,.45,.94);
+}
+.scroll-reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ========== Responsive ========== */
+@media (max-width: 1024px) {
+  .benefits-grid { grid-template-columns: repeat(2, 1fr); }
+  .pillars-layout { grid-template-columns: 1fr; }
+  .pillars-agent-img { max-width: 300px; margin: 0 auto; }
+  .activity-showcase { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  .container { padding: 0 24px; } section { padding: 64px 0; }
+  .navbar { padding: 0 24px; height: 56px; }
+  .nav-links { display: none; }
+  .hero { padding: 80px 0 64px; }
+  .hero-title { font-size: 34px; }
+  .hero-subtitle { font-size: 15px; }
+  .hero-actions { flex-direction: column; align-items: center; }
+  .section-title { font-size: 26px; }
+  .pillars-grid, .cases-grid, .duties-grid { grid-template-columns: 1fr; }
+  .benefits-grid { grid-template-columns: 1fr; }
+  .process-steps { flex-direction: column; align-items: center; gap: 24px; padding: 20px 0; }
+  .process-steps::before { display: none; }
+  .footer-inner { flex-direction: column; }
+  .score-table { min-width: 650px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="nav-logo">
+    <div class="nav-logo-icon">
+      <svg viewBox="0 0 24 24"><path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.18l7 3.5V16l-7 3.5L5 16V7.68l7-3.5zM11 7v6h2V7h-2zm0 8v2h2v-2h-2z"/></svg>
+    </div>
+    腾讯云Tedu校园大使
+  </div>
+  <div class="nav-links">
+    <a href="#what-we-do" class="nav-link">我们在做什么</a>
+    <a href="#benefits" class="nav-link">大使权益</a>
+    <a href="#activities" class="nav-link">推荐活动</a>
+    <a href="#faq" class="nav-link">常见问题</a>
+  </div>
+  <a href="https://docs.qq.com/form/page/DQnBIUXVuaUZVQnFC" class="nav-cta" target="_blank">立即申请</a>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <!-- Photon particles container -->
+  <div class="photon-canvas" id="photonCanvas"></div>
+
+  <div class="container" style="position:relative;z-index:1;">
+    <div class="hero-badge">
+      <svg class="icon-badge" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      2026 年度招募中
+    </div>
+    <h1 class="hero-title">腾讯云Tedu<br><span>校园推广大使</span></h1>
+    <p class="hero-subtitle">在高校推广云计算与 AI 技术，连接腾讯资源与校园生态<br>用实践积累经验，用影响力定义未来</p>
+    <div class="hero-actions">
+      <a href="https://docs.qq.com/form/page/DQnBIUXVuaUZVQnFC" class="btn btn-primary" target="_blank">
+        <svg class="icon-btn" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+        立即申请
+      </a>
+      <a href="https://doc.weixin.qq.com/forms/AJEAIQdfAAoABoATAZGACkCNe3NPP2fnf" class="btn btn-outline" target="_blank">
+        活动申请 ↓
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- What We Do -->
+<section id="what-we-do" class="pillars-section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">MISSION</div>
+      <h2 class="section-title">我们在做什么</h2>
+    </div>
+    <div class="pillars-layout">
+      <div class="pillars-grid">
+        <div class="pillar-card scroll-reveal">
+          <div class="pillar-icon">
+            <svg class="icon-pillar" viewBox="0 0 24 24" fill="#0052D9"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+          </div>
+          <h3 class="pillar-name">体验</h3>
+          <p class="pillar-desc">在校内推广腾讯云技术产品与服务，让更多同学零门槛接触前沿技术。</p>
+        </div>
+        <div class="pillar-card scroll-reveal">
+          <div class="pillar-icon">
+            <svg class="icon-pillar" viewBox="0 0 24 24" fill="#0052D9"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+          </div>
+          <h3 class="pillar-name">连接</h3>
+          <p class="pillar-desc">搭建沟通桥梁，连接腾讯技术资源与高校师生，促进产教深度融合。</p>
+        </div>
+        <div class="pillar-card scroll-reveal">
+          <div class="pillar-icon">
+            <svg class="icon-pillar" viewBox="0 0 24 24" fill="#0052D9"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6h-6z" opacity=".4"/></svg>
+          </div>
+          <h3 class="pillar-name">成长</h3>
+          <p class="pillar-desc">在真实项目中磨砺技能，积累实战经验，为职业发展提前蓄力。</p>
+        </div>
+      </div>
+      <div class="pillars-agent-img scroll-reveal">
+        <img src="img_agent.png" alt="AI Agent 生态">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Cases -->
+<section class="cases-section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">CASES</div>
+      <h2 class="section-title">我们做过的事</h2>
+    </div>
+    <div class="cases-grid">
+      <div class="case-card scroll-reveal">
+        <img src="img_tsinghua.jpg" alt="清华大学活动" class="case-image">
+        <div class="case-info">
+          <div class="case-school">
+            <svg class="icon-school" viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/></svg>
+            清华大学
+          </div>
+          <div class="case-stats">
+            <div class="case-stat"><div class="case-stat-val">2天</div><div class="case-stat-lbl">活动时长</div></div>
+            <div class="case-stat"><div class="case-stat-val">150+</div><div class="case-stat-lbl">装机台数</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="case-card scroll-reveal">
+        <img src="img_bjtu.jpg" alt="北京交通大学活动" class="case-image">
+        <div class="case-info">
+          <div class="case-school">
+            <svg class="icon-school" viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/></svg>
+            北京交通大学
+          </div>
+          <div class="case-stats">
+            <div class="case-stat"><div class="case-stat-val">900+</div><div class="case-stat-lbl">报名参与</div></div>
+            <div class="case-stat"><div class="case-stat-val">1100+</div><div class="case-stat-lbl">社群人数</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="case-card scroll-reveal">
+        <img src="img_scu.jpg" alt="四川大学活动" class="case-image">
+        <div class="case-info">
+          <div class="case-school">
+            <svg class="icon-school" viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/></svg>
+            四川大学
+          </div>
+          <div class="case-stats">
+            <div class="case-stat"><div class="case-stat-val">300+</div><div class="case-stat-lbl">线下参与</div></div>
+            <div class="case-stat"><div class="case-stat-val">3000+</div><div class="case-stat-lbl">线上观看</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Benefits (8 Cards) -->
+<section id="benefits" class="benefits-section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">BENEFITS</div>
+      <h2 class="section-title">成为大使，你将获得</h2>
+    </div>
+    <div class="benefits-grid">
+      <div class="benefit-card scroll-reveal">
+        <div class="benefit-icon">
+          <svg class="icon-benefit" viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6A4.997 4.997 0 017 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/></svg>
+        </div>
+        <h4 class="benefit-name">技术赋能培训</h4>
+        <p class="benefit-desc">官方技术专家专属培训，深度讲解产品能力与场景玩法</p>
+      </div>
+      <div class="benefit-card scroll-reveal">
+        <div class="benefit-icon">
+          <svg class="icon-benefit" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+        </div>
+        <h4 class="benefit-name">官方认证证书</h4>
+        <p class="benefit-desc">完成阶段性任务后颁发腾讯云官方大使证书</p>
+      </div>
+      <div class="benefit-card scroll-reveal">
+        <div class="benefit-icon">
+          <svg class="icon-benefit" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
+        </div>
+        <h4 class="benefit-name">新品优先体验</h4>
+        <p class="benefit-desc">优先获得新产品试用资格与专属扶持资源</p>
+      </div>
+      <div class="benefit-card scroll-reveal">
+        <div class="benefit-icon">
+          <svg class="icon-benefit" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+        </div>
+        <h4 class="benefit-name">Speaker 分享机会</h4>
+        <p class="benefit-desc">解锁官方 Speaker 身份，受邀在大会与沙龙中演讲分享</p>
+      </div>
+      <div class="benefit-card scroll-reveal">
+        <div class="benefit-icon">
+          <svg class="icon-benefit" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11zM8 15h8v2H8zm0-4h8v2H8zm1-6h3v3H9V5z"/></svg>
+        </div>
+        <h4 class="benefit-name">实习内推通道</h4>
+        <p class="benefit-desc">表现优秀者可获得腾讯教育相关岗位实习内推机会</p>
+      </div>
+      <div class="benefit-card scroll-reveal">
+        <div class="benefit-icon">
+          <svg class="icon-benefit" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+        </div>
+        <h4 class="benefit-name">企业面对面交流</h4>
+        <p class="benefit-desc">企业参访机会，与教育业务负责人直面交流</p>
+      </div>
+      <div class="benefit-card scroll-reveal">
+        <div class="benefit-icon">
+          <svg class="icon-benefit" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+        </div>
+        <h4 class="benefit-name">官方大会资格</h4>
+        <p class="benefit-desc">受邀参与腾讯云年度大会、行业峰会等高端活动</p>
+      </div>
+      <div class="benefit-card scroll-reveal">
+        <div class="benefit-icon">
+          <svg class="icon-benefit" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+        </div>
+        <h4 class="benefit-name">求职辅导支持</h4>
+        <p class="benefit-desc">简历指导、面试技巧培训、职业规划一对一咨询</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Duties & Resources -->
+<section class="duties-section">
+  <div class="container">
+    <div class="duties-grid">
+      <div class="duty-card scroll-reveal">
+        <h3 class="duty-card-title">
+          <svg class="icon-duty" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+          校园大使需要做什么
+        </h3>
+        <ul class="duty-list">
+          <li><span class="duty-num">1</span>组建并运营校内腾讯社群，保持每周 3 次以上互动</li>
+          <li><span class="duty-num">2</span>每月策划执行 1 场技术类活动（比赛/沙龙/讲座等）</li>
+          <li><span class="duty-num">3</span>为校内师生提供腾讯云产品使用技术支持</li>
+        </ul>
+      </div>
+      <div class="duty-card scroll-reveal">
+        <h3 class="duty-card-title">
+          <svg class="icon-duty" viewBox="0 0 24 24"><path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76l1-1.36 1 1.36L15.38 12 17 10.83 14.92 8H20v6z"/></svg>
+          你将获得的支持
+        </h3>
+        <div class="resource-cats">
+          <div class="resource-cat">
+            <div class="resource-cat-icon">
+              <svg class="icon-res" viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4zm13 16H6v-2h13v2zm0-5H6v-2h13v2zm0-5H6V7h13v2z"/></svg>
+            </div>
+            <div class="resource-cat-name">培训资源</div>
+            <ul class="resource-cat-items"><li>产品线上培训</li><li>活动策划指导</li></ul>
+          </div>
+          <div class="resource-cat">
+            <div class="resource-cat-icon">
+              <svg class="icon-res" viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+            </div>
+            <div class="resource-cat-name">宣传物料</div>
+            <ul class="resource-cat-items"><li>海报/易拉宝/单页</li><li>鹅厂周边礼品</li></ul>
+          </div>
+          <div class="resource-cat">
+            <div class="resource-cat-icon">
+              <svg class="icon-res" viewBox="0 0 24 24"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg>
+            </div>
+            <div class="resource-cat-name">技术资源</div>
+            <ul class="resource-cat-items"><li>腾讯云代金券</li><li>新品体验权</li></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Scoring -->
+<section class="scoring-section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">EVALUATION</div>
+      <h2 class="section-title">考核标准</h2>
+    </div>
+    <div class="scoring-panel scroll-reveal">
+      <div class="scoring-header" onclick="togglePanel(this)">
+        <h3><svg class="icon-lightbulb" viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg> 社群建设、活动组织、技术服务均积不同分数。<strong>点击展开详细积分规则 ▼</strong></h3>
+        <span class="scoring-arrow">▼</span>
+      </div>
+      <div class="scoring-body">
+        <div class="scoring-inner">
+          <div class="score-subtitle">
+            <svg class="icon-check" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+            加分项
+          </div>
+          <div class="score-table-wrap">
+            <table class="score-table">
+              <thead>
+                <tr><th style="width:46px;">#</th><th style="width:130px;">任务</th><th>完成标准</th><th style="width:80px;">积分</th><th style="width:140px;">凭证</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>1</strong></td><td>建设社群</td><td>500人以下+1 · 500~1000人+2 · 1000人以上+3</td><td class="score-pos">+1~3分</td><td>群名+人数截图</td></tr>
+                <tr><td><strong>2</strong></td><td>自主策划活动</td><td>比赛+10 · 沙龙/体验角+5 · 社团分享+2</td><td class="score-pos">+2~10分</td><td>活动现场实拍</td></tr>
+                <tr><td><strong>3</strong></td><td>协助入校活动</td><td>协助腾讯云组织的校园入校活动</td><td class="score-pos">+5分/次</td><td>—</td></tr>
+                <tr><td><strong>4</strong></td><td>技术服务支持</td><td>解答校内师生腾讯云产品使用问题</td><td class="score-pos">+1分/周</td><td>—</td></tr>
+                <tr><td><strong>5</strong></td><td>协助集团号管理</td><td>协助本校集团号管理</td><td class="score-pos">+1分/周</td><td>—</td></tr>
+                <tr><td><strong>6</strong></td><td>撰写技术文章</td><td>撰写腾讯云相关技术文章并在社群/校园平台宣传</td><td class="score-pos">+2分/篇</td><td>文章+宣传截图</td></tr>
+                <tr><td><strong>7</strong></td><td>其他创意活动</td><td>其他自主策划的创意活动类型</td><td class="score-pos">+10~20分</td><td>—</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="score-subtitle">
+            <svg class="icon-x" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+            扣分项
+          </div>
+          <div class="score-table-wrap">
+            <table class="score-table">
+              <thead>
+                <tr><th style="width:46px;">#</th><th style="width:130px;">任务</th><th>未完成标准</th><th style="width:80px;">扣分</th><th style="width:140px;">说明</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>1</strong></td><td>社群运营</td><td>连续4周每周互动次数不足3次</td><td class="score-neg">-4分</td><td>未提交互动截图</td></tr>
+                <tr><td><strong>2</strong></td><td>校园活动</td><td>连续3个月未组织或参与活动（取消任命）</td><td class="score-neg">-30分</td><td>未提交实拍图</td></tr>
+                <tr><td><strong>3</strong></td><td>技术服务支持</td><td>受到投诉（轻度-20，重度取消任命）</td><td class="score-neg">-20分</td><td>—</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Activities -->
+<section id="activities" class="activities-section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">ACTIVITIES</div>
+      <h2 class="section-title">推荐活动</h2>
+    </div>
+    <div class="activity-showcase">
+      <!-- Card 1: Exhibition -->
+      <div class="activity-card scroll-reveal">
+        <span class="activity-tag">
+          <svg class="icon-tag" viewBox="0 0 24 24"><path d="M12 23a7.5 7.5 0 010-15 7.5 7.5 0 000 15zm0-2a5.5 5.5 0 100-11 5.5 5.5 0 000 11zM13 7h-2V1h2v6z"/><circle cx="12" cy="17" r="2.5"/></svg>
+          最受欢迎
+        </span>
+        <div class="activity-visual">
+          <div class="visual-bg" style="background:linear-gradient(135deg,#1a3a5c,#0d2137 40%,#0052D9);"></div>
+          <div class="visual-content">
+            <svg class="icon-act" viewBox="0 0 24 24" fill="white"><path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm2.5-3c-.83 0-1.5-.67-1.5-1.5S17.17 9 18 9s1.5.67 1.5 1.5S18.83 12 18 12z"/></svg>
+            <div class="visual-label">EXHIBITION</div>
+          </div>
+        </div>
+        <div class="activity-body">
+          <h3>策划校园 AI 互动展</h3>
+          <p class="activity-desc">在校园核心区域摆展台，让同学边玩边学，零门槛体验腾讯云 AI 产品。</p>
+          <div class="activity-highlights">
+            <div class="activity-hl"><span class="hl-num">01</span>HAI / Lighthouse 算力产品体验站</div>
+            <div class="activity-hl"><span class="hl-num">02</span>CloudStudio AI Coding 实战台</div>
+            <div class="activity-hl"><span class="hl-num">03</span>智能体游乐场 + IMA 知识库魔法屋</div>
+          </div>
+        </div>
+      </div>
+      <!-- Card 2: Salon -->
+      <div class="activity-card scroll-reveal">
+        <span class="activity-tag" style="background:rgba(0,180,120,0.88);">
+          <svg class="icon-tag" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+          深度交流
+        </span>
+        <div class="activity-visual">
+          <div class="visual-bg" style="background:linear-gradient(135deg,#1a4a3c,#0d2d24 40%,#00A4FF);"></div>
+          <div class="visual-content">
+            <svg class="icon-act" viewBox="0 0 24 24" fill="white"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
+            <div class="visual-label">SALON</div>
+          </div>
+        </div>
+        <div class="activity-body">
+          <h3>联合社团举办主题沙龙</h3>
+          <p class="activity-desc">联合计算机社团、AI 社等，技术分享 + 圆桌讨论，让 AI 走进校园场景。</p>
+          <div class="activity-highlights">
+            <div class="activity-hl"><span class="hl-num">01</span>AI Coding 工具入门与进阶实战</div>
+            <div class="activity-hl"><span class="hl-num">02</span>智能体开发：零基础搭建 AI 助手</div>
+            <div class="activity-hl"><span class="hl-num">03</span>HAI 大模型部署 + Lighthouse 上云实践</div>
+          </div>
+        </div>
+      </div>
+      <!-- Card 3: Workshop -->
+      <div class="activity-card scroll-reveal">
+        <span class="activity-tag" style="background:rgba(255,160,0,0.88);">
+          <svg class="icon-tag" viewBox="0 0 24 24"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg>
+          动手实操
+        </span>
+        <div class="activity-visual">
+          <div class="visual-bg" style="background:linear-gradient(135deg,#3d2e00,#2a1f00 40%,#FF6B35);"></div>
+          <div class="visual-content">
+            <svg class="icon-act" viewBox="0 0 24 24" fill="white"><path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5 2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 6c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 10H4V8h16v8z"/></svg>
+            <div class="visual-label">WORKSHOP</div>
+          </div>
+        </div>
+        <div class="activity-body">
+          <h3>组织智能体体验工坊</h3>
+          <p class="activity-desc">带同学从零搭出自己的 AI 助手，手把手教学，现场出作品。</p>
+          <div class="activity-highlights">
+            <div class="activity-hl"><span class="hl-num">01</span>Agent 基础概念与平台介绍</div>
+            <div class="activity-hl"><span class="hl-num">02</span>从 Prompt 到成品：设计你的第一个智能体</div>
+            <div class="activity-hl"><span class="hl-num">03</span>工具调用实战 + 作品展示 PK</div>
+          </div>
+        </div>
+      </div>
+      <!-- Card 4: Competition -->
+      <div class="activity-card scroll-reveal">
+        <span class="activity-tag" style="background:rgba(139,92,246,0.88);">
+          <svg class="icon-tag" viewBox="0 0 24 24"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM7 7h10v1c0 1.66-1.34 3-3 3h-4c-1.66 0-3-1.34-3-3V7z"/></svg>
+          高影响力
+        </span>
+        <div class="activity-visual">
+          <div class="visual-bg" style="background:linear-gradient(135deg,#2a1a3d,#1a0f28 40%,#7C3AED);"></div>
+          <div class="visual-content">
+            <svg class="icon-act" viewBox="0 0 24 24" fill="white"><path d="M12 2L2 7v10l10 5 10-5V7L12 2zm-1 15.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+            <div class="visual-label">COMPETITION</div>
+          </div>
+        </div>
+        <div class="activity-body">
+          <h3>发起应用创新大赛</h3>
+          <p class="activity-desc">把兴趣变成作品和影响力，提供算力、导师、证书全链路支持。</p>
+          <div class="activity-highlights">
+            <div class="activity-hl"><span class="hl-num">01</span>AI Coding 应用挑战赛 / Agent 创新赛</div>
+            <div class="activity-hl"><span class="hl-num">02</span>算力代金券 + 技术导师 + 官方周边</div>
+            <div class="activity-hl"><span class="hl-num">03</span>获奖者获证书 + 大使积分 + 曝光</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Process -->
+<section class="process-section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">PROCESS</div>
+      <h2 class="section-title">活动流程</h2>
+    </div>
+    <div class="process-steps scroll-reveal">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-label">确认主题</div>
+        <div class="step-desc">确定活动目标与方向</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-label">输出方案</div>
+        <div class="step-desc">输出完整策划案</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-label">提交申请</div>
+        <div class="step-desc">等待审批批复</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">4</div>
+        <div class="step-label">落地执行</div>
+        <div class="step-desc">宣传并执行活动</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">5</div>
+        <div class="step-label">复盘总结</div>
+        <div class="step-desc">乐享平台输出总结</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="faq-section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">FAQ</div>
+      <h2 class="section-title">常见问题</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item active">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Q1：每学期需要组织多少场活动？
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>每学期至少<strong>组织 2 场活动</strong>，规模不少于<strong>30 人</strong>。活动类型包括但不限于：校园比赛、线下沙龙、产品体验角、社团分享会等。</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Q2：如何申请成为校园大使？
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>扫码填写<strong>报名问卷</strong>，审核通过后将与本校腾讯云教育行业售前老师建立联系，拉群并组织线下见面交流。</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Q3：如何进行评优激励？
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>基于<strong>积分体系</strong>评优，涵盖社群建设、活动组织、技术服务等多个维度。每月/季度/半年度/年度针对 Top3 大使给予激励奖励。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="logo">
+          <svg class="icon-logo" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          腾讯云Tedu校园推广大使
+        </div>
+        <p>连接腾讯云与高校学生，在技术推广中成长，在实践中积累经验。期待热爱云计算与 AI 的你加入！</p>
+      </div>
+      <div class="footer-links">
+        <h4>快速导航</h4>
+        <ul>
+          <li><a href="#what-we-do">我们在做什么</a></li>
+          <li><a href="#benefits">大使权益</a></li>
+          <li><a href="#activities">推荐活动</a></li>
+          <li><a href="#faq">常见问题</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>相关链接</h4>
+        <ul>
+          <li><a href="https://docs.qq.com/form/page/DQnBIUXVuaUZVQnFC" target="_blank">校园大使申请</a></li>
+          <li><a href="https://doc.weixin.qq.com/forms/AJEAIQdfAAoABoATAZGACkCNe3NPP2fnf" target="_blank">校园活动申请</a></li>
+          <li><a href="#">校园大使日常群</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-btm">© 2026 腾讯云 · 腾讯云Tedu校园推广大使计划</div>
+  </div>
+</footer>
+
+<script>
+// ====== Photon Particle System ======
+(function() {
+  const canvas = document.getElementById('photonCanvas');
+  if (!canvas) return;
+
+  const colors = [
+    'rgba(0,164,255,',
+    'rgba(59,158,255,',
+    'rgba(0,212,255,',
+    'rgba(124,58,237,',
+    'rgba(0,82,217,',
+  ];
+
+  function rand(min, max) { return Math.random() * (max - min) + min; }
+  function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+  const count = window.innerWidth < 768 ? 12 : 24;
+
+  for (let i = 0; i < count; i++) {
+    const p = document.createElement('div');
+    p.className = 'photon';
+
+    const size = rand(2, 5);
+    const x = rand(0, 100);
+    const y = rand(-10, 110);
+    const dx = rand(-120, 120);
+    const dy = rand(-80, 80);
+    const dur = rand(12, 24);
+    const delay = rand(0, 8);
+    const maxOpac = rand(0.3, 0.75);
+    const glowSize = rand(8, 22);
+    const color = pick(colors);
+
+    p.style.cssText = `
+      left:${x}%;top:${y}%;width:${size}px;height:${size}px;
+      --dx:${dx}px;--dy:${dy}px;--p-scale:${rand(0.5,1.8)};
+      --p-max-opacity:${maxOpac};--p-glow:${glowSize}px;--p-color:${color}${maxOpac});
+      background:radial-gradient(circle, ${color}0.9, transparent 70%);
+      animation:photonDrift1 ${dur}s ease-in-out ${delay}s infinite,
+                 photonPulse ${rand(3,5)}s ease-in-out ${delay}s infinite,
+                 photonFloatY ${rand(4,7)}s ease-in-out ${delay}s infinite;
+      --float-range:${rand(8,25)}px;
+    `;
+    canvas.appendChild(p);
+  }
+})();
+
+// FAQ Toggle
+function toggleFaq(btn) {
+  const item = btn.parentElement;
+  const isActive = item.classList.contains('active');
+  document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('active'));
+  if (!isActive) item.classList.add('active');
+}
+
+// Scoring Panel Toggle
+function togglePanel(header) {
+  header.parentElement.classList.toggle('open');
+}
+
+// Scroll Reveal
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 70);
+      obs.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -36px 0px' });
+document.querySelectorAll('.scroll-reveal').forEach(el => obs.observe(el));
+
+// Navbar shadow on scroll
+const nav = document.querySelector('.navbar');
+window.addEventListener('scroll', () => {
+  nav.style.boxShadow = window.scrollY > 16 ? '0 2px 16px rgba(0,0,0,0.07)' : 'none';
+});
+
+// Smooth scroll
+document.querySelectorAll('.nav-link').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const el = document.querySelector(link.getAttribute('href'));
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+</script>
+
+</body>
+</html>
