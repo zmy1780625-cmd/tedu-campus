@@ -195,12 +195,14 @@ section { padding: 96px 0; }
 }
 .cases-carousel-wrap { perspective: 1200px; padding: 10px 0 30px; }
 .cases-carousel {
-  position: relative; width: 100%; height: 420px;
+  position: relative; width: 100%; height: 470px;
   display: flex; align-items: center; justify-content: center;
+  cursor: grab; user-select: none; -webkit-user-drag: none;
 }
+.cases-carousel.dragging { cursor: grabbing; }
 .case-slide {
-  position: absolute; width: 360px; height: 380px;
-  left: 50%; top: 50%; margin-left: -180px; margin-top: -190px;
+  position: absolute; width: 360px; height: 430px;
+  left: 50%; top: 50%; margin-left: -180px; margin-top: -215px;
   border-radius: 18px; overflow: hidden;
   cursor: pointer; transition: all .65s cubic-bezier(.23,1,.32,1);
   transform-style: preserve-3d;
@@ -340,7 +342,7 @@ section { padding: 96px 0; }
 }
 
 @media (max-width: 768px) {
-  .case-slide { width: 300px; margin-left: -150px; margin-top: -195px; height: 390px; }
+  .case-slide { width: 300px; margin-left: -150px; margin-top: -215px; height: 430px; }
   .case-slide.prev { transform: translateX(-72%) scale(0.84) rotateY(10deg) translateZ(-60px); }
   .case-slide.next { transform: translateX(72%) scale(0.84) rotateY(-10deg) translateZ(-60px); }
   .case-slide.prev-far, .case-slide.next-far { display: none; }
@@ -1278,6 +1280,34 @@ function togglePanel(header) {
   // Pause on hover
   carousel.addEventListener('mouseenter', stopAuto);
   carousel.addEventListener('mouseleave', startAuto);
+
+  // Mouse / Touch drag swipe
+  let startX = 0, isDragging = false;
+  function handleDragStart(x) { isDragging = true; startX = x; stopAuto(); carousel.classList.add('dragging'); }
+  function handleDragMove(x) {
+    if (!isDragging) return;
+    const diff = x - startX;
+    // Visual feedback: slightly shift cards
+    carousel.style.transform = `translateX(${diff * 0.15}px)`;
+  }
+  function handleDragEnd(x) {
+    if (!isDragging) return;
+    isDragging = false; carousel.classList.remove('dragging');
+    carousel.style.transform = '';
+    const diff = x - startX;
+    if (Math.abs(diff) > 50) { diff > 0 ? prev() : next(); }
+    startAuto();
+  }
+
+  // Mouse events
+  carousel.addEventListener('mousedown', e => { e.preventDefault(); handleDragStart(e.clientX); });
+  window.addEventListener('mousemove', e => { if (isDragging) { e.preventDefault(); handleDragMove(e.clientX); } });
+  window.addEventListener('mouseup', e => { if (isDragging) handleDragEnd(e.clientX); });
+
+  // Touch events
+  carousel.addEventListener('touchstart', e => { handleDragStart(e.touches[0].clientX); }, { passive: true });
+  carousel.addEventListener('touchmove', e => { if (isDragging) handleDragMove(e.touches[0].clientX); }, { passive: true });
+  carousel.addEventListener('touchend', e => { if (isDragging && e.changedTouches.length) handleDragEnd(e.changedTouches[0].clientX); });
 
   // Entry animation trigger
   const wrap = document.querySelector('.cases-carousel-wrap');
