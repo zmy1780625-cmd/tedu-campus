@@ -125,12 +125,11 @@ a { color: var(--color-primary); text-decoration: none; transition: color .25s; 
 }
 .nav-mobile-menu a:hover{ background:var(--color-primary-light); color:var(--color-primary); }
 
-/* ========== Hero Section (Tencent Cloud Style) ========== */
+/* ========== Hero Section ========== */
 .hero {
   position:relative; overflow:hidden; min-height:70vh; display:flex; align-items:center;
-  background: url('A_futuristic_cyber_tech_web_ba_2026-04-30T08-57-13.png') center center / cover no-repeat,
-    linear-gradient(135deg, rgba(10,20,50,0.72) 0%, rgba(18,32,72,0.65) 40%, rgba(13,27,62,0.7) 100%);
-  padding: 90px 0 64px; text-align:center; color:#ffffff;
+  background: url('生成无文字背景图 (1).png') center center / cover no-repeat;
+  padding: 90px 0 64px; text-align:center; color:#111827;
 }
 
 /* --- Network Particle Canvas --- */
@@ -147,27 +146,26 @@ a { color: var(--color-primary); text-decoration: none; transition: color .25s; 
 }
 .orb-1{
   width:500px;height:500px;top:-10%;right:-5%;
-  background:radial-gradient(circle,rgba(0,120,255,0.45) 0%,rgba(0,82,217,0.15) 40%,transparent 70%);
+  background:radial-gradient(circle,rgba(0,82,217,0.08) 0%,rgba(0,82,217,0.02) 40%,transparent 70%);
 }
 .orb-2{
   width:400px;height:400px;bottom:-5%;left:-3%;
-  background:radial-gradient(circle,rgba(100,80,230,0.38) 0%,rgba(124,58,237,0.12) 40%,transparent 70%);
+  background:radial-gradient(circle,rgba(124,58,237,0.06) 0%,rgba(124,58,237,0.015) 40%,transparent 70%);
 }
 .orb-3{
   width:300px;height:300px;top:40%;left:45%;
-  background:radial-gradient(circle,rgba(0,200,255,0.32) 0%,rgba(0,164,255,0.08) 50%,transparent 70%);
+  background:radial-gradient(circle,rgba(0,164,255,0.05) 0%,rgba(0,164,255,0.01) 50%,transparent 70%);
 }
 
 .hero-badge {
   display:inline-flex; align-items:center; gap:8px;
-  background:rgba(0,82,217,0.15); border:1px solid rgba(0,164,255,0.3);
-  padding:7px 22px; border-radius:28px; font-size:13px; color:#00A4FF;
+  background:rgba(0,82,217,0.08); border:1px solid rgba(0,82,217,0.2);
+  padding:7px 22px; border-radius:28px; font-size:13px; color:#0052D9;
   margin-bottom:28px; letter-spacing:.03em; font-weight:600;
   animation:badgePulse 3s ease-in-out infinite;
-  backdrop-filter: blur(8px);
 }
 @keyframes badgePulse {
-  0%,100%{box-shadow:0 0 0 0 rgba(0,82,217,0.15);}
+  0%,100%{box-shadow:0 0 0 0 rgba(0,82,217,0.12);}
   50%{box-shadow:0 0 0 8px rgba(0,82,217,0);}
 }
 .hero-badge .icon-badge{width:16px;height:16px;fill:currentColor;}
@@ -187,7 +185,7 @@ a { color: var(--color-primary); text-decoration: none; transition: color .25s; 
   100%{background-position:0% center;}
 }
 .hero-subtitle{
-  font-size:16px;color:#a0b0d0;max-width:540px;margin:0 auto 24px;line-height:1.7;
+  font-size:16px;color:#5B657E;max-width:540px;margin:0 auto 24px;line-height:1.7;
   position:relative;z-index:1;
 }
 .hero-actions{
@@ -198,16 +196,16 @@ a { color: var(--color-primary); text-decoration: none; transition: color .25s; 
 .hero-stats {
   display:flex; justify-content:center; gap:32px; margin-top:36px; position:relative;z-index:1;
 }
-.stat-item{text-align:center;padding:14px 24px;border-radius:16px;background:rgba(255,255,255,0.08);
-  backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.1); min-width:110px;
+.stat-item{text-align:center;padding:14px 24px;border-radius:16px;background:rgba(255,255,255,0.7);
+  backdrop-filter:blur(12px); border:1px solid rgba(0,0,0,0.05); min-width:110px;
   transition:transform .3s ease,box-shadow .3s ease;
 }
-.stat-item:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,0.2);background:rgba(255,255,255,0.13);}
+.stat-item:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,0.08);background:rgba(255,255,255,0.85);}
 .stat-num{font-size:30px;font-weight:800;color:var(--color-primary);line-height:1.1;
   background:linear-gradient(135deg,var(--color-primary),var(--color-accent));
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
 }
-.stat-label{font-size:13px;color:rgba(255,255,255,0.5);margin-top:4px;font-weight:500;}
+.stat-label{font-size:13px;color:var(--text-muted);margin-top:4px;font-weight:500;}
 
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:8px;
@@ -220,8 +218,8 @@ a { color: var(--color-primary); text-decoration: none; transition: color .25s; 
   box-shadow:0 6px24px rgba(0,82,217,0.3);
 }
 .btn-primary:hover{transform:translateY(-3px);box-shadow:0 10px36px rgba(0,82,217,0.4);}
-.btn-outline{background:rgba(255,255,255,0.06);color:#fff;border:1.5px solid rgba(255,255,255,0.2);backdrop-filter:blur(4px);}
-.btn-outline:hover{background:rgba(255,255,255,0.12);border-color:rgba(255,255,255,0.35);}
+.btn-outline{background:rgba(255,255,255,0.15);color:#333;border:1.5px solid rgba(0,0,0,0.12);}
+.btn-outline:hover{background:rgba(255,255,255,0.3);border-color:rgba(0,0,0,0.2);}
 
 .container{max-width:var(--max-width);margin:0 auto;padding:0 44px;}
 
@@ -1523,13 +1521,13 @@ section{padding:100px 0;}
       // Draw particle with glow
       ctx.beginPath();
       ctx.arc(p.x,p.y,p.radius,0,Math.PI*2);
-      ctx.fillStyle='rgba(100,180,255,'+p.opacity+')';
+      ctx.fillStyle='rgba(0,100,220,'+p.opacity+')';
       ctx.fill();
 
       // Glow halo
       ctx.beginPath();
       ctx.arc(p.x,p.y,p.radius*3,0,Math.PI*2);
-      ctx.fillStyle='rgba(100,180,255,'+(p.opacity*0.08)+')';
+      ctx.fillStyle='rgba(0,100,220,'+(p.opacity*0.06)+')';
       ctx.fill();
 
       // Connect nearby particles
@@ -1537,10 +1535,10 @@ section{padding:100px 0;}
         const q=particles[j];
         const dx=p.x-q.x,dy=p.y-q.y,dist=Math.sqrt(dx*dx+dy*dy);
         if(dist<130){
-          const alpha=(1-dist/130)*0.12;
+          const alpha=(1-dist/130)*0.1;
           ctx.beginPath();
           ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);
-          ctx.strokeStyle='rgba(100,180,255,'+alpha+')';
+          ctx.strokeStyle='rgba(0,100,220,'+alpha+')';
           ctx.lineWidth=0.6;
           ctx.stroke();
         }
