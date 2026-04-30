@@ -180,25 +180,25 @@ section { padding: 96px 0; }
 
 /* ========== Cases - 3D Carousel ========== */
 .cases-section {
-  background: linear-gradient(170deg, #0B1829 0%, #0F2847 45%, #0A1628 100%);
+  background: var(--color-bg-section);
   position: relative; overflow: hidden;
 }
-/* Ambient glow for carousel */
+/* Subtle ambient glow */
 .cases-section::before {
   content: ''; position: absolute; top: 50%; left: 50%;
   transform: translate(-50%,-50%);
-  width: 600px; height: 400px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(0,82,217,0.12) 0%, transparent 70%);
+  width: 700px; height: 400px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,82,217,0.05) 0%, transparent 70%);
   filter: blur(60px); pointer-events: none;
 }
 .cases-carousel-wrap { perspective: 1200px; padding: 20px 0 40px; }
 .cases-carousel {
-  position: relative; width: 100%; height: 420px;
+  position: relative; width: 100%; height: 460px;
   display: flex; align-items: center; justify-content: center;
 }
 .case-slide {
-  position: absolute; width: 360px; height: 380px;
-  left: 50%; top: 50%; margin-left: -180px; margin-top: -190px;
+  position: absolute; width: 360px; height: 420px;
+  left: 50%; top: 50%; margin-left: -180px; margin-top: -210px;
   border-radius: 18px; overflow: hidden;
   cursor: pointer; transition: all .65s cubic-bezier(.23,1,.32,1);
   transform-style: preserve-3d;
@@ -265,18 +265,24 @@ section { padding: 96px 0; }
   border-radius: 18px; overflow: hidden;
   position: relative;
 }
-/* Gradient header area */
+/* Image header area */
 .case-card-visual {
-  height: 140px; position: relative; overflow: hidden;
-  display: flex; align-items: flex-end; padding: 20px 22px;
+  height: 180px; position: relative; overflow: hidden;
+  display: flex; align-items: flex-end; padding: 18px 22px;
 }
-.case-card-visual .visual-gradient {
+.case-card-visual .visual-img {
   position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover;
+  display: block;
+}
+.case-card-visual .visual-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.25) 50%, rgba(0,0,0,0.05) 100%);
 }
 .case-card-visual .school-badge {
   position: relative; z-index: 2;
   color: white; font-size: 19px; font-weight: 800;
-  letter-spacing: -0.01em; text-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  letter-spacing: -0.01em; text-shadow: 0 2px 10px rgba(0,0,0,0.5);
 }
 .case-card-body {
   flex: 1; padding: 18px 22px 20px;
@@ -313,13 +319,13 @@ section { padding: 96px 0; }
 }
 .carousel-dot {
   width: 9px; height: 9px; border-radius: 50%;
-  background: rgba(255,255,255,0.25); cursor: pointer;
-  transition: all .35s ease; border: none;
+  background: rgba(0,82,217,0.18); cursor: pointer;
+  transition: all .35s ease; border: none; padding: 0;
 }
-.carousel-dot:hover { background: rgba(255,255,255,0.45); }
+.carousel-dot:hover { background: rgba(0,82,217,0.35); }
 .carousel-dot.active {
   width: 28px; border-radius: 5px;
-  background: var(--color-accent);
+  background: var(--color-primary);
 }
 
 /* Entry animation for carousel */
@@ -332,7 +338,7 @@ section { padding: 96px 0; }
 }
 
 @media (max-width: 768px) {
-  .case-slide { width: 300px; margin-left: -150px; margin-top: -175px; height: 350px; }
+  .case-slide { width: 300px; margin-left: -150px; margin-top: -195px; height: 390px; }
   .case-slide.prev { transform: translateX(-72%) scale(0.84) rotateY(10deg) translateZ(-60px); }
   .case-slide.next { transform: translateX(72%) scale(0.84) rotateY(-10deg) translateZ(-60px); }
   .case-slide.prev-far, .case-slide.next-far { display: none; }
@@ -670,8 +676,8 @@ section { padding: 96px 0; }
 <section class="cases-section">
   <div class="container">
     <div class="section-header">
-      <div class="section-tag" style="background:rgba(0,82,217,0.2);color:#6BAFFF;">CASES</div>
-      <h2 class="section-title" style="color:white;">我们做过的事</h2>
+      <div class="section-tag">CASES</div>
+      <h2 class="section-title">我们做过的事</h2>
     </div>
     <div class="cases-carousel-wrap scroll-reveal">
       <div class="cases-carousel" id="casesCarousel">
@@ -680,7 +686,8 @@ section { padding: 96px 0; }
         <a href="https://mp.weixin.qq.com/s/uoSktf4fRu8ASrei4ivDVQ" target="_blank" class="case-slide active" data-index="0">
           <div class="case-inner">
             <div class="case-card-visual">
-              <div class="visual-gradient" style="background:linear-gradient(135deg,#1a3a6c,#0d2847 50%,#0052D9);"></div>
+              <img class="visual-img" src="img_sjtu.jpg" alt="上海交通大学活动现场">
+              <div class="visual-overlay"></div>
               <span class="school-badge">上海交通大学</span>
             </div>
             <div class="case-card-body">
@@ -700,7 +707,8 @@ section { padding: 96px 0; }
         <a href="https://mp.weixin.qq.com/s/Q5CQ4YEaiVPAbptxACe7ng" target="_blank" class="case-slide next" data-index="1">
           <div class="case-inner">
             <div class="case-card-visual">
-              <div class="visual-gradient" style="background:linear-gradient(135deg,#1a4a3c,#0d3024 50%,#00B578);"></div>
+              <img class="visual-img" src="img_njust.jpg" alt="南京理工大学活动现场">
+              <div class="visual-overlay"></div>
               <span class="school-badge">南京理工大学</span>
             </div>
             <div class="case-card-body">
@@ -720,7 +728,8 @@ section { padding: 96px 0; }
         <a href="https://mp.weixin.qq.com/s/Q0q8qe9KKhhXpfUmvCcE8A" target="_blank" class="case-slide next-far" data-index="2">
           <div class="case-inner">
             <div class="case-card-visual">
-              <div class="visual-gradient" style="background:linear-gradient(135deg,#3d2800,#2a1c00 50%,#FF6B35);"></div>
+              <img class="visual-img" src="img_dlut.jpg" alt="大连理工大学活动现场">
+              <div class="visual-overlay"></div>
               <span class="school-badge">大连理工大学</span>
             </div>
             <div class="case-card-body">
@@ -740,7 +749,8 @@ section { padding: 96px 0; }
         <a href="https://mp.weixin.qq.com/s/-Gwngv2cOZc9UPZEkeGs1Q" target="_blank" class="case-slide prev-far" data-index="3">
           <div class="case-inner">
             <div class="case-card-visual">
-              <div class="visual-gradient" style="background:linear-gradient(135deg,#2a1840,#1a0f28 50%,#7C3AED);"></div>
+              <img class="visual-img" src="img_ccnu.jpg" alt="华中师范大学活动现场">
+              <div class="visual-overlay"></div>
               <span class="school-badge">华中师范大学</span>
             </div>
             <div class="case-card-body">
@@ -1101,16 +1111,7 @@ section { padding: 96px 0; }
       </div>
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
-          Q2：如何申请成为校园大使？
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-answer">
-          <p>扫码填写<strong>报名问卷</strong>，审核通过后将与本校腾讯云教育行业售前老师建立联系，拉群并组织线下见面交流。</p>
-        </div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-question" onclick="toggleFaq(this)">
-          Q3：如何进行评优激励？
+          Q2：如何进行评优激励？
           <span class="faq-icon">+</span>
         </button>
         <div class="faq-answer">
