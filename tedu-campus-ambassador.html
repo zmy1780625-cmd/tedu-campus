@@ -1,0 +1,2959 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>腾讯云Tedu校园大使计划</title>
+    <style>
+        /* ========== CSS Reset & Base ========== */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "HarmonyOS Sans", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+            color: #4A4A4A;
+            background:
+                radial-gradient(ellipse 1000px 600px at 50% 15%, rgba(0,82,217,0.05) 0%, transparent 60%),
+                radial-gradient(ellipse 800px 500px at 90% 40%, rgba(138,58,223,0.04) 0%, transparent 55%),
+                radial-gradient(ellipse 800px 500px at 5% 70%, rgba(0,163,255,0.04) 0%, transparent 55%),
+                radial-gradient(ellipse 900px 500px at 60% 90%, rgba(138,58,223,0.035) 0%, transparent 60%),
+                linear-gradient(180deg, #FFFFFF 0%, #F7F5FF 50%, #F4F7FE 100%);
+            background-attachment: fixed;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+        /* Global noise texture overlay (page-wide) */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background-image:
+                url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.4 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.5'/></svg>");
+            opacity: 0.3;
+            mix-blend-mode: multiply;
+        }
+        a { text-decoration: none; color: inherit; }
+        ul, ol { list-style: none; }
+
+        /* ========== Design Tokens ========== */
+        :root {
+            --blue: #0052D9;
+            --blue-light: #00A3FF;
+            --blue-bg: #EEF4FF;
+            --green-bg: #E8F7EF;
+            --purple-bg: #F3F0FF;
+            --text-title: #0A0A0A;
+            --text-body: #4A4A4A;
+            --text-muted: #9AA0A6;
+            --border-color: #F0F0F0;
+            --bg-page: #FAFBFC;
+            --card-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            --card-hover-shadow: 0 8px 32px rgba(0,0,0,0.08);
+            --radius-card: 16px;
+            --radius-btn: 12px;
+            --max-w: 1200px;
+            --section-gap: 100px;
+        }
+
+        /* ========== Utility ========== */
+        .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+        .section { padding: var(--section-gap) 0; position: relative; z-index: 1; }
+        .section-label {
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--blue);
+            margin-bottom: 12px;
+        }
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-title);
+            line-height: 1.3;
+            margin-bottom: 16px;
+        }
+        .section-subtitle {
+            font-size: 17px;
+            color: var(--text-body);
+            max-width: 640px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+        .text-center { text-align: center; }
+        .mb-sm { margin-bottom: 24px; }
+        .mb-md { margin-bottom: 48px; }
+        .mb-lg { margin-bottom: 64px; }
+
+        /* ========== Buttons ========== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            border-radius: var(--radius-btn);
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            white-space: nowrap;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--blue), var(--blue-light));
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(0,82,217,0.3);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(0,82,217,0.4);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--blue);
+            border: 1.5px solid var(--blue);
+        }
+        .btn-outline:hover {
+            background: var(--blue-bg);
+            transform: translateY(-2px);
+        }
+        .btn-white {
+            background: #fff;
+            color: var(--blue);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+        }
+        .btn-white:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(0,0,0,0.12);
+        }
+        .btn-large { padding: 18px 44px; font-size: 17px; }
+
+        /* ========== Navbar ========== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+        .navbar.scrolled {
+            background: rgba(255,255,255,0.95);
+            box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+        }
+        .navbar-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 68px;
+            max-width: var(--max-w);
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--text-title);
+        }
+        .nav-brand svg { width: 28px; height: 28px; }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-link {
+            padding: 8px 14px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-body);
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+        .nav-link:hover { color: var(--blue); background: var(--blue-bg); }
+        .nav-cta {
+            margin-left: 12px;
+        }
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+        .mobile-menu-btn span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--text-title);
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        /* ========== Hero Section ========== */
+        .hero {
+            position: relative;
+            min-height: 640px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            padding: 92px 0 48px;
+            background: linear-gradient(135deg, #F0F6FF 0%, #E8F0FE 30%, #F5F0FF 70%, #EFF8FF 100%);
+            z-index: 2;
+        }
+        .hero-particles {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--blue);
+            opacity: 0.15;
+            border-radius: 50%;
+            animation: floatParticle 15s infinite ease-in-out;
+        }
+        @keyframes floatParticle {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-40px) translateX(20px); }
+            50% { transform: translateY(-10px) translateX(-15px); }
+            75% { transform: translateY(-35px) translateX(10px); }
+        }
+        .hero-grid-overlay {
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(circle at 20% 50%, rgba(0,82,217,0.03) 0%, transparent 60%),
+                radial-gradient(circle at 80% 30%, rgba(0,163,255,0.04) 0%, transparent 50%),
+                radial-gradient(circle at 50% 80%, rgba(138,43,226,0.03) 0%, transparent 55%);
+            pointer-events: none;
+        }
+        /* Decorative background elements */
+        .hero-deco {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .deco-curves {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .deco-dots {
+            position: absolute;
+            top: 90px;
+            right: 3%;
+            width: 180px;
+            height: 90px;
+            background-image: radial-gradient(circle, rgba(0,82,217,0.28) 1.2px, transparent 1.6px);
+            background-size: 14px 14px;
+            opacity: 0.55;
+        }
+        .deco-cap {
+            position: absolute;
+            right: 4%;
+            top: 52%;
+            width: 150px;
+            height: 150px;
+            animation: capFloat 7s ease-in-out infinite;
+            filter: drop-shadow(0 20px 36px rgba(99,82,217,0.28));
+        }
+        @keyframes capFloat {
+            0%, 100% { transform: translateY(0) rotate(-8deg); }
+            50% { transform: translateY(-14px) rotate(-4deg); }
+        }
+        .deco-cloud {
+            position: absolute;
+            animation: cloudFloat 8s ease-in-out infinite;
+            filter: drop-shadow(0 15px 30px rgba(99,82,217,0.18));
+        }
+        .deco-cloud-1 {
+            left: 42%;
+            bottom: 8%;
+            width: 140px;
+            height: 90px;
+        }
+        .deco-cloud-2 {
+            left: 4%;
+            bottom: 20%;
+            width: 90px;
+            height: 60px;
+            opacity: 0.7;
+            animation-delay: -3s;
+        }
+        .deco-cloud-3 {
+            right: 30%;
+            top: 20%;
+            width: 70px;
+            height: 45px;
+            opacity: 0.55;
+            animation-delay: -5s;
+        }
+        @keyframes cloudFloat {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(-10px) translateX(6px); }
+        }
+        .hero-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 60px;
+            position: relative;
+            z-index: 2;
+        }
+        .hero-content { animation: fadeInUp 0.8s ease forwards; }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--blue-bg);
+            color: var(--blue);
+            padding: 8px 18px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 28px;
+            animation: fadeInUp 0.8s ease 0.1s forwards;
+            opacity: 0;
+        }
+        .hero-title {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--text-title);
+            line-height: 1.2;
+            margin-bottom: 28px;
+            animation: fadeInUp 0.8s ease 0.2s forwards;
+            opacity: 0;
+        }
+        .hero-title span { background: linear-gradient(135deg, var(--blue), var(--blue-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero-subtitle {
+            font-size: 17px;
+            color: var(--text-body);
+            line-height: 2;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease 0.3s forwards;
+            opacity: 0;
+        }
+        .hero-subtitle p {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .hero-subtitle p::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--blue);
+            flex-shrink: 0;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            animation: fadeInUp 0.8s ease 0.4s forwards;
+            opacity: 0;
+        }
+        .hero-visual {
+            position: relative;
+            animation: fadeInUp 0.8s ease 0.3s forwards;
+            opacity: 0;
+        }
+        .hero-illustration {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            max-width: 520px;
+            margin: 0 auto;
+        }
+        .hero-glass-card {
+            position: absolute;
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.6);
+            border-radius: var(--radius-card);
+            padding: 20px 24px;
+            box-shadow: var(--card-shadow);
+            animation: cardFloat 6s ease-in-out infinite;
+        }
+        @keyframes cardFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+        .gc-main {
+            top: 5%; left: 5%;
+            width: 78%;
+            height: 82%;
+            border-radius: 24px;
+            background: linear-gradient(145deg, rgba(255,255,255,0.95), rgba(245,250,255,0.9));
+            border: 1px solid rgba(0,82,217,0.08);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 36px;
+            text-align: center;
+        }
+        .gc-icon-wrap {
+            width: 120px;
+            height: 120px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        /* ════ Layer 0: Warm ambient glow ════ */
+        .gc-icon-glow-field {
+            position: absolute;
+            width: 180px; height: 180px;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            background:
+                radial-gradient(circle at 30% 28%,
+                    rgba(138,90,255,0.18) 0%,
+                    rgba(0,160,255,0.12) 30%,
+                    rgba(0,120,220,0.06) 50%,
+                    transparent 70%);
+            filter: blur(24px);
+            animation: glowPulse 4s ease-in-out infinite alternate;
+            pointer-events: none; z-index: 0;
+        }
+        @keyframes glowPulse {
+            0% { transform: translate(-50%, -50%) scale(0.88); opacity: 0.5; }
+            100% { transform: translate(-50%, -50%) scale(1.12); opacity: 1; }
+        }
+
+        /* ════ Layer 1: Outer dashed orbit ring ════ */
+        .gc-icon-orbit-ring {
+            position: absolute;
+            width: 130px; height: 130px;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1; pointer-events: none;
+        }
+        .gc-icon-orbit-ring svg { width: 100%; height: 100%; animation: orbitSpin 16s linear infinite; }
+        @keyframes orbitSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* ════ Orbiting bouncing dots (3 dots) ════ */
+        .orbit-dot {
+            position: absolute;
+            border-radius: 50%;
+            z-index: 2; pointer-events: none;
+        }
+        /* Dot 1 — Pink top-right */
+        .od-1 {
+            width: 10px; height: 10px;
+            top: -2px; right: 8%;
+            background: linear-gradient(135deg, #FF6BB3, #FF3D9A);
+            box-shadow: 0 2px 10px rgba(255,61,154,0.5);
+            animation: dotBounce1 2s cubic-bezier(0.34,1.56,0.64,1) infinite;
+        }
+        /* Dot 2 — Cyan bottom-left */
+        .od-2 {
+            width: 7px; height: 7px;
+            bottom: 4px; left: 2%;
+            background: linear-gradient(135deg, #00E5FF, #00B8D4);
+            box-shadow: 0 2px 8px rgba(0,229,255,0.45);
+            animation: dotBounce2 2.4s cubic-bezier(0.34,1.56,0.64,1) infinite;
+        }
+        /* Dot 3 — Purple middle-right */
+        .od-3 {
+            width: 6px; height: 6px;
+            top: 48%; right: -4px;
+            background: linear-gradient(135deg, #B87AE6, #8B3ADF);
+            box-shadow: 0 2px 8px rgba(139,58,223,0.45);
+            animation: dotBounce3 1.8s cubic-bezier(0.34,1.56,0.64,1) infinite;
+        }
+        /* Dot 4 — Gold sparkle top-left */
+        .od-4 {
+            width: 8px; height: 8px;
+            top: 6%; left: 0;
+            background: linear-gradient(135deg, #FFD666, #FFAA00);
+            box-shadow: 0 2px 8px rgba(255,170,0,0.4);
+            animation: dotBounce4 2.8s cubic-bezier(0.34,1.56,0.64,1) infinite;
+        }
+        @keyframes dotBounce1 {
+            0%,100% { transform: translateY(0) scale(1); }
+            40% { transform: translateY(-8px) scale(1.25); }
+        }
+        @keyframes dotBounce2 {
+            0%,100% { transform: translateY(0) scale(1); }
+            35% { transform: translateY(-7px) scale(1.2); }
+        }
+        @keyframes dotBounce3 {
+            0%,100% { transform: translateY(0) scale(1) rotate(0deg); }
+            45% { transform: translateY(-9px) scale(1.3) rotate(15deg); }
+        }
+        @keyframes dotBounce4 {
+            0%,100% { transform: translateY(0) rotate(0deg) scale(1); }
+            50% { transform: translateY(-6px) rotate(20deg) scale(1.15); }
+        }
+
+        /* ════ Layer 2: Back blob (offset for depth) ════ */
+        .gc-icon-blob-back {
+            position: absolute;
+            width: 96px; height: 92px;
+            top: 54%; left: 54%;
+            transform: translate(-50%, -50%);
+            z-index: 3;
+        }
+        .gc-icon-blob-back::before {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(145deg,
+                #0036A3 0%, #4A28BD 50%, #6B3AC7 100%);
+            border-radius: 55% 45% 48% 52% / 52% 55% 45% 48%;
+            opacity: 0.38; filter: blur(3px);
+        }
+
+        /* ════ Layer 3: Main blob body ════ */
+        .gc-icon-blob {
+            width: 102px; height: 98px;
+            position: relative;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 5; transform-style: preserve-3d;
+        }
+        .gc-icon-blob::before {
+            content: '';
+            position: absolute; inset: 0;
+            background:
+                conic-gradient(from 200deg at 55% 45%,
+                    #0052D9 0deg,
+                    #0070E8 40deg,
+                    #00A3FF 80deg,
+                    #00CCFF 130deg,
+                    #33DDFF 170deg,
+                    #7B68EE 210deg,
+                    #9B6EFF 250deg,
+                    #C77DFF 290deg,
+                    #E08FFF 320deg,
+                    #F0A0FF 340deg,
+                    #00A3FF 360deg
+                );
+            border-radius: 52% 48% 54% 46% / 48% 52% 46% 54%;
+            box-shadow:
+                0 18px 50px rgba(0,40,140,0.32),
+                0 8px 24px rgba(0,82,217,0.22),
+                0 3px 10px rgba(123,104,238,0.14),
+                inset 0 2px 2px rgba(255,255,255,0.38),
+                inset 0 -2px 4px rgba(0,20,100,0.12);
+        }
+
+        /* ════ Layer 4: Glass overlay on blob ════ */
+        .gc-icon-blob::after {
+            content: '';
+            position: absolute; inset: 4px;
+            background:
+                linear-gradient(170deg,
+                    rgba(255,255,255,0.50) 0%,
+                    rgba(255,255,255,0.22) 10%,
+                    rgba(255,255,255,0.06) 30%,
+                    transparent 46%,
+                    rgba(150,100,255,0.04) 65%,
+                    rgba(0,160,255,0.06) 82%,
+                    rgba(0,100,190,0.03) 100%
+                );
+            border-radius: 50% 50% 51% 49% / 48% 50% 49% 51%;
+            backdrop-filter: blur(10px) saturate(1.6);
+            -webkit-backdrop-filter: blur(10px) saturate(1.6);
+            pointer-events: none;
+        }
+
+        /* ════ Layer 5: Shimmer sweep ════ */
+        .blob-shimmer {
+            position: absolute; inset: 0; overflow: hidden;
+            z-index: 6; pointer-events: none;
+            border-radius: 52% 48% 54% 46% / 48% 52% 46% 54%;
+        }
+        .blob-shimmer::before {
+            content: '';
+            position: absolute;
+            top: -80%; left: -60%;
+            width: 45%; height: 260%;
+            background: linear-gradient(
+                108deg,
+                transparent 0%,
+                rgba(255,255,255,0) 22%,
+                rgba(255,255,255,0.62) 44%,
+                rgba(255,255,255,0.06) 50%,
+                transparent 56%,
+                transparent 100%
+            );
+            transform: skewX(-15deg);
+            animation: shimmerSweep 3.5s ease-in-out infinite;
+        }
+        @keyframes shimmerSweep {
+            0% { transform: translateX(-100%) skewX(-15deg); }
+            100% { transform: translateX(300%) skewX(-15deg); }
+        }
+
+        /* ════ Layer 6: Top highlight curve ════ */
+        .blob-highlight-curve {
+            position: absolute; inset: 0;
+            z-index: 6; pointer-events: none;
+            overflow: hidden;
+            border-radius: 52% 48% 54% 46% / 48% 52% 46% 54%;
+        }
+        .blob-highlight-curve::before {
+            content: '';
+            position: absolute;
+            top: 4%; left: 12%;
+            width: 36%; height: 18%;
+            background: linear-gradient(175deg,
+                rgba(255,255,255,0.60) 0%,
+                rgba(255,255,255,0.18) 50%,
+                transparent 100%);
+            border-radius: 50% 50% 45% 55% / 60% 40% 55% 45%;
+            filter: blur(1px);
+        }
+
+        /* ════ Layer 7: SVG icon (friendly style) ════ */
+        .icon-inner-svg {
+            width: 38px; height: 38px;
+            fill: #fff;
+            filter:
+                drop-shadow(0 2px 6px rgba(0,30,120,0.30))
+                drop-shadow(0 0 14px rgba(155,110,255,0.22));
+            position: relative; z-index: 7;
+        }
+
+        /* ════ Master bounce animation (playful spring feel) ════ */
+        @keyframes blobBounce {
+            0%, 100% { transform: translateY(0) scale(1) rotate(0deg); }
+            25% { transform: translateY(-6px) scale(1.02) rotate(-1.5deg); }
+            50% { transform: translateY(-2px) scale(0.99) rotate(1deg); }
+            75% { transform: translateY(-5px) scale(1.01) rotate(-0.5deg); }
+        }
+        .gc-icon-blob {
+            animation: blobBounce 4s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+        }
+        .gc-main h3 { font-size: 22px; font-weight: 700; color: var(--text-title); margin-bottom: 10px; }
+        .gc-main p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+        .gc-tag {
+            display: inline-block;
+            background: var(--green-bg);
+            color: #00A870;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 5px 14px;
+            border-radius: 999px;
+            margin-top: 16px;
+        }
+        .gc-float-1 {
+            top: 8%; right: -4%;
+            padding: 14px 20px;
+            animation-delay: -1s !important;
+        }
+        .gc-float-2 {
+            bottom: 15%; left: -4%;
+            padding: 14px 20px;
+            animation-delay: -3s !important;
+        }
+        .gc-float-3 {
+            bottom: 5%; right: 8%;
+            padding: 12px 18px;
+            animation-delay: -2s !important;
+            font-size: 13px;
+        }
+        .gc-dot {
+            display: inline-block;
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            margin-right: 6px;
+            vertical-align: middle;
+        }
+
+        /* ========== Section: About (我们是谁) ========== */
+        .about-section { background: transparent; position: relative; overflow: hidden; }
+        .about-section::after {
+            content: '';
+            position: absolute;
+            top: -80px; right: -120px;
+            width: 520px; height: 420px;
+            background: radial-gradient(ellipse at center, rgba(0,82,217,0.14) 0%, rgba(0,163,255,0.06) 40%, transparent 70%);
+            border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%;
+            filter: blur(40px);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .about-section::before {
+            content: '';
+            position: absolute;
+            bottom: 60px; left: -100px;
+            width: 360px; height: 280px;
+            background: radial-gradient(ellipse at center, rgba(138,58,223,0.1) 0%, transparent 65%);
+            border-radius: 45% 55% 60% 40% / 55% 45% 50% 50%;
+            filter: blur(36px);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .about-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+            margin-top: 56px;
+        }
+        .about-card {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-card);
+            padding: 40px 32px;
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .about-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--blue), var(--blue-light));
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+        .about-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--card-hover-shadow);
+        }
+        .about-card:hover::before { opacity: 1; }
+        .about-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            font-size: 26px;
+        }
+        .about-card:nth-child(1) .about-icon { background: var(--blue-bg); }
+        .about-card:nth-child(2) .about-icon { background: var(--purple-bg); }
+        .about-card:nth-child(3) .about-icon { background: var(--green-bg); }
+        .about-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-title);
+            margin-bottom: 12px;
+        }
+        .about-card p {
+            font-size: 15px;
+            color: var(--text-body);
+            line-height: 1.7;
+        }
+
+        /* ========== Section: Cases (做过的事) ========== */
+        .cases-section { background: transparent; position: relative; overflow: hidden; }
+        .cases-section::after {
+            content: '';
+            position: absolute;
+            top: 120px; left: -140px;
+            width: 460px; height: 460px;
+            background: radial-gradient(circle at center, rgba(0,163,255,0.12) 0%, rgba(0,82,217,0.05) 45%, transparent 72%);
+            border-radius: 48% 52% 42% 58% / 55% 40% 60% 45%;
+            filter: blur(42px);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .cases-section::before {
+            content: '';
+            position: absolute;
+            bottom: -60px; right: 8%;
+            width: 380px; height: 320px;
+            background: radial-gradient(ellipse at center, rgba(255,193,7,0.08) 0%, rgba(138,58,223,0.06) 50%, transparent 70%);
+            border-radius: 55% 45% 50% 50% / 45% 55% 45% 55%;
+            filter: blur(38px);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .cases-carousel-wrapper {
+            position: relative;
+            margin-top: 56px;
+            overflow: hidden;
+            mask-image: linear-gradient(to right, transparent 0, #000 60px, #000 calc(100% - 60px), transparent 100%);
+            -webkit-mask-image: linear-gradient(to right, transparent 0, #000 60px, #000 calc(100% - 60px), transparent 100%);
+        }
+        .cases-carousel {
+            display: flex;
+            gap: 24px;
+            padding: 8px 0 24px;
+            animation: marqueeX 50s linear infinite;
+            width: max-content;
+        }
+        .cases-carousel:hover { animation-play-state: paused; }
+        @keyframes marqueeX {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+        .case-card {
+            min-width: 340px;
+            max-width: 360px;
+            flex-shrink: 0;
+            background: #fff;
+            border-radius: var(--radius-card);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            scroll-snap-align: start;
+            transition: all 0.25s ease;
+            scroll-snap-align: start;
+        }
+        .case-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--card-hover-shadow);
+        }
+        .case-card-top {
+            height: 180px;
+            position: relative;
+            overflow: hidden;
+        }
+        .case-card-top img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+        .case-card:hover .case-card-top img {
+            transform: scale(1.05);
+        }
+        .case-card-top::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 48px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.35));
+            pointer-events: none;
+        }
+        .case-school {
+            font-size: 12px;
+            font-weight: 600;
+            color: #fff;
+            letter-spacing: 0.5px;
+            position: absolute;
+            bottom: 10px;
+            left: 14px;
+            z-index: 2;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+        }
+        .case-card-body {
+            padding: 24px;
+        }
+        .case-card-body h4 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-title);
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+        .case-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .case-count {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--blue-bg);
+            color: var(--blue);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 5px 14px;
+            border-radius: 999px;
+        }
+        .case-link {
+            font-size: 13px;
+            color: var(--blue);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: gap 0.2s ease;
+        }
+        .case-link:hover { gap: 8px; }
+        .carousel-nav {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 32px;
+        }
+        .carousel-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 18px;
+            color: var(--text-body);
+        }
+        .carousel-btn:hover {
+            border-color: var(--blue);
+            color: var(--blue);
+            background: var(--blue-bg);
+        }
+
+        /* ========== Section: Ambassadors (大使风采) ========== */
+        .ambassadors-section {
+            position: relative;
+            overflow: hidden;
+            background: transparent;
+        }
+        /* Remove duplicated noise on this section since body already has global noise */
+        .ambassadors-section::before {
+            content: '';
+            position: absolute;
+            top: 180px; left: -90px;
+            width: 420px; height: 360px;
+            background: radial-gradient(ellipse at center, rgba(0,82,217,0.12) 0%, rgba(0,163,255,0.05) 50%, transparent 72%);
+            border-radius: 55% 45% 60% 40% / 50% 55% 45% 50%;
+            filter: blur(44px);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .ambassadors-section::after {
+            content: '';
+            position: absolute;
+            bottom: 80px; right: -100px;
+            width: 460px; height: 380px;
+            background: radial-gradient(ellipse at center, rgba(139,58,223,0.12) 0%, rgba(184,27,93,0.04) 50%, transparent 72%);
+            border-radius: 45% 55% 50% 50% / 60% 40% 55% 45%;
+            filter: blur(42px);
+            pointer-events: none;
+            z-index: 0;
+        }
+        /* Central ring halo (data ring anchor) */
+        .amb-ring-anchor {
+            position: absolute;
+            top: 90px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 520px;
+            height: 520px;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.5;
+        }
+        .amb-ring-anchor svg { width: 100%; height: 100%; }
+        @keyframes ringRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes ringRotateReverse {
+            from { transform: rotate(360deg); }
+            to { transform: rotate(0deg); }
+        }
+        .amb-ring-outer { animation: ringRotate 40s linear infinite; transform-origin: center; }
+        .amb-ring-mid { animation: ringRotateReverse 55s linear infinite; transform-origin: center; }
+        .amb-ring-inner { animation: ringRotate 30s linear infinite; transform-origin: center; }
+
+        .ambassadors-wrapper {
+            margin-top: 56px;
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+            mask-image: linear-gradient(to right, transparent 0, #000 60px, #000 calc(100% - 60px), transparent 100%);
+            -webkit-mask-image: linear-gradient(to right, transparent 0, #000 60px, #000 calc(100% - 60px), transparent 100%);
+        }
+        .ambassadors-carousel {
+            display: flex;
+            gap: 20px;
+            padding: 16px 0 24px;
+            animation: marqueeX 60s linear infinite;
+            width: max-content;
+        }
+        .ambassadors-carousel:hover { animation-play-state: paused; }
+        .amb-card {
+            flex-shrink: 0;
+            width: 170px;
+            background: rgba(255,255,255,0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.8);
+            border-radius: var(--radius-card);
+            padding: 30px 18px 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            scroll-snap-align: center;
+            box-shadow: 0 4px 24px rgba(0,82,217,0.04);
+        }
+        .amb-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 36px rgba(0,82,217,0.12);
+            border-color: rgba(0,82,217,0.15);
+        }
+        /* Avatar with gradient halo ring */
+        .amb-avatar-wrap {
+            position: relative;
+            width: 84px;
+            height: 84px;
+            margin: 0 auto 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .amb-avatar-wrap::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: var(--halo, linear-gradient(135deg, #0052D9, #00A3FF));
+            opacity: 0.5;
+            filter: blur(8px);
+            z-index: 0;
+            transition: opacity 0.3s ease;
+        }
+        .amb-avatar-wrap::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            padding: 3px;
+            background: var(--halo, linear-gradient(135deg, #0052D9, #00A3FF));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            z-index: 1;
+        }
+        .amb-card:hover .amb-avatar-wrap::before { opacity: 0.8; }
+        .amb-avatar-lg {
+            position: relative;
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            font-weight: 700;
+            color: #fff;
+            transition: transform 0.3s ease;
+            z-index: 2;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        .amb-card:hover .amb-avatar-lg { transform: scale(1.05); }
+        .amb-name {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-title);
+            margin-bottom: 4px;
+        }
+        .amb-school {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+        .amb-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 28px;
+            position: relative;
+            z-index: 2;
+        }
+        .amb-nav button {
+            width: 42px; height: 42px;
+            border-radius: 50%;
+            border: 1px solid rgba(0,82,217,0.15);
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(8px);
+            cursor: pointer;
+            font-size: 15px; color: var(--text-body);
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s ease;
+        }
+        .amb-nav button:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-bg); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,82,217,0.15); }
+
+        /* ========== Section: Benefits (权益) ========== */
+        .benefits-section { background: transparent; position: relative; overflow: hidden; }
+        .benefits-section::after {
+            content: '';
+            position: absolute;
+            top: 80px; right: -90px;
+            width: 440px; height: 380px;
+            background: radial-gradient(ellipse at center, rgba(0,168,112,0.12) 0%, rgba(0,163,255,0.05) 45%, transparent 72%);
+            border-radius: 52% 48% 60% 40% / 45% 55% 45% 55%;
+            filter: blur(44px);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .benefits-section::before {
+            content: '';
+            position: absolute;
+            bottom: 40px; left: -80px;
+            width: 420px; height: 340px;
+            background: radial-gradient(ellipse at center, rgba(139,58,223,0.11) 0%, rgba(0,82,217,0.04) 50%, transparent 72%);
+            border-radius: 45% 55% 50% 50% / 60% 40% 55% 45%;
+            filter: blur(40px);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-top: 56px;
+        }
+        .benefit-card {
+            background: #fff;
+            border-radius: var(--radius-card);
+            border: 1px solid var(--border-color);
+            padding: 36px 32px;
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .benefit-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--card-hover-shadow);
+        }
+        .benefit-card::after {
+            content: '';
+            position: absolute;
+            top: -40px;
+            right: -40px;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            opacity: 0.07;
+        }
+        .benefit-card.career::after { background: var(--blue); }
+        .benefit-card.exposure::after { background: #8B3ADF; }
+        .benefit-card.tech::after { background: #00A870; }
+        .benefit-card.resource::after { background: #666; }
+        .benefit-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 24px;
+        }
+        .benefit-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+        .benefit-card.career .benefit-icon { background: var(--blue-bg); }
+        .benefit-card.exposure .benefit-icon { background: var(--purple-bg); }
+        .benefit-card.tech .benefit-icon { background: var(--green-bg); }
+        .benefit-card.resource .benefit-icon { background: #F5F5F5; }
+        .benefit-card h3 {
+            font-size: 19px;
+            font-weight: 700;
+            color: var(--text-title);
+        }
+        .benefit-list { list-style: none; }
+        .benefit-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 14px;
+            color: var(--text-body);
+            line-height: 1.65;
+        }
+        .benefit-list li:last-child { border-bottom: none; }
+        .benefit-list li .bl-check {
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            margin-top: 2px;
+        }
+        .benefit-card.career .bl-check { background: var(--blue-bg); color: var(--blue); }
+        .benefit-card.exposure .bl-check { background: var(--purple-bg); color: #8B3ADF; }
+        .benefit-card.tech .bl-check { background: var(--green-bg); color: #00A870; }
+        .benefit-card.resource .bl-check { background: #F0F0F0; color: #666; }
+
+        /* ========== Section: Work Content (工作内容) ========== */
+        .work-compare {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 40px;
+            margin-top: 56px;
+            align-items: start;
+        }
+        .work-column h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-title);
+            margin-bottom: 28px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .work-items {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .work-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 20px 22px;
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-card);
+            box-shadow: var(--card-shadow);
+            transition: all 0.25s ease;
+            position: relative;
+        }
+        .work-item:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--card-hover-shadow);
+            border-color: rgba(0,82,217,0.15);
+        }
+        .work-column:last-of-type .work-item:hover {
+            border-color: rgba(0,168,112,0.2);
+        }
+        .wi-icon {
+            flex-shrink: 0;
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 17px;
+            background: var(--blue-bg);
+            color: var(--blue);
+        }
+        .work-column:last-of-type .wi-icon {
+            background: var(--green-bg);
+            color: #007D53;
+        }
+        .wi-text strong {
+            display: block;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-title);
+            margin-bottom: 4px;
+        }
+        .wi-text p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+        .work-divider {
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, var(--border-color), var(--border-color), transparent);
+            min-height: 300px;
+            position: relative;
+        }
+        .work-divider::before {
+            content: 'VS';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            padding: 6px 10px;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+        }
+
+        /* ========== Section: Assessment (考核标准) ========== */
+        .assessment-section { background: transparent; position: relative; overflow: hidden; }
+        .assessment-section::after {
+            content: '';
+            position: absolute;
+            top: 100px; left: 12%;
+            width: 380px; height: 320px;
+            background: radial-gradient(ellipse at center, rgba(0,82,217,0.1) 0%, rgba(0,163,255,0.04) 50%, transparent 72%);
+            border-radius: 55% 45% 45% 55% / 50% 55% 45% 50%;
+            filter: blur(42px);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .assessment-section::before {
+            content: '';
+            position: absolute;
+            bottom: 80px; right: -100px;
+            width: 460px; height: 360px;
+            background: radial-gradient(ellipse at center, rgba(224,123,38,0.09) 0%, rgba(139,58,223,0.05) 50%, transparent 72%);
+            border-radius: 45% 55% 55% 45% / 60% 40% 55% 45%;
+            filter: blur(44px);
+            pointer-events: none;
+            z-index: 0;
+        }
+        /* Work section (工作内容) unique halos */
+        .work-section { position: relative; overflow: hidden; }
+        .work-section::after {
+            content: '';
+            position: absolute;
+            top: 60px; right: -70px;
+            width: 340px; height: 380px;
+            background: radial-gradient(ellipse at center, rgba(184,27,93,0.1) 0%, rgba(139,58,223,0.05) 50%, transparent 72%);
+            border-radius: 50% 50% 60% 40% / 55% 45% 55% 45%;
+            filter: blur(40px);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .work-section::before {
+            content: '';
+            position: absolute;
+            bottom: 60px; left: -60px;
+            width: 320px; height: 300px;
+            background: radial-gradient(ellipse at center, rgba(0,168,112,0.1) 0%, rgba(0,163,255,0.05) 50%, transparent 72%);
+            border-radius: 55% 45% 50% 50% / 45% 55% 45% 55%;
+            filter: blur(38px);
+            pointer-events: none;
+            z-index: 0;
+        }
+        /* Activities section unique halos */
+        .activities-section { position: relative; overflow: hidden; }
+        .activities-section::after {
+            content: '';
+            position: absolute;
+            top: 120px; right: 10%;
+            width: 420px; height: 340px;
+            background: radial-gradient(ellipse at center, rgba(255,193,7,0.08) 0%, rgba(224,123,38,0.06) 50%, transparent 72%);
+            border-radius: 50% 50% 45% 55% / 55% 45% 50% 50%;
+            filter: blur(42px);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .activities-section::before {
+            content: '';
+            position: absolute;
+            bottom: -40px; left: 8%;
+            width: 480px; height: 360px;
+            background: radial-gradient(ellipse at center, rgba(0,82,217,0.1) 0%, rgba(138,58,223,0.05) 50%, transparent 72%);
+            border-radius: 45% 55% 55% 45% / 50% 55% 45% 50%;
+            filter: blur(44px);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .assessment-intro {
+            text-align: center;
+            max-width: 720px;
+            margin: 0 auto 48px;
+            font-size: 15px;
+            color: var(--text-body);
+            line-height: 1.8;
+        }
+        .assessment-intro a {
+            color: var(--blue);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+        .accordion-group { max-width: 800px; margin: 0 auto; }
+        .accordion-item {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-card);
+            margin-bottom: 16px;
+            overflow: hidden;
+            transition: box-shadow 0.25s ease;
+        }
+        .accordion-item:hover { box-shadow: var(--card-shadow); }
+        .accordion-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 28px;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.2s ease;
+        }
+        .accordion-header:hover { background: var(--bg-page); }
+        .ah-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .ah-tag {
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 6px;
+        }
+        .ah-tag.positive { background: #E8F7EF; color: #007D53; }
+        .ah-tag.negative { background: #FDEDED; color: #D53426; }
+        .ah-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-title);
+        }
+        .ah-arrow {
+            font-size: 12px;
+            color: var(--text-muted);
+            transition: transform 0.3s ease;
+        }
+        .accordion-item.open .ah-arrow { transform: rotate(180deg); }
+        .accordion-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease;
+        }
+        .accordion-table-wrap { padding: 0 28px 24px; }
+        .acc-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        .acc-table th {
+            text-align: left;
+            padding: 12px 16px;
+            background: var(--bg-page);
+            font-weight: 600;
+            color: var(--text-title);
+            font-size: 13px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .acc-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-body);
+            line-height: 1.6;
+        }
+        .acc-table tr:last-child td { border-bottom: none; }
+        .acc-table tr:hover td { background: #FAFBFC; }
+        .score-positive { color: #007D53; font-weight: 600; }
+        .score-negative { color: #D53426; font-weight: 600; }
+
+        /* ========== Section: Activities (活动玩法) ========== */
+        .activities-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-top: 56px;
+        }
+        .activity-card {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-card);
+            overflow: hidden;
+            transition: all 0.25s ease;
+        }
+        .activity-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--card-hover-shadow);
+        }
+        .activity-card-visual {
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 28px;
+            position: relative;
+            overflow: hidden;
+        }
+        .acv-icon {
+            font-size: 48px;
+            z-index: 1;
+        }
+        .acv-pattern {
+            position: absolute;
+            inset: 0;
+            opacity: 0.08;
+            background-image: radial-gradient(circle at 20% 30%, currentColor 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        .activity-card:nth-child(1) .activity-card-visual { background: linear-gradient(135deg, #EEF4FF, #DEEBFE); color: var(--blue); }
+        .activity-card:nth-child(2) .activity-card-visual { background: linear-gradient(135deg, #F3F0FF, #EBE4FD); color: #8B3ADF; }
+        .activity-card:nth-child(3) .activity-card-visual { background: linear-gradient(135deg, #E8F7EF, #D4F0E0); color: #00A870; }
+        .activity-card:nth-child(4) .activity-card-visual { background: linear-gradient(135deg, #FFF5E6, #FFECD0); color: #E07B26; }
+        .activity-card-body { padding: 28px; }
+        .activity-card-body h4 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-title);
+            margin-bottom: 8px;
+        }
+        .activity-badge {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+        }
+        .activity-card:nth-child(1) .activity-badge { background: var(--blue-bg); color: var(--blue); }
+        .activity-card:nth-child(2) .activity-badge { background: var(--purple-bg); color: #8B3ADF; }
+        .activity-card:nth-child(3) .activity-badge { background: var(--green-bg); color: #00A870; }
+        .activity-card:nth-child(4) .activity-badge { background: #FFF5E6; color: #E07B26; }
+        .activity-desc { font-size: 14px; color: var(--text-body); line-height: 1.7; }
+        .activity-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 14px;
+        }
+        .at-tag {
+            font-size: 12px;
+            color: var(--text-muted);
+            background: var(--bg-page);
+            padding: 4px 12px;
+            border-radius: 999px;
+        }
+
+        /* ========== Section: Process (活动流程) ========== */
+        .process-section { background: transparent; position: relative; overflow: hidden; }
+        .process-section::after {
+            content: '';
+            position: absolute;
+            top: 80px; left: -80px;
+            width: 380px; height: 440px;
+            background: radial-gradient(ellipse at center, rgba(0,163,255,0.12) 0%, rgba(0,82,217,0.05) 50%, transparent 72%);
+            border-radius: 55% 45% 50% 50% / 45% 60% 40% 55%;
+            filter: blur(42px);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .process-section::before {
+            content: '';
+            position: absolute;
+            bottom: 40px; right: -60px;
+            width: 420px; height: 340px;
+            background: radial-gradient(ellipse at center, rgba(139,58,223,0.11) 0%, rgba(184,27,93,0.05) 50%, transparent 72%);
+            border-radius: 48% 52% 55% 45% / 55% 45% 50% 50%;
+            filter: blur(40px);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .process-flow {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 0;
+            margin-top: 56px;
+            position: relative;
+            padding: 20px 0;
+        }
+        .pf-line {
+            position: absolute;
+            top: 36px;
+            left: calc((100% - 720px) / 2 + 45px);
+            width: calc(720px - 90px);
+            height: 2px;
+            background: linear-gradient(90deg, var(--blue), var(--blue-light));
+            z-index: 0;
+        }
+        .pf-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+            width: 144px;
+            text-align: center;
+        }
+        .pf-num {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: #fff;
+            border: 3px solid var(--blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--blue);
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(0,82,217,0.12);
+        }
+        .pf-step:hover .pf-num {
+            background: var(--blue);
+            color: #fff;
+            transform: scale(1.1);
+            box-shadow: 0 6px 24px rgba(0,82,217,0.3);
+        }
+        .pf-step h4 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-title);
+            margin-bottom: 6px;
+        }
+        .pf-step p {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* ========== Section: FAQ ========== */
+        .faq-section { background: transparent; position: relative; overflow: hidden; }
+        .faq-section::after {
+            content: '';
+            position: absolute;
+            top: 60px; right: 5%;
+            width: 360px; height: 300px;
+            background: radial-gradient(ellipse at center, rgba(0,168,112,0.09) 0%, rgba(0,163,255,0.04) 50%, transparent 72%);
+            border-radius: 55% 45% 45% 55% / 50% 55% 45% 50%;
+            filter: blur(40px);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .faq-section::before {
+            content: '';
+            position: absolute;
+            bottom: 40px; left: 4%;
+            width: 400px; height: 320px;
+            background: radial-gradient(ellipse at center, rgba(0,82,217,0.1) 0%, rgba(138,58,223,0.04) 50%, transparent 72%);
+            border-radius: 45% 55% 50% 50% / 55% 45% 55% 45%;
+            filter: blur(42px);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .faq-group { max-width: 760px; margin: 48px auto 0; }
+        .faq-item {
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-card);
+            margin-bottom: 12px;
+            overflow: hidden;
+            transition: box-shadow 0.2s ease;
+        }
+        .faq-item:hover { box-shadow: var(--card-shadow); }
+        .faq-q {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 20px 24px;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.2s ease;
+        }
+        .faq-q:hover { background: var(--bg-page); }
+        .fq-mark {
+            flex-shrink: 0;
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: var(--blue-bg);
+            color: var(--blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 700;
+        }
+        .fq-text {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-title);
+            flex: 1;
+        }
+        .fq-toggle {
+            flex-shrink: 0;
+            font-size: 12px;
+            color: var(--text-muted);
+            transition: transform 0.3s ease;
+        }
+        .faq-item.open .fq-toggle { transform: rotate(45deg); }
+        .faq-a {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .faq-a-inner {
+            padding: 0 24px 20px;
+            padding-left: 66px;
+            font-size: 14px;
+            color: var(--text-body);
+            line-height: 1.7;
+        }
+
+        /* ========== Footer CTA ========== */
+        .footer-cta {
+            background: linear-gradient(135deg, #0A1628 0%, #0D2B5E 40%, #112A5C 70%, #0A2050 100%);
+            padding: 96px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            z-index: 2;
+        }
+        .fcta-glow {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.15;
+        }
+        .fcta-glow-1 { top: -100px; right: 10%; background: var(--blue); }
+        .fcta-glow-2 { bottom: -120px; left: 5%; background: var(--blue-light); }
+        .fcta-title {
+            font-size: 36px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        .fcta-subtitle {
+            font-size: 17px;
+            color: rgba(255,255,255,0.65);
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 1;
+        }
+        .fcta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ========== Footer ========== */
+        .site-footer {
+            background: #0A1425;
+            color: rgba(255,255,255,0.55);
+            padding: 56px 0 32px;
+            font-size: 14px;
+            position: relative;
+            z-index: 2;
+        }
+        .footer-inner {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr auto;
+            gap: 48px;
+            align-items: start;
+        }
+        .footer-brand h4 {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .footer-brand p {
+            font-size: 13px;
+            line-height: 1.7;
+            max-width: 320px;
+        }
+        .footer-links h5 {
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        .footer-links ul li { margin-bottom: 10px; }
+        .footer-links a {
+            color: rgba(255,255,255,0.55);
+            transition: color 0.2s ease;
+            font-size: 13px;
+        }
+        .footer-links a:hover { color: #fff; }
+        .footer-qr {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .footer-qr-img {
+            width: 110px;
+            height: 110px;
+            background: #fff;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            font-size: 12px;
+            color: #999;
+            flex-shrink: 0;
+        }
+        .footer-qr p { font-size: 12px; text-align: center; }
+        .footer-bottom {
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            text-align: center;
+            font-size: 12px;
+            color: rgba(255,255,255,0.35);
+        }
+
+        /* ========== Animations on Scroll ========== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ========== Responsive ========== */
+        @media (max-width: 1024px) {
+            :root { --section-gap: 72px; }
+            .hero-inner { grid-template-columns: 1fr; text-align: center; }
+            .hero-visual { order: -1; max-width: 420px; margin: 0 auto; }
+            .hero-subtitle p { justify-content: center; }
+            .hero-buttons { justify-content: center; flex-wrap: wrap; }
+            .hero-title { font-size: 36px; }
+            .about-cards { grid-template-columns: 1fr; max-width: 480px; margin-left: auto; margin-right: auto; }
+            .benefits-grid { grid-template-columns: 1fr; }
+            .activities-grid { grid-template-columns: 1fr; max-width: 520px; margin-left: auto; margin-right: auto; }
+            .work-compare { grid-template-columns: 1fr; gap: 32px; }
+            .work-divider { display: none; }
+            .footer-inner { grid-template-columns: 1fr 1fr; gap: 32px; }
+            .footer-qr { grid-column: span 2; justify-self: center; }
+            .pf-line { display: none; }
+            .process-flow { flex-wrap: wrap; gap: 24px; }
+            .pf-step { width: auto; }
+            .nav-links { display: none; position: absolute; top: 68px; left: 0; right: 0; background: rgba(255,255,255,0.98); backdrop-filter: blur(16px); flex-direction: column; padding: 20px 24px; border-bottom: 1px solid var(--border-color); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+            .nav-links.open { display: flex; }
+            .nav-cta { margin-left: 0; margin-top: 12px; }
+            .mobile-menu-btn { display: block; }
+            /* Hero decorations scale down */
+            .deco-cap { width: 110px; height: 110px; right: 2%; top: auto; bottom: 10%; }
+            .deco-cloud-1 { width: 100px; height: 70px; }
+            .deco-cloud-2 { width: 70px; height: 50px; }
+            .deco-cloud-3 { width: 55px; height: 38px; }
+            .deco-dots { width: 120px; height: 70px; }
+            /* Ring anchor constrained */
+            .amb-ring-anchor { width: 360px; height: 360px; }
+        }
+        @media (max-width: 768px) {
+            :root { --section-gap: 56px; }
+            .hero {
+                min-height: auto;
+                padding: 96px 0 56px;
+                text-align: center;
+            }
+            .hero-inner {
+                grid-template-columns: 1fr;
+                gap: 32px;
+                text-align: center;
+            }
+            .hero-content { text-align: center; }
+            .hero-title { font-size: 28px; line-height: 1.3; }
+            .hero-subtitle { font-size: 14px; margin-bottom: 28px; line-height: 1.8; }
+            .hero-subtitle p { justify-content: center; }
+            .hero-badge { font-size: 12px; padding: 6px 14px; margin-bottom: 20px; }
+            /* Hide entire hero visual area on mobile — keep only text + buttons */
+            .hero-visual { display: none; }
+            /* Also hide all floating hero glass cards */
+            .gc-float-1, .gc-float-2, .gc-float-3 { display: none; }
+            /* Hero buttons full width */
+            .hero-buttons {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 10px;
+                width: 100%;
+            }
+            .hero-buttons .btn { flex: 1 1 auto; min-width: 140px; }
+            .btn-large { padding: 12px 20px; font-size: 14px; }
+            .section-title { font-size: 24px; }
+            .section-subtitle { font-size: 14px; }
+            .section-label { font-size: 12px; }
+            /* Hero decor — relocate to avoid content overlap */
+            .deco-cap { width: 70px; height: 70px; right: 2%; top: 110px; bottom: auto; opacity: 0.8; }
+            .deco-cloud-1 { width: 70px; height: 50px; left: auto; right: 4%; bottom: 12%; }
+            .deco-cloud-2 { width: 50px; height: 36px; left: 3%; bottom: 14%; }
+            .deco-cloud-3 { display: none; }
+            .deco-dots { width: 90px; height: 55px; top: 80px; right: 2%; opacity: 0.4; }
+            .deco-curves { opacity: 0.6; }
+            /* Particles less dense on mobile */
+            .hero-particles { opacity: 0.6; }
+            /* Marquee — slow down slightly so content is readable */
+            .cases-carousel { animation-duration: 30s; }
+            .ambassadors-carousel { animation-duration: 36s; }
+            .cases-carousel-wrapper,
+            .ambassadors-wrapper {
+                mask-image: linear-gradient(to right, transparent 0, #000 30px, #000 calc(100% - 30px), transparent 100%);
+                -webkit-mask-image: linear-gradient(to right, transparent 0, #000 30px, #000 calc(100% - 30px), transparent 100%);
+            }
+            /* Card sizes */
+            .case-card { min-width: 260px; max-width: 280px; }
+            .amb-card { width: 140px; padding: 24px 14px 18px; }
+            .amb-avatar-wrap { width: 72px; height: 72px; }
+            .amb-avatar-lg { width: 60px; height: 60px; font-size: 22px; }
+            .amb-name { font-size: 14px; }
+            .amb-school { font-size: 11px; }
+            /* Ring anchor */
+            .amb-ring-anchor { width: 280px; height: 280px; top: 60px; }
+            /* Work items tighter */
+            .work-item { padding: 16px 18px; gap: 12px; }
+            .wi-icon { width: 34px; height: 34px; font-size: 15px; }
+            .wi-text strong { font-size: 14px; }
+            .wi-text p { font-size: 12px; }
+            .work-column h3 { font-size: 18px; margin-bottom: 20px; }
+            /* Benefits card tighter */
+            .benefit-card { padding: 28px 22px; }
+            .benefit-header h3 { font-size: 18px; }
+            .benefit-icon { width: 44px; height: 44px; font-size: 20px; }
+            .benefit-list li { font-size: 13px; }
+            /* Activities */
+            .activity-card { padding: 28px 22px; }
+            /* Process */
+            .pf-step { width: 100%; max-width: 320px; }
+            /* Assessment */
+            .accordion-header { padding: 16px 18px; }
+            .ah-title { font-size: 14px; }
+            .acc-table th, .acc-table td { padding: 10px 12px; font-size: 12px; }
+            /* FAQ */
+            .faq-item { padding: 18px 20px; }
+            .faq-q { font-size: 14px; }
+            .faq-a { font-size: 13px; }
+            /* Footer CTA & Footer */
+            .footer-cta { padding: 72px 0; }
+            .fcta-title { font-size: 22px; }
+            .fcta-subtitle { font-size: 14px; margin-bottom: 28px; }
+            .fcta-buttons { flex-direction: column; align-items: stretch; padding: 0 20px; }
+            .fcta-buttons .btn { width: 100%; }
+            .footer-inner { grid-template-columns: 1fr; text-align: center; }
+            .footer-qr { grid-column: auto; justify-self: center; }
+            .footer-links ul { padding: 0; }
+            /* Containers tighter padding */
+            .container { padding: 0 20px; }
+            /* Navbar tweak */
+            .navbar-inner { padding: 12px 20px; }
+            .nav-brand { font-size: 15px; }
+            .nav-brand svg { width: 26px; height: 26px; }
+        }
+        @media (max-width: 480px) {
+            .hero { padding: 92px 0 48px; }
+            .hero-title { font-size: 24px; }
+            .section-title { font-size: 22px; }
+            .fcta-title { font-size: 20px; }
+            .hero-buttons { flex-direction: column; width: 100%; }
+            .hero-buttons .btn { width: 100%; text-align: center; flex: auto; }
+            .deco-cap { width: 54px; height: 54px; }
+            .deco-cloud-1 { width: 56px; height: 40px; }
+            .deco-cloud-2 { display: none; }
+            .deco-dots { display: none; }
+            .amb-ring-anchor { display: none; }
+            /* Smaller marquee cards */
+            .case-card { min-width: 240px; max-width: 260px; }
+            .amb-card { width: 130px; }
+        }
+        @media (max-width: 640px) {
+            .hero-title { font-size: 26px; }
+            .section-title { font-size: 22px; }
+            .fcta-title { font-size: 22px; }
+            .case-card { min-width: 260px; }
+            .footer-inner { grid-template-columns: 1fr; }
+            .footer-qr { grid-column: auto; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ==================== Navbar ==================== -->
+<nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+        <a href="#" class="nav-brand">
+            <svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="#0052D9"/><path d="M8 12L16 8L24 12V20L16 24L8 20V12Z" stroke="#fff" stroke-width="2" fill="none"/><circle cx="16" cy="16" r="3" fill="#fff"/></svg>
+            腾讯云Tedu校园大使
+        </a>
+        <div class="nav-links" id="navLinks">
+            <a href="#about" class="nav-link">我们是谁</a>
+            <a href="#cases" class="nav-link">做过的事</a>
+            <a href="#ambassadors" class="nav-link">大使风采</a>
+            <a href="#benefits" class="nav-link">成长与权益</a>
+            <a href="#work" class="nav-link">工作内容</a>
+            <a href="#activities" class="nav-link">活动玩法</a>
+            <a href="#faq" class="nav-link">常见问题</a>
+            <div class="nav-cta">
+                <a href="https://doc.weixin.qq.com/forms/AJEAIQdfAAoABoATAZGACkCNe3NPP2fnf#/fill" target="_blank" class="btn btn-primary" style="padding: 10px 24px; font-size: 14px;">活动申请</a>
+            </div>
+        </div>
+        <button class="mobile-menu-btn" id="menuBtn" aria-label="菜单">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+
+<!-- ==================== Hero ==================== -->
+<section class="hero">
+    <!-- Particles -->
+    <div class="hero-particles" id="particles"></div>
+    <div class="hero-grid-overlay"></div>
+
+    <!-- Decorative elements (curves, clouds, graduation cap, dots) -->
+    <div class="hero-deco">
+        <!-- Flowing curve lines -->
+        <svg class="deco-curves" viewBox="0 0 1440 820" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="curveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#0052D9" stop-opacity="0"/>
+                    <stop offset="50%" stop-color="#0052D9" stop-opacity="0.22"/>
+                    <stop offset="100%" stop-color="#8B3ADF" stop-opacity="0"/>
+                </linearGradient>
+                <linearGradient id="curveGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#00A3FF" stop-opacity="0"/>
+                    <stop offset="50%" stop-color="#00A3FF" stop-opacity="0.16"/>
+                    <stop offset="100%" stop-color="#8B3ADF" stop-opacity="0"/>
+                </linearGradient>
+            </defs>
+            <path d="M-50,120 Q400,0 800,180 T1500,120" stroke="url(#curveGrad)" stroke-width="1.4" fill="none"/>
+            <path d="M-50,650 Q300,500 720,620 T1500,560" stroke="url(#curveGrad2)" stroke-width="1.6" fill="none"/>
+            <path d="M-50,740 Q420,600 900,720 T1500,680" stroke="url(#curveGrad)" stroke-width="1.2" fill="none" opacity="0.7"/>
+        </svg>
+
+        <!-- Dot grid (top-right) -->
+        <div class="deco-dots"></div>
+
+        <!-- 3D Graduation Cap -->
+        <svg class="deco-cap" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="capTop" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#B4A4FF"/>
+                    <stop offset="50%" stop-color="#8B7AE8"/>
+                    <stop offset="100%" stop-color="#5D4BC4"/>
+                </linearGradient>
+                <linearGradient id="capBase" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#9988F0"/>
+                    <stop offset="100%" stop-color="#6A54D0"/>
+                </linearGradient>
+                <linearGradient id="capSide" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#7D6AD9"/>
+                    <stop offset="100%" stop-color="#4A3AA8"/>
+                </linearGradient>
+            </defs>
+            <!-- Base (trapezoid) -->
+            <path d="M70,115 L130,115 L142,155 L58,155 Z" fill="url(#capBase)"/>
+            <path d="M130,115 L142,155 L142,160 L130,120 Z" fill="url(#capSide)"/>
+            <!-- Top board (flat square diamond) -->
+            <polygon points="100,60 170,90 100,120 30,90" fill="url(#capTop)"/>
+            <polygon points="100,60 170,90 100,94 30,90" fill="#C8BCFF" opacity="0.5"/>
+            <!-- Tassel button -->
+            <circle cx="100" cy="90" r="5" fill="#FFD76B"/>
+            <!-- Tassel string -->
+            <path d="M100,92 Q108,108 115,130 Q117,138 114,146" stroke="#FFD76B" stroke-width="2" fill="none"/>
+            <circle cx="114" cy="148" r="3" fill="#FFB93E"/>
+        </svg>
+
+        <!-- Cloud 1 (main) -->
+        <svg class="deco-cloud deco-cloud-1" viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="cloudGrad1" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#F0EBFF"/>
+                    <stop offset="100%" stop-color="#C5B9F5"/>
+                </linearGradient>
+            </defs>
+            <path d="M45,95 Q15,95 15,72 Q15,52 38,52 Q42,30 68,30 Q88,30 95,48 Q108,38 125,42 Q148,45 152,68 Q175,70 175,90 Q175,108 155,108 L55,108 Q45,108 45,95 Z" fill="url(#cloudGrad1)"/>
+            <path d="M55,45 Q62,40 72,42 Q68,48 58,50 Z" fill="#fff" opacity="0.5"/>
+        </svg>
+
+        <!-- Cloud 2 (left) -->
+        <svg class="deco-cloud deco-cloud-2" viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg">
+            <path d="M45,95 Q15,95 15,72 Q15,52 38,52 Q42,30 68,30 Q88,30 95,48 Q108,38 125,42 Q148,45 152,68 Q175,70 175,90 Q175,108 155,108 L55,108 Q45,108 45,95 Z" fill="url(#cloudGrad1)"/>
+        </svg>
+
+        <!-- Cloud 3 (top-right small) -->
+        <svg class="deco-cloud deco-cloud-3" viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg">
+            <path d="M45,95 Q15,95 15,72 Q15,52 38,52 Q42,30 68,30 Q88,30 95,48 Q108,38 125,42 Q148,45 152,68 Q175,70 175,90 Q175,108 155,108 L55,108 Q45,108 45,95 Z" fill="url(#cloudGrad1)"/>
+        </svg>
+    </div>
+    
+    <div class="container hero-inner">
+        <div class="hero-content">
+            <div class="hero-badge">⚡ 2026 年度招募中</div>
+            <h1 class="hero-title">腾讯云 <span>Tedu</span> 校园大使计划</h1>
+            <div class="hero-subtitle">
+                <p>在高校推广 AI 与云计算技术</p>
+                <p>连接腾讯资源与校园生态</p>
+                <p>用实践沉淀能力，用影响力定义未来</p>
+            </div>
+            <div class="hero-buttons">
+                <a href="https://doc.weixin.qq.com/forms/AJEAIQdfAAoABoATAZGACkCNe3NPP2fnf#/fill" target="_blank" class="btn btn-primary btn-large">
+                    🎯 立即申请
+                </a>
+                <a href="#about" class="btn btn-outline btn-large">了解更多 ↓</a>
+            </div>
+        </div>
+        
+        <div class="hero-visual">
+            <div class="hero-illustration">
+                <!-- Main Glass Card -->
+                <div class="hero-glass-card gc-main">
+                    <div class="gc-icon-wrap">
+                        <!-- L0: Glow -->
+                        <div class="gc-icon-glow-field"></div>
+                        <!-- L1: Orbit ring -->
+                        <div class="gc-icon-orbit-ring">
+                            <svg viewBox="0 0 130 130" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="orbitGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#8B3ADF" stop-opacity="0.35"/>
+                                        <stop offset="40%" stop-color="#00A3FF" stop-opacity="0.25"/>
+                                        <stop offset="70%" stop-color="#FF6BB3" stop-opacity="0.20"/>
+                                        <stop offset="100%" stop-color="#8B3ADF" stop-opacity="0.30"/>
+                                    </linearGradient>
+                                </defs>
+                                <circle cx="65" cy="65" r="58" fill="none"
+                                    stroke="url(#orbitGrad)" stroke-width="1.2"
+                                    stroke-dasharray="6 10" stroke-linecap="round"/>
+                                <!-- tiny dot on the orbit path -->
+                                <circle cx="123" cy="65" r="2.5" fill="#FF6BB3" opacity="0.7"/>
+                            </svg>
+                        </div>
+                        <!-- Bouncing orbit dots -->
+                        <div class="orbit-dot od-1"></div>
+                        <div class="orbit-dot od-2"></div>
+                        <div class="orbit-dot od-3"></div>
+                        <div class="orbit-dot od-4"></div>
+                        <!-- L2: Back blob -->
+                        <div class="gc-icon-blob-back"></div>
+                        <!-- L3-L7: Main blob -->
+                        <div class="gc-icon-blob">
+                            <div class="blob-shimmer"></div>
+                            <div class="blob-highlight-curve"></div>
+                            <svg class="icon-inner-svg" viewBox="0 0 24 24">
+                                <!-- Lightbulb body -->
+                                <path d="M12 2C8.69 2 6 4.69 6 8c0 2.97 1.96 5.43 4.66 6.24.22.07.34.3.34.53V16c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1.23c0-.23.12-.46.34-.53C17.04 13.43 19 10.97 19 8c0-3.31-2.69-6-6-6z"/>
+                                <!-- Bulb base -->
+                                <path d="M10 18h4v1h-4zm0 2h4v1h-4z" opacity="0.85"/>
+                                <!-- Radiating spark lines (top-left) -->
+                                <line x1="12" y1="0" x2="12" y2="1.5" stroke-width="1.8" stroke-linecap="round"/>
+                                <line x1="4.9" y1="3.5" x2="5.95" y2="4.55" stroke-width="1.7" stroke-linecap="round"/>
+                                <line x1="19.1" y1="3.5" x2="18.05" y2="4.55" stroke-width="1.7" stroke-linecap="round"/>
+                                <line x1="3" y1="8" x2="4.5" y2="8" stroke-width="1.7" stroke-linecap="round"/>
+                                <line x1="21" y1="8" x2="19.5" y2="8" stroke-width="1.7" stroke-linecap="round"/>
+                                <!-- Inner glow highlight -->
+                                <ellipse cx="11" cy="7.5" rx="2.8" ry="2.5" fill="#fff" opacity="0.35"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <h3>Campus Ambassador</h3>
+                    <p>连接腾讯云与校园的桥梁<br/>用技术影响力定义你的未来</p>
+                    <span class="gc-tag">✦ 校园大使计划</span>
+                </div>
+                
+                <!-- Floating Card 1 -->
+                <div class="hero-glass-card gc-float-1">
+                    <span class="gc-dot" style="background:#0052D9;"></span>
+                    <strong style="font-size:13px;color:var(--text-title);">AI 智能体实训营</strong><br>
+                    <span style="font-size:12px;color:var(--text-muted);">WorkBuddy 实操教学</span>
+                </div>
+                
+                <!-- Floating Card 2 -->
+                <div class="hero-glass-card gc-float-2">
+                    <span class="gc-dot" style="background:#00A870;"></span>
+                    <strong style="font-size:13px;color:var(--text-title);">走进全国各类院校</strong><br>
+                    <span style="font-size:12px;color:var(--text-muted);">覆盖 <span class="count-up" data-target="10000" data-suffix="+">0</span> 名师生</span>
+                </div>
+                
+                <!-- Floating Card 3 -->
+                <div class="hero-glass-card gc-float-3">
+                    <span class="gc-dot" style="background:#8B3ADF;"></span>
+                    8 大专属权益 · 腾讯官方认证
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== 我们是谁 ==================== -->
+<section class="section about-section" id="about">
+    <div class="container text-center reveal">
+        <div class="section-label">WHO WE ARE</div>
+        <h2 class="section-title">三大使命，定义校园大使的价值边界</h2>
+        <p class="section-subtitle mb-md"></p>
+    </div>
+    <div class="container about-cards">
+        <div class="about-card reveal">
+            <div class="about-icon">🌐</div>
+            <h3>技术普及者</h3>
+            <p>在校园推广腾讯云与 AI 产品，让更多同学低门槛接触前沿技术，打破技术与校园之间的信息壁垒。</p>
+        </div>
+        <div class="about-card reveal">
+            <div class="about-icon">🔗</div>
+            <h3>生态连接者</h3>
+            <p>连接腾讯技术资源与高校师生，推动产教融合真实落地，成为企业与校园之间最值得信赖的桥梁。</p>
+        </div>
+        <div class="about-card reveal">
+            <div class="about-icon">✨</div>
+            <h3>成长实践者</h3>
+            <p>参与真实项目与活动运营，在实战中完成能力跃迁，用每一次行动为自己的履历加分。</p>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== 做过的事 ==================== -->
+<section class="section cases-section" id="cases">
+    <div class="container text-center reveal">
+        <div class="section-label">OUR CASES</div>
+        <h2 class="section-title">我们做过的事</h2>
+        <p class="section-subtitle mb-md">每一场活动都是一次技术与热情的碰撞</p>
+    </div>
+    <div class="container cases-carousel-wrapper reveal">
+        <div class="cases-carousel" id="casesCarousel">
+            <!-- Case 1: SJTU -->
+            <div class="case-card">
+                <div class="case-card-top">
+                    <img src="img_sjtu.jpg" alt="上海交通大学活动" loading="lazy">
+                    <span class="case-school">上海交通大学</span>
+                </div>
+                <div class="case-card-body">
+                    <h4>腾讯 AI 百校行「科学养虾实训营」<br>三环节教学 + WorkBuddy 实操</h4>
+                    <div class="case-meta">
+                        <span class="case-count">👥 200+ 人参与</span>
+                        <a href="https://mp.weixin.qq.com/s/uoSktf4fRu8ASrei4ivDVQ" target="_blank" class="case-link">查看详情 →</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Case 2: NJUST -->
+            <div class="case-card">
+                <div class="case-card-top">
+                    <img src="img_njust.jpg" alt="南京理工大学活动" loading="lazy">
+                    <span class="case-school">南京理工大学</span>
+                </div>
+                <div class="case-card-body">
+                    <h4>腾讯 AI 百校行养虾实训<br>聚焦 AI 智能体部署与应用</h4>
+                    <div class="case-meta">
+                        <span class="case-count">👥 300+ 人参与</span>
+                        <a href="https://mp.weixin.qq.com/s/Q5CQ4YEaiVPAbptxACe7ng" target="_blank" class="case-link">查看详情 →</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Case 3: DLUT -->
+            <div class="case-card">
+                <div class="case-card-top">
+                    <img src="img_dlut.jpg" alt="大连理工大学活动" loading="lazy">
+                    <span class="case-school">大连理工大学</span>
+                </div>
+                <div class="case-card-body">
+                    <h4>科学养虾实训营<br>OpenClaw + WorkBuddy 实操教学</h4>
+                    <div class="case-meta">
+                        <span class="case-count">👥 165 人参与</span>
+                        <a href="https://mp.weixin.qq.com/s/Q0q8qe9KKhhXpfUmvCcE8A" target="_blank" class="case-link">查看详情 →</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Case 4: CCNU -->
+            <div class="case-card">
+                <div class="case-card-top">
+                    <img src="img_ccnu.jpg" alt="华中师范大学活动" loading="lazy">
+                    <span class="case-school">华中师范大学</span>
+                </div>
+                <div class="case-card-body">
+                    <h4>AI Agent 智能体实训营<br>WorkBuddy 平台实操 + 数据分析闯关</h4>
+                    <div class="case-meta">
+                        <span class="case-count">👥 230 人参与</span>
+                        <a href="https://mp.weixin.qq.com/s/-Gwngv2cOZc9UPZEkeGs1Q" target="_blank" class="case-link">查看详情 →</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Case 5: SUSTech -->
+            <div class="case-card">
+                <div class="case-card-top">
+                    <img src="img_sustech.jpg" alt="南方科技大学活动" loading="lazy">
+                    <span class="case-school">南方科技大学</span>
+                </div>
+                <div class="case-card-body">
+                    <h4>科技文化节·科学养虾实训营<br>装机 + 互动 + 实操全链路</h4>
+                    <div class="case-meta">
+                        <span class="case-count">👥 211 人参与</span>
+                        <a href="https://mp.weixin.qq.com/s/M99pcbqz_5WPyjv35rPJjg" target="_blank" class="case-link">查看详情 →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== 大使风采 ==================== -->
+<section class="section ambassadors-section" id="ambassadors">
+    <!-- Center Ring Anchor (data ring) -->
+    <div class="amb-ring-anchor" aria-hidden="true">
+        <svg viewBox="0 0 520 520" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="ringG1" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#0052D9" stop-opacity="0.5"/>
+                    <stop offset="50%" stop-color="#8B3ADF" stop-opacity="0.3"/>
+                    <stop offset="100%" stop-color="#00A3FF" stop-opacity="0.2"/>
+                </linearGradient>
+                <linearGradient id="ringG2" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#00A3FF" stop-opacity="0.3"/>
+                    <stop offset="100%" stop-color="#8B3ADF" stop-opacity="0.25"/>
+                </linearGradient>
+            </defs>
+            <!-- Outer ring with dashed segments -->
+            <g class="amb-ring-outer">
+                <circle cx="260" cy="260" r="250" fill="none" stroke="url(#ringG1)" stroke-width="1.2" stroke-dasharray="2 10"/>
+                <circle cx="260" cy="260" r="250" fill="none" stroke="rgba(0,82,217,0.08)" stroke-width="0.8"/>
+                <!-- Data points on outer ring -->
+                <circle cx="510" cy="260" r="3" fill="#0052D9" opacity="0.6"/>
+                <circle cx="10" cy="260" r="3" fill="#8B3ADF" opacity="0.5"/>
+                <circle cx="260" cy="10" r="2.5" fill="#00A3FF" opacity="0.6"/>
+                <circle cx="430" cy="80" r="2.5" fill="#8B3ADF" opacity="0.5"/>
+                <circle cx="90" cy="430" r="2.5" fill="#0052D9" opacity="0.5"/>
+            </g>
+            <!-- Middle ring -->
+            <g class="amb-ring-mid">
+                <circle cx="260" cy="260" r="190" fill="none" stroke="url(#ringG2)" stroke-width="1" stroke-dasharray="1 6"/>
+            </g>
+            <!-- Inner solid ring -->
+            <g class="amb-ring-inner">
+                <circle cx="260" cy="260" r="130" fill="none" stroke="rgba(138,58,223,0.15)" stroke-width="1"/>
+                <circle cx="260" cy="260" r="130" fill="none" stroke="rgba(0,82,217,0.1)" stroke-width="0.5" stroke-dasharray="8 4"/>
+                <circle cx="390" cy="260" r="2" fill="#00A3FF" opacity="0.7"/>
+            </g>
+            <!-- Center soft glow -->
+            <circle cx="260" cy="260" r="60" fill="url(#ringG1)" opacity="0.08"/>
+        </svg>
+    </div>
+
+    <div class="container text-center reveal" style="position:relative;z-index:2;">
+        <div class="section-label">AMBASSADORS</div>
+        <h2 class="section-title">大使风采</h2>
+        <p class="section-subtitle mb-md">来自全国顶尖高校的优秀伙伴</p>
+    </div>
+    <div class="container"><div class="ambassadors-wrapper reveal">
+        <div class="ambassadors-carousel" id="ambCarousel">
+            <!-- 1 --><div class="amb-card" style="--halo:linear-gradient(135deg,#0052D9,#00A3FF);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#0052D9,#00A3FF);">杨</div></div><div class="amb-name">杨宝增</div><div class="amb-school">北京邮电大学</div></div>
+            <!-- 2 --><div class="amb-card" style="--halo:linear-gradient(135deg,#007D53,#00D68B);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#007D53,#00D68B);">饶</div></div><div class="amb-name">饶棋涛</div><div class="amb-school">北京邮电大学</div></div>
+            <!-- 3 --><div class="amb-card" style="--halo:linear-gradient(135deg,#8B3ADF,#B87AE6);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#8B3ADF,#B87AE6);">尼</div></div><div class="amb-name">尼尕热·玉散</div><div class="amb-school">北京邮电大学</div></div>
+            <!-- 4 --><div class="amb-card" style="--halo:linear-gradient(135deg,#E07B26,#FFA94D);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#E07B26,#FFA94D);">李</div></div><div class="amb-name">李政远</div><div class="amb-school">西安电子科技大学</div></div>
+            <!-- 5 --><div class="amb-card" style="--halo:linear-gradient(135deg,#0B7A7A,#3DBDB5);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#0B7A7A,#3DBDB5);">宋</div></div><div class="amb-name">宋欣莲</div><div class="amb-school">西安电子科技大学</div></div>
+            <!-- 6 --><div class="amb-card" style="--halo:linear-gradient(135deg,#B81B5D,#E86BA6);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#B81B5D,#E86BA6);">闫</div></div><div class="amb-name">闫鹏祥</div><div class="amb-school">西安电子科技大学</div></div>
+            <!-- 7 --><div class="amb-card" style="--halo:linear-gradient(135deg,#1E3A8A,#3B82F6);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#1E3A8A,#3B82F6);">张</div></div><div class="amb-name">张皓翔</div><div class="amb-school">北京航空航天大学</div></div>
+            <!-- 8 --><div class="amb-card" style="--halo:linear-gradient(135deg,#059669,#34D399);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#059669,#34D399);">卢</div></div><div class="amb-name">卢厚华</div><div class="amb-school">北京航空航天大学</div></div>
+            <!-- 9 --><div class="amb-card" style="--halo:linear-gradient(135deg,#7C3AED,#C4B5FD);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#7C3AED,#C4B5FD);">刘</div></div><div class="amb-name">刘雨菲</div><div class="amb-school">北京交通大学</div></div>
+            <!-- 10 --><div class="amb-card" style="--halo:linear-gradient(135deg,#F97316,#FDBA74);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#F97316,#FDBA74);">王</div></div><div class="amb-name">王世琦</div><div class="amb-school">香港科技大学（广州）</div></div>
+            <!-- 11 --><div class="amb-card" style="--halo:linear-gradient(135deg,#0891B2,#67E8F9);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#0891B2,#67E8F9);">肖</div></div><div class="amb-name">肖金鑫</div><div class="amb-school">华中科技大学</div></div>
+            <!-- 12 --><div class="amb-card" style="--halo:linear-gradient(135deg,#DB2777,#F9A8D4);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#DB2777,#F9A8D4);">董</div></div><div class="amb-name">董亚鹏</div><div class="amb-school">北京工业大学</div></div>
+            <!-- 13 --><div class="amb-card" style="--halo:linear-gradient(135deg,#2563EB,#93C5FD);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#2563EB,#93C5FD);">孙</div></div><div class="amb-name">孙正金</div><div class="amb-school">深圳大学</div></div>
+            <!-- 14 --><div class="amb-card" style="--halo:linear-gradient(135deg,#10B981,#86EFAC);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#10B981,#86EFAC);">吴</div></div><div class="amb-name">吴基融</div><div class="amb-school">深圳技术大学</div></div>
+            <!-- 15 --><div class="amb-card" style="--halo:linear-gradient(135deg,#9333EA,#D8B4FE);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#9333EA,#D8B4FE);">文</div></div><div class="amb-name">文章</div><div class="amb-school">四川大学</div></div>
+            <!-- 16 --><div class="amb-card" style="--halo:linear-gradient(135deg,#EA580C,#FED7AA);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#EA580C,#FED7AA);">穆</div></div><div class="amb-name">穆再排尔·穆合塔尔</div><div class="amb-school">南京航空航天大学</div></div>
+            <!-- 17 --><div class="amb-card" style="--halo:linear-gradient(135deg,#0D9488,#5EEAD4);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#0D9488,#5EEAD4);">胡</div></div><div class="amb-name">胡秀洋</div><div class="amb-school">南京理工大学</div></div>
+            <!-- 18 --><div class="amb-card" style="--halo:linear-gradient(135deg,#BE185D,#FBCFE8);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#BE185D,#FBCFE8);">李</div></div><div class="amb-name">李威俊</div><div class="amb-school">深圳信息职业技术学院</div></div>
+        </div>
+    </div>
+</div>
+</section>
+
+<!-- ==================== 成长与权益 ==================== -->
+<section class="section benefits-section" id="benefits">
+    <div class="container text-center reveal">
+        <div class="section-label">BENEFITS</div>
+        <h2 class="section-title">成为大使，你将获得</h2>
+        <p class="section-subtitle mb-md">八大权益，为你的成长之路全面加速</p>
+    </div>
+    <div class="container benefits-grid">
+        <!-- Career Development -->
+        <div class="benefit-card career reveal">
+            <div class="benefit-header">
+                <div class="benefit-icon">💼</div>
+                <h3>职业发展</h3>
+            </div>
+            <ul class="benefit-list">
+                <li><span class="bl-check">✓</span><span><strong>腾讯教育内推机会</strong><br>表现优秀者可获腾讯教育相关岗位实习内推</span></li>
+                <li><span class="bl-check">✓</span><span><strong>校园大使见面会</strong><br>年度组织腾讯企业参访，与业务线负责人面对面交流</span></li>
+                <li><span class="bl-check">✓</span><span><strong>专属求职辅导</strong><br>简历优化指导、面试技巧分享及职业方向建议</span></li>
+            </ul>
+        </div>
+        <!-- Exposure & IP -->
+        <div class="benefit-card exposure reveal">
+            <div class="benefit-header">
+                <div class="benefit-icon">🎤</div>
+                <h3>曝光 & 个人IP</h3>
+            </div>
+            <ul class="benefit-list">
+                <li><span class="bl-check">✓</span><span><strong>腾讯官方大会参与资格</strong><br>可获得腾讯数字生态大会等官方活动门票</span></li>
+                <li><span class="bl-check">✓</span><span><strong>个人IP打造</strong><br>优先受邀在官方大会、线下沙龙进行分享演讲</span></li>
+                <li><span class="bl-check">✓</span><span><strong>腾讯云 Tedu 校园大使证书</strong><br>由腾讯云官方颁发，可用于简历与个人履历展示</span></li>
+            </ul>
+        </div>
+        <!-- Technical Empowerment -->
+        <div class="benefit-card tech reveal">
+            <div class="benefit-header">
+                <div class="benefit-icon">⚡</div>
+                <h3>技术赋能</h3>
+            </div>
+            <ul class="benefit-list">
+                <li><span class="bl-check">✓</span><span><strong>技术专家培训</strong><br>腾讯教育技术专家不定期组织专属培训</span></li>
+                <li><span class="bl-check">✓</span><span><strong>产品能力讲解</strong><br>深入理解产品能力与校园场景玩法</span></li>
+                <li><span class="bl-check">✓</span><span><strong>实战指导支持</strong><br>助力校园大使在校内组织高质量技术活动</span></li>
+            </ul>
+        </div>
+        <!-- Resources -->
+        <div class="benefit-card resource reveal">
+            <div class="benefit-header">
+                <div class="benefit-icon">🎁</div>
+                <h3>资源优先体验</h3>
+            </div>
+            <ul class="benefit-list">
+                <li><span class="bl-check">✓</span><span><strong>新品优先试用权</strong><br>优先获得腾讯云新产品、新功能的试用资格</span></li>
+                <li><span class="bl-check">✓</span><span><strong>专属扶持资源</strong><br>比普通用户更早接触前沿能力与技术</span></li>
+                <li><span class="bl-check">✓</span><span><strong>宣传物料支持</strong><br>提供现场布置物料及周边礼品等资源</span></li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== 工作内容 ==================== -->
+<section class="section work-section" id="work">
+    <div class="container text-center reveal">
+        <div class="section-label">WHAT YOU DO</div>
+        <h2 class="section-title">校园大使工作内容</h2>
+        <p class="section-subtitle mb-md">清晰的职责划分与全方位的支持体系</p>
+    </div>
+    <div class="container work-compare reveal">
+        <!-- Left Column -->
+        <div class="work-column">
+            <h3>🎯 你需要做什么</h3>
+            <div class="work-items">
+            <div class="work-item">
+                <div class="wi-icon">📋</div>
+                <div class="wi-text">
+                    <a href="https://docs.qq.com/aio/DWG5qeE5ORGRRb0dE?nlc=1&p=OxGyp2i34jFxe2etJEanF1" target="_blank"><strong>策划技术活动</strong></a>
+                    <p>每月策划或参与一场 AI / 云计算主题活动，带同学现场体验腾讯云产品</p>
+                </div>
+            </div>
+            <div class="work-item">
+                <div class="wi-icon">💬</div>
+                <div class="wi-text">
+                    <a href="https://docs.qq.com/aio/DWG5qeE5ORGRRb0dE?nlc=1&p=QvTvVcFdgxi1WiOdzX05bV" target="_blank"><strong>解答使用问题</strong></a>
+                    <p>为本校师生提供腾讯云产品的使用答疑，做校园里的技术接口人</p>
+                </div>
+            </div>
+            <div class="work-item">
+                <div class="wi-icon">🎓</div>
+                <div class="wi-text">
+                    <strong>参加产品培训</strong>
+                    <p>通过线上课程和实操培训，快速掌握核心产品，边学边推广</p>
+                </div>
+            </div>
+            <div class="work-item">
+                <div class="wi-icon">📝</div>
+                <div class="wi-text">
+                    <a href="https://docs.qq.com/aio/DWG5qeE5ORGRRb0dE?nlc=1&p=ksI7uasZD6MmafeEVLnPx6" target="_blank"><strong>沉淀活动内容</strong></a>
+                    <p>活动后整理总结并发布至乐享平台，沉淀可复用的经验和方法</p>
+                </div>
+            </div>
+            <div class="work-item">
+                <div class="wi-icon">👥</div>
+                <div class="wi-text">
+                    <a href="https://docs.qq.com/aio/DWG5qeE5ORGRRb0dE?nlc=1&p=yF9BRmbFyV5aBMUvIq1MjW" target="_blank"><strong>运营校内社群</strong></a>
+                    <p>维护腾讯云校园活动群，定期发布产品更新或活动预告，保持活跃连接</p>
+                </div>
+            </div>
+            </div>
+        </div>
+        
+        <!-- Divider -->
+        <div class="work-divider"></div>
+        
+        <!-- Right Column -->
+        <div class="work-column">
+            <h3>🤝 你将获得的支持</h3>
+            <div class="work-items">
+            <div class="work-item">
+                <div class="wi-icon">📖</div>
+                <div class="wi-text">
+                    <strong>系统培训资源</strong>
+                    <p>腾讯云产品线上课程 · 活动策划方法论 · 运营技巧手把手指导</p>
+                </div>
+            </div>
+            <div class="work-item">
+                <div class="wi-icon">🎨</div>
+                <div class="wi-text">
+                    <strong>活动物料支持</strong>
+                    <p>现场布置物料 · 鹅厂官方周边礼品 · 海报设计模板一应俱全</p>
+                </div>
+            </div>
+            <div class="work-item">
+                <div class="wi-icon">🔧</div>
+                <div class="wi-text">
+                    <strong>技术产品权益</strong>
+                    <p>腾讯云新品抢先体验权 · AI 产品使用指导 · 云资源试用额度</p>
+                </div>
+            </div>
+            <div class="work-item">
+                <div class="wi-icon">📢</div>
+                <div class="wi-text">
+                    <strong>曝光与传播支持</strong>
+                    <p>活动优秀内容在腾讯教育官方渠道转发 · 个人成果进入品牌宣传素材库</p>
+                </div>
+            </div>
+            <div class="work-item">
+                <div class="wi-icon">📊</div>
+                <div class="wi-text">
+                    <strong>活动策划模板库</strong>
+                    <p>历届优秀活动方案沉淀 · 分场景策划脚本 · 招募文案/邀请函一键复用</p>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== 考核标准 ==================== -->
+<section class="section assessment-section" id="assessment">
+    <div class="container text-center reveal">
+        <div class="section-label">ASSESSMENT</div>
+        <h2 class="section-title">考核标准</h2>
+        <div class="assessment-intro">
+            我们通过<strong style="color:var(--blue);">积分体系</strong>记录你的成长，而不是单一考核。社群建设、活动策划、技术服务等内容产出会积累积分，每学期对积分排名前三的大使进行激励。<br>
+            👉 <a href="https://docs.qq.com/aio/DWG5qeE5ORGRRb0dE?nlc=1&p=KFo33Jkoo20JEsdusNBph3" target="_blank">查看完整考核细则文档 →</a>
+        </div>
+    </div>
+    <div class="accordion-group reveal">
+        <!-- Positive Items Accordion -->
+        <div class="accordion-item" data-accordion>
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <div class="ah-left">
+                    <span class="ah-tag positive">加分项</span>
+                    <span class="ah-title">完成任务即可积累积分</span>
+                </div>
+                <span class="ah-arrow">▼</span>
+            </div>
+            <div class="accordion-body">
+                <div class="accordion-table-wrap">
+                    <table class="acc-table">
+                        <thead>
+                            <tr><th>任务</th><th>积分</th><th>凭证</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>建设社群（500人以下 / 500~1000 / 1000+）</td><td class="score-positive">+1 ~ +3 分</td><td>群名 + 人数截图</td></tr>
+                            <tr><td>自主策划活动（比赛 / 沙龙 / 社团分享）</td><td class="score-positive">+2 ~ +10 分</td><td>活动现场实拍</td></tr>
+                            <tr><td>协助入校活动</td><td class="score-positive">+5 分/次</td><td>—</td></tr>
+                            <tr><td>技术服务支持</td><td class="score-positive">+1 分/周</td><td>—</td></tr>
+                            <tr><td>协助集团号管理</td><td class="score-positive">+1 分/周</td><td>—</td></tr>
+                            <tr><td>撰写技术文章</td><td class="score-positive">+2 分/篇</td><td>文章 + 宣传截图</td></tr>
+                            <tr><td>其他创意活动</td><td class="score-positive">+10 ~ +20 分</td><td>—</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Negative Items Accordion -->
+        <div class="accordion-item" data-accordion>
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <div class="ah-left">
+                    <span class="ah-tag negative">扣分项</span>
+                    <span class="ah-title">持续活跃才能保持身份</span>
+                </div>
+                <span class="ah-arrow">▼</span>
+            </div>
+            <div class="accordion-body">
+                <div class="accordion-table-wrap">
+                    <table class="acc-table">
+                        <thead>
+                            <tr><th>任务</th><th>扣分</th><th>说明</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>社群运营（连续 4 周互动不足 3 次）</td><td class="score-negative">-4 分</td><td>未提交截图</td></tr>
+                            <tr><td>校园活动（连续 3 个月无活动）</td><td class="score-negative">-30 分（取消任命）</td><td>未提交实拍</td></tr>
+                            <tr><td>技术服务（受投诉）</td><td class="score-negative">-20 分/取消任命</td><td>—</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== 活动玩法 ==================== -->
+<section class="section activities-section" id="activities">
+    <div class="container text-center reveal">
+        <div class="section-label">HOW TO PLAY</div>
+        <h2 class="section-title">你可以这样玩转校园</h2>
+        <p class="section-subtitle mb-md">多种活动形式，创意由你定</p>
+    </div>
+    <div class="container activities-grid reveal">
+        <!-- Activity 1 -->
+        <div class="activity-card">
+            <div class="activity-card-visual">
+                <div class="acv-pattern"></div>
+                <span class="acv-icon">🎪</span>
+            </div>
+            <div class="activity-card-body">
+                <span class="activity-badge">最受欢迎</span>
+                <h4>策划校园 AI 互动展</h4>
+                <p class="activity-desc">打造沉浸式 AI 体验空间，让同学们近距离感受前沿技术的魅力，是吸引最多人参与的明星活动形式。</p>
+                <div class="activity-tags">
+                    <span class="at-tag">AI Agent 体验站</span>
+                    <span class="at-tag">AI Coding 实战台</span>
+                    <span class="at-tag">智能体游乐场 + IMA 知识库</span>
+                </div>
+            </div>
+        </div>
+        <!-- Activity 2 -->
+        <div class="activity-card">
+            <div class="activity-card-visual">
+                <div class="acv-pattern"></div>
+                <span class="acv-icon">🗣️</span>
+            </div>
+            <div class="activity-card-body">
+                <span class="activity-badge">深度交流</span>
+                <h4>联合社团举办主题沙龙</h4>
+                <p class="activity-desc">携手校内社团举办深度技术沙龙，邀请感兴趣的同学一起探讨前沿话题，营造校园技术氛围。</p>
+                <div class="activity-tags">
+                    <span class="at-tag">AI Coding 入门</span>
+                    <span class="at-tag">智能体开发</span>
+                    <span class="at-tag">HAI 大模型部署 + Lighthouse 上云</span>
+                </div>
+            </div>
+        </div>
+        <!-- Activity 3 -->
+        <div class="activity-card">
+            <div class="activity-card-visual">
+                <div class="acv-pattern"></div>
+                <span class="acv-icon">🛠️</span>
+            </div>
+            <div class="activity-card-body">
+                <span class="activity-badge">动手实操</span>
+                <h4>组织智能体体验工坊</h4>
+                <p class="activity-desc">手把手带同学从零搭建自己的 AI Agent，从概念到 Prompt 再到成品工具调用，最后来一场作品 PK。</p>
+                <div class="activity-tags">
+                    <span class="at-tag">Agent 概念讲解</span>
+                    <span class="at-tag">Prompt 到成品</span>
+                    <span class="at-tag">工具调用 + 作品 PK</span>
+                </div>
+            </div>
+        </div>
+        <!-- Activity 4 -->
+        <div class="activity-card">
+            <div class="activity-card-visual">
+                <div class="acv-pattern"></div>
+                <span class="acv-icon">🏆</span>
+            </div>
+            <div class="activity-card-body">
+                <span class="activity-badge">高影响力</span>
+                <h4>发起应用创新大赛</h4>
+                <p class="activity-desc">组织校园级别的 AI 应用创新挑战赛，联动腾讯教育资源，为优秀作品提供全方位支持和曝光。</p>
+                <div class="activity-tags">
+                    <span class="at-tag">AI Coding 挑战赛</span>
+                    <span class="at-tag">算力申请 + 导师 + 周边</span>
+                    <span class="at-tag">获奖证书 + 腾讯教育官号曝光</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== 活动流程 ==================== -->
+<section class="section process-section" id="process">
+    <div class="container text-center reveal">
+        <div class="section-label">WORKFLOW</div>
+        <h2 class="section-title">活动流程</h2>
+        <p class="section-subtitle mb-md">五步走，从想法到落地一气呵成</p>
+    </div>
+    <div class="container process-flow reveal">
+        <div class="pf-line"></div>
+        <div class="pf-step">
+            <div class="pf-num">①</div>
+            <h4>确认主题</h4>
+            <p>确定活动方向<br>与目标受众</p>
+        </div>
+        <div class="pf-step">
+            <div class="pf-num">②</div>
+            <h4>输出方案</h4>
+            <p>撰写完整<br>活动策划方案</p>
+        </div>
+        <div class="pf-step">
+            <div class="pf-num">③</div>
+            <h4>提交申请</h4>
+            <p>提交审批<br>获取所需资源</p>
+        </div>
+        <div class="pf-step">
+            <div class="pf-num">④</div>
+            <h4>落地执行</h4>
+            <p>现场执行<br>保障活动效果</p>
+        </div>
+        <div class="pf-step">
+            <div class="pf-num">⑤</div>
+            <h4>复盘总结</h4>
+            <p>整理成果<br>沉淀经验方法</p>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== 常见问题 ==================== -->
+<section class="section faq-section" id="faq">
+    <div class="container text-center reveal">
+        <div class="section-label">FAQ</div>
+        <h2 class="section-title">常见问题</h2>
+        <p class="section-subtitle mb-md">你可能想知道的事</p>
+    </div>
+    <div class="faq-group reveal">
+        <div class="faq-item" data-faq>
+            <div class="faq-q" onclick="toggleFaq(this)">
+                <span class="fq-mark">Q1</span>
+                <span class="fq-text">每学期需要组织多少场活动？</span>
+                <span class="fq-toggle">+</span>
+            </div>
+            <div class="faq-a">
+                <div class="faq-a-inner">每学期至少组织 <strong>2 场活动</strong>，单场规模不少于 <strong>30 人</strong>。活动类型可以多样化——沙龙、工坊、展览、比赛都可以，关键是让更多同学接触到 AI 与云计算的前沿知识。</div>
+            </div>
+        </div>
+        <div class="faq-item" data-faq>
+            <div class="faq-q" onclick="toggleFaq(this)">
+                <span class="fq-mark">Q2</span>
+                <span class="fq-text">会影响学业吗？时间投入大概多少？</span>
+                <span class="fq-toggle">+</span>
+            </div>
+            <div class="faq-a">
+                <div class="faq-a-inner">校园大使是<strong>弹性参与</strong>机制，每月大约 <strong>1 小时培训</strong> + <strong>一场活动</strong>（约 2-3 小时），整体投入可控，不影响正常学业。你可以根据课表灵活安排活动时间。</div>
+            </div>
+        </div>
+        <div class="faq-item" data-faq>
+            <div class="faq-q" onclick="toggleFaq(this)">
+                <span class="fq-mark">Q3</span>
+                <span class="fq-text">活动申请后多久能通过审核？资源怎么到位？</span>
+                <span class="fq-toggle">+</span>
+            </div>
+            <div class="faq-a">
+                <div class="faq-a-inner">活动申请提交后 <strong>3 个工作日</strong>内完成审核。审核通过后，所需资源（物料、培训、技术支持等）会<strong>分批到位</strong>，确保你在活动前有充足准备时间。</div>
+            </div>
+        </div>
+        <div class="faq-item" data-faq>
+            <div class="faq-q" onclick="toggleFaq(this)">
+                <span class="fq-mark">Q4</span>
+                <span class="fq-text">评优机制是怎样的？有什么奖励？</span>
+                <span class="fq-toggle">+</span>
+            </div>
+            <div class="faq-a">
+                <div class="faq-a-inner">基于<strong>积分体系</strong>评优，涵盖社群建设、活动策划、技术服务等多维度产出。每学期对积分排名 <strong>Top 3 的大使</strong>给予激励奖励，包括但不限于：额外实习推荐、大会优先参与权、定制化培养计划等。</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== Footer CTA ==================== -->
+<section class="footer-cta">
+    <div class="fcta-glow fcta-glow-1"></div>
+    <div class="fcta-glow fcta-glow-2"></div>
+    <div class="container">
+        <h2 class="fcta-title">准备好成为校园大使了吗？</h2>
+        <p class="fcta-subtitle">加入我们，用技术影响力定义属于你的未来</p>
+        <div class="fcta-buttons">
+            <a href="https://docs.qq.com/form/page/DQnBIUXVuaUZVQnFC#/fill" target="_blank" class="btn btn-primary btn-large">
+                🚀 立即申请加入
+            </a>
+            <a href="#about" class="btn btn-white btn-large">再看看详情 ↑</a>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== Footer ==================== -->
+<footer class="site-footer">
+    <div class="container footer-inner">
+        <div class="footer-brand">
+            <h4>腾讯云Tedu校园大使计划</h4>
+            <p>连接腾讯云技术与高校生态的桥梁项目，致力于在校园推广 AI 与云计算技术，培养具有影响力的青年技术领袖。</p>
+        </div>
+        <div class="footer-links">
+            <h5>快速链接</h5>
+            <ul>
+                <li><a href="https://docs.qq.com/form/page/DQnBIUXVuaUZVQnFC" target="_blank">校园大使申请</a></li>
+                <li><a href="https://doc.weixin.qq.com/forms/AJEAIQdfAAoABoATAZGACkCNe3NPP2fnf#/fill" target="_blank">校园活动申请</a></li>
+                <li><a href="https://docs.qq.com/aio/DWG5qeE5ORGRRb0dE?nlc=1&p=3y4au5XxHK7LoSijMImqnD" target="_blank">AI 提效工具</a></li>
+                <li><a href="https://docs.qq.com/aio/DQm5HREFzQUVDT1RX?p=ZNYqCVWN4PD87IYBUBFdIQ" target="_blank">考核细则</a></li>
+            </ul>
+        </div>
+        <div class="footer-qr">
+            <div class="footer-qr-img">
+                <img src="腾讯教育公众号1.png" alt="腾讯教育公众号二维码" style="width:110px;height:110px;border-radius:12px;object-fit:cover;">
+            </div>
+            <p>扫码关注「腾讯教育」公众号</p>
+        </div>
+    </div>
+    <div class="container footer-bottom">
+        © 2026 腾讯云 · 腾讯云Tedu校园推广大使计划
+    </div>
+</footer>
+
+<!-- ==================== JavaScript ==================== -->
+<script>
+    // --- Generate Particles ---
+    (function() {
+        const container = document.getElementById('particles');
+        if (!container) return;
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.width = (Math.random() * 4 + 2) + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.animationDelay = (Math.random() * 15) + 's';
+            particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            container.appendChild(particle);
+        }
+    })();
+
+    // --- Navbar Scroll Effect ---
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+
+    // --- Mobile Menu Toggle ---
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    menuBtn.addEventListener('click', function() {
+        navLinks.classList.toggle('open');
+    });
+    // Close menu when clicking a link
+    navLinks.querySelectorAll('.nav-link').forEach(function(link) {
+        link.addEventListener('click', function() {
+            navLinks.classList.remove('open');
+        });
+    });
+
+    // --- Cases Carousel auto-scrolls now (handled by marquee CSS animation) ---
+
+    // --- Accordion ---
+    window.toggleAccordion = function(header) {
+        const item = header.parentElement;
+        const body = item.querySelector('.accordion-body');
+        const isOpen = item.classList.contains('open');
+
+        // Close all others in same group
+        item.parentElement.querySelectorAll('.accordion-item').forEach(function(el) {
+            el.classList.remove('open');
+            el.querySelector('.accordion-body').style.maxHeight = null;
+        });
+
+        // Toggle current
+        if (!isOpen) {
+            item.classList.add('open');
+            body.style.maxHeight = body.scrollHeight + 'px';
+        }
+    };
+
+    // --- FAQ Accordion ---
+    window.toggleFaq = function(qEl) {
+        const item = qEl.parentElement;
+        const answer = item.querySelector('.faq-a');
+        const isOpen = item.classList.contains('open');
+
+        // Close all others
+        item.parentElement.querySelectorAll('.faq-item').forEach(function(el) {
+            el.classList.remove('open');
+            el.querySelector('.faq-a').style.maxHeight = null;
+        });
+
+        if (!isOpen) {
+            item.classList.add('open');
+            answer.style.maxHeight = answer.scrollHeight + 'px';
+        }
+    };
+
+    // --- Reveal Animation on Scroll ---
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -40px 0px'
+    };
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal').forEach(function(el) {
+        observer.observe(el);
+    });
+
+    // --- Smooth Scroll for Anchor Links ---
+    document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            const target = document.querySelector(targetId);
+            if (target) {
+                const offsetTop = target.offsetTop - 80;
+                window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+            }
+        });
+    });
+
+    // --- Seamless Marquee Carousel (clone children for infinite loop) ---
+    (function() {
+        ['casesCarousel', 'ambCarousel'].forEach(function(id) {
+            const carousel = document.getElementById(id);
+            if (!carousel) return;
+            const originals = Array.from(carousel.children);
+            originals.forEach(function(node) {
+                const clone = node.cloneNode(true);
+                clone.setAttribute('aria-hidden', 'true');
+                carousel.appendChild(clone);
+            });
+        });
+    })();
+
+    // --- Count-up Animation for Hero Numbers ---
+    (function() {
+        const els = document.querySelectorAll('.count-up');
+        if (!els.length) return;
+        function animate(el) {
+            if (el.dataset.done) return;
+            el.dataset.done = '1';
+            const target = parseInt(el.dataset.target, 10) || 0;
+            const suffix = el.dataset.suffix || '';
+            const duration = 2000;
+            const start = performance.now();
+            function tick(now) {
+                const p = Math.min((now - start) / duration, 1);
+                // ease-out cubic
+                const eased = 1 - Math.pow(1 - p, 3);
+                const val = Math.floor(target * eased);
+                el.textContent = val.toLocaleString() + (p === 1 ? suffix : '');
+                if (p < 1) requestAnimationFrame(tick);
+            }
+            requestAnimationFrame(tick);
+        }
+        // Trigger on load (Hero is visible immediately)
+        setTimeout(function() {
+            els.forEach(animate);
+        }, 600);
+
+        // Periodic "wiggle" — re-animate every 8s for living number effect
+        setInterval(function() {
+            els.forEach(function(el) {
+                el.dataset.done = '';
+                animate(el);
+            });
+        }, 8000);
+    })();
+</script>
+
+</body>
+</html>
