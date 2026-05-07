@@ -1063,6 +1063,17 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
         .amb-card:hover .amb-avatar-lg { transform: scale(1.05); }
+        .amb-avatar-img {
+            position: relative;
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+            z-index: 2;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .amb-card:hover .amb-avatar-img { transform: scale(1.05); }
         .amb-name {
             font-size: 15px;
             font-weight: 700;
@@ -2687,24 +2698,24 @@
     </div>
     <div class="container"><div class="ambassadors-wrapper reveal">
         <div class="ambassadors-carousel" id="ambCarousel">
-            <!-- 1 --><div class="amb-card" style="--halo:linear-gradient(135deg,#0052D9,#00A3FF);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#0052D9,#00A3FF);">杨</div></div><div class="amb-name">杨宝增</div><div class="amb-school">北京邮电大学</div></div>
-            <!-- 2 --><div class="amb-card" style="--halo:linear-gradient(135deg,#007D53,#00D68B);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#007D53,#00D68B);">饶</div></div><div class="amb-name">饶棋涛</div><div class="amb-school">北京邮电大学</div></div>
-            <!-- 3 --><div class="amb-card" style="--halo:linear-gradient(135deg,#8B3ADF,#B87AE6);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#8B3ADF,#B87AE6);">尼</div></div><div class="amb-name">尼尕热·玉散</div><div class="amb-school">北京邮电大学</div></div>
-            <!-- 4 --><div class="amb-card" style="--halo:linear-gradient(135deg,#E07B26,#FFA94D);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#E07B26,#FFA94D);">李</div></div><div class="amb-name">李政远</div><div class="amb-school">西安电子科技大学</div></div>
-            <!-- 5 --><div class="amb-card" style="--halo:linear-gradient(135deg,#0B7A7A,#3DBDB5);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#0B7A7A,#3DBDB5);">宋</div></div><div class="amb-name">宋欣莲</div><div class="amb-school">西安电子科技大学</div></div>
-            <!-- 6 --><div class="amb-card" style="--halo:linear-gradient(135deg,#B81B5D,#E86BA6);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#B81B5D,#E86BA6);">闫</div></div><div class="amb-name">闫鹏祥</div><div class="amb-school">西安电子科技大学</div></div>
-            <!-- 7 --><div class="amb-card" style="--halo:linear-gradient(135deg,#1E3A8A,#3B82F6);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#1E3A8A,#3B82F6);">张</div></div><div class="amb-name">张皓翔</div><div class="amb-school">北京航空航天大学</div></div>
-            <!-- 8 --><div class="amb-card" style="--halo:linear-gradient(135deg,#059669,#34D399);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#059669,#34D399);">卢</div></div><div class="amb-name">卢厚华</div><div class="amb-school">北京航空航天大学</div></div>
-            <!-- 9 --><div class="amb-card" style="--halo:linear-gradient(135deg,#7C3AED,#C4B5FD);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#7C3AED,#C4B5FD);">刘</div></div><div class="amb-name">刘雨菲</div><div class="amb-school">北京交通大学</div></div>
-            <!-- 10 --><div class="amb-card" style="--halo:linear-gradient(135deg,#F97316,#FDBA74);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#F97316,#FDBA74);">王</div></div><div class="amb-name">王世琦</div><div class="amb-school">香港科技大学（广州）</div></div>
-            <!-- 11 --><div class="amb-card" style="--halo:linear-gradient(135deg,#0891B2,#67E8F9);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#0891B2,#67E8F9);">肖</div></div><div class="amb-name">肖金鑫</div><div class="amb-school">华中科技大学</div></div>
-            <!-- 12 --><div class="amb-card" style="--halo:linear-gradient(135deg,#DB2777,#F9A8D4);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#DB2777,#F9A8D4);">董</div></div><div class="amb-name">董亚鹏</div><div class="amb-school">北京工业大学</div></div>
-            <!-- 13 --><div class="amb-card" style="--halo:linear-gradient(135deg,#2563EB,#93C5FD);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#2563EB,#93C5FD);">孙</div></div><div class="amb-name">孙正金</div><div class="amb-school">深圳大学</div></div>
-            <!-- 14 --><div class="amb-card" style="--halo:linear-gradient(135deg,#10B981,#86EFAC);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#10B981,#86EFAC);">吴</div></div><div class="amb-name">吴基融</div><div class="amb-school">深圳技术大学</div></div>
-            <!-- 15 --><div class="amb-card" style="--halo:linear-gradient(135deg,#9333EA,#D8B4FE);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#9333EA,#D8B4FE);">文</div></div><div class="amb-name">文章</div><div class="amb-school">四川大学</div></div>
-            <!-- 16 --><div class="amb-card" style="--halo:linear-gradient(135deg,#EA580C,#FED7AA);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#EA580C,#FED7AA);">穆</div></div><div class="amb-name">穆再排尔·穆合塔尔</div><div class="amb-school">南京航空航天大学</div></div>
-            <!-- 17 --><div class="amb-card" style="--halo:linear-gradient(135deg,#0D9488,#5EEAD4);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#0D9488,#5EEAD4);">胡</div></div><div class="amb-name">胡秀洋</div><div class="amb-school">南京理工大学</div></div>
-            <!-- 18 --><div class="amb-card" style="--halo:linear-gradient(135deg,#BE185D,#FBCFE8);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#BE185D,#FBCFE8);">李</div></div><div class="amb-name">李威俊</div><div class="amb-school">深圳信息职业技术学院</div></div>
+            <!-- 1 --><div class="amb-card" style="--halo:linear-gradient(135deg,#0052D9,#00A3FF);"><div class="amb-avatar-wrap"><img src="avatar-01-yang.png" alt="杨宝增" class="amb-avatar-img" /></div><div class="amb-name">杨宝增</div><div class="amb-school">北京邮电大学</div></div>
+            <!-- 2 --><div class="amb-card" style="--halo:linear-gradient(135deg,#007D53,#00D68B);"><div class="amb-avatar-wrap"><img src="avatar-02-rao.png" alt="饶棋涛" class="amb-avatar-img" /></div><div class="amb-name">饶棋涛</div><div class="amb-school">北京邮电大学</div></div>
+            <!-- 3 --><div class="amb-card" style="--halo:linear-gradient(135deg,#8B3ADF,#B87AE6);"><div class="amb-avatar-wrap"><img src="avatar-03-ni.png" alt="尼尕热·玉散" class="amb-avatar-img" /></div><div class="amb-name">尼尕热·玉散</div><div class="amb-school">北京邮电大学</div></div>
+            <!-- 4 --><div class="amb-card" style="--halo:linear-gradient(135deg,#E07B26,#FFA94D);"><div class="amb-avatar-wrap"><img src="avatar-04-li.png" alt="李政远" class="amb-avatar-img" /></div><div class="amb-name">李政远</div><div class="amb-school">西安电子科技大学</div></div>
+            <!-- 5 --><div class="amb-card" style="--halo:linear-gradient(135deg,#0B7A7A,#3DBDB5);"><div class="amb-avatar-wrap"><img src="avatar-05-song.png" alt="宋欣莲" class="amb-avatar-img" /></div><div class="amb-name">宋欣莲</div><div class="amb-school">西安电子科技大学</div></div>
+            <!-- 6 --><div class="amb-card" style="--halo:linear-gradient(135deg,#B81B5D,#E86BA6);"><div class="amb-avatar-wrap"><img src="avatar-06-yan.png" alt="闫鹏祥" class="amb-avatar-img" /></div><div class="amb-name">闫鹏祥</div><div class="amb-school">西安电子科技大学</div></div>
+            <!-- 7 --><div class="amb-card" style="--halo:linear-gradient(135deg,#1E3A8A,#3B82F6);"><div class="amb-avatar-wrap"><img src="avatar-07-zhang.png" alt="张皓翔" class="amb-avatar-img" /></div><div class="amb-name">张皓翔</div><div class="amb-school">北京航空航天大学</div></div>
+            <!-- 8 --><div class="amb-card" style="--halo:linear-gradient(135deg,#059669,#34D399);"><div class="amb-avatar-wrap"><img src="avatar-08-lu.png" alt="卢厚华" class="amb-avatar-img" /></div><div class="amb-name">卢厚华</div><div class="amb-school">北京航空航天大学</div></div>
+            <!-- 9 --><div class="amb-card" style="--halo:linear-gradient(135deg,#7C3AED,#C4B5FD);"><div class="amb-avatar-wrap"><img src="avatar-09-liu.png" alt="刘雨菲" class="amb-avatar-img" /></div><div class="amb-name">刘雨菲</div><div class="amb-school">北京交通大学</div></div>
+            <!-- 10 --><div class="amb-card" style="--halo:linear-gradient(135deg,#F97316,#FDBA74);"><div class="amb-avatar-wrap"><img src="avatar-10-wang.png" alt="王世琦" class="amb-avatar-img" /></div><div class="amb-name">王世琦</div><div class="amb-school">香港科技大学（广州）</div></div>
+            <!-- 11 --><div class="amb-card" style="--halo:linear-gradient(135deg,#0891B2,#67E8F9);"><div class="amb-avatar-wrap"><img src="avatar-11-xiao.png" alt="肖金鑫" class="amb-avatar-img" /></div><div class="amb-name">肖金鑫</div><div class="amb-school">华中科技大学</div></div>
+            <!-- 12 --><div class="amb-card" style="--halo:linear-gradient(135deg,#DB2777,#F9A8D4);"><div class="amb-avatar-wrap"><img src="avatar-12-dong.png" alt="董亚鹏" class="amb-avatar-img" /></div><div class="amb-name">董亚鹏</div><div class="amb-school">北京工业大学</div></div>
+            <!-- 13 --><div class="amb-card" style="--halo:linear-gradient(135deg,#2563EB,#93C5FD);"><div class="amb-avatar-wrap"><img src="avatar-13-sun.png" alt="孙正金" class="amb-avatar-img" /></div><div class="amb-name">孙正金</div><div class="amb-school">深圳大学</div></div>
+            <!-- 14 --><div class="amb-card" style="--halo:linear-gradient(135deg,#10B981,#86EFAC);"><div class="amb-avatar-wrap"><img src="avatar-14-wu.png" alt="吴基融" class="amb-avatar-img" /></div><div class="amb-name">吴基融</div><div class="amb-school">深圳技术大学</div></div>
+            <!-- 15 --><div class="amb-card" style="--halo:linear-gradient(135deg,#9333EA,#D8B4FE);"><div class="amb-avatar-wrap"><img src="avatar-15-wen.png" alt="文章" class="amb-avatar-img" /></div><div class="amb-name">文章</div><div class="amb-school">四川大学</div></div>
+            <!-- 16 --><div class="amb-card" style="--halo:linear-gradient(135deg,#EA580C,#FED7AA);"><div class="amb-avatar-wrap"><img src="avatar-16-mu.png" alt="穆再排尔·穆合塔尔" class="amb-avatar-img" /></div><div class="amb-name">穆再排尔·穆合塔尔</div><div class="amb-school">南京航空航天大学</div></div>
+            <!-- 17 --><div class="amb-card" style="--halo:linear-gradient(135deg,#0D9488,#5EEAD4);"><div class="amb-avatar-wrap"><img src="avatar-17-hu.png" alt="胡秀洋" class="amb-avatar-img" /></div><div class="amb-name">胡秀洋</div><div class="amb-school">南京理工大学</div></div>
+            <!-- 18 --><div class="amb-card" style="--halo:linear-gradient(135deg,#BE185D,#FBCFE8);"><div class="amb-avatar-wrap"><img src="avatar-18-liw.png" alt="李威俊" class="amb-avatar-img" /></div><div class="amb-name">李威俊</div><div class="amb-school">深圳信息职业技术学院</div></div>
         </div>
     </div>
 </div>
