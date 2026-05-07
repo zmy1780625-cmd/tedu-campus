@@ -1008,13 +1008,13 @@
         .ambassadors-carousel:hover { animation-play-state: paused; }
         .amb-card {
             flex-shrink: 0;
-            width: 170px;
+            width: 210px;
             background: rgba(255,255,255,0.75);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255,255,255,0.8);
             border-radius: var(--radius-card);
-            padding: 30px 18px 20px;
+            padding: 34px 22px 24px;
             text-align: center;
             transition: all 0.3s ease;
             scroll-snap-align: center;
@@ -1028,9 +1028,9 @@
         /* Avatar with gradient halo ring */
         .amb-avatar-wrap {
             position: relative;
-            width: 84px;
-            height: 84px;
-            margin: 0 auto 18px;
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1061,13 +1061,13 @@
         .amb-card:hover .amb-avatar-wrap::before { opacity: 0.8; }
         .amb-avatar-lg {
             position: relative;
-            width: 72px;
-            height: 72px;
+            width: 86px;
+            height: 86px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 26px;
+            font-size: 30px;
             font-weight: 700;
             color: #fff;
             transition: transform 0.3s ease;
@@ -1077,8 +1077,8 @@
         .amb-card:hover .amb-avatar-lg { transform: scale(1.05); }
         .amb-avatar-img {
             position: relative;
-            width: 72px;
-            height: 72px;
+            width: 86px;
+            height: 86px;
             border-radius: 50%;
             object-fit: cover;
             transition: transform 0.3s ease;
@@ -1087,13 +1087,13 @@
         }
         .amb-card:hover .amb-avatar-img { transform: scale(1.05); }
         .amb-name {
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 700;
             color: var(--text-title);
-            margin-bottom: 4px;
+            margin-bottom: 5px;
         }
         .amb-school {
-            font-size: 12px;
+            font-size: 13px;
             color: var(--text-muted);
             line-height: 1.5;
         }
@@ -2174,9 +2174,9 @@
             }
             /* Card sizes */
             .case-card { min-width: 260px; max-width: 280px; }
-            .amb-card { width: 140px; padding: 24px 14px 18px; }
-            .amb-avatar-wrap { width: 72px; height: 72px; }
-            .amb-avatar-lg { width: 60px; height: 60px; font-size: 22px; }
+            .amb-card { width: 170px; padding: 28px 16px 20px; }
+            .amb-avatar-wrap { width: 86px; height: 86px; }
+            .amb-avatar-lg { width: 72px; height: 72px; font-size: 24px; }
             .amb-name { font-size: 14px; }
             .amb-school { font-size: 11px; }
             /* Ring anchor */
@@ -2241,7 +2241,7 @@
             .amb-ring-anchor { display: none; }
             /* Smaller marquee cards */
             .case-card { min-width: 240px; max-width: 260px; }
-            .amb-card { width: 130px; }
+            .amb-card { width: 155px; }
         }
         @media (max-width: 640px) {
             .hero-title { font-size: 26px; }
