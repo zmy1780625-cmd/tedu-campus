@@ -814,17 +814,29 @@
             min-width: 340px;
             max-width: 360px;
             flex-shrink: 0;
-            background: #fff;
+            position: relative;
+            z-index: 0;
+            background: linear-gradient(165deg, rgba(255,255,255,0.78), rgba(245,248,255,0.68));
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-radius: var(--radius-card);
-            border: 1px solid var(--border-color);
+            border: 1.5px solid rgba(255,255,255,0.65);
+            box-shadow:
+                0 4px 24px rgba(0,82,217,0.05),
+                inset 0 1px 0 rgba(255,255,255,0.6);
             overflow: hidden;
             scroll-snap-align: start;
-            transition: all 0.25s ease;
+            transition: all 0.35s cubic-bezier(0.22,1,0.36,1);
             scroll-snap-align: start;
         }
         .case-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--card-hover-shadow);
+            transform: translateY(-6px) scale(1.01);
+            background: linear-gradient(165deg, rgba(255,255,255,0.92), rgba(245,248,255,0.85));
+            border-color: rgba(0,130,240,0.2);
+            box-shadow:
+                0 20px 60px rgba(0,82,217,0.15),
+                0 8px 28px rgba(0,120,230,0.10),
+                inset 0 1px 0 rgba(255,255,255,0.8);
         }
         .case-card-top {
             height: 180px;
@@ -1137,18 +1149,40 @@
             margin-top: 56px;
         }
         .benefit-card {
-            background: #fff;
+            background: linear-gradient(165deg, rgba(255,255,255,0.78), rgba(248,247,252,0.68));
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-radius: var(--radius-card);
-            border: 1px solid var(--border-color);
+            border: 1px solid rgba(255,255,255,0.65);
+            box-shadow:
+                0 4px 24px rgba(138,58,223,0.04),
+                inset 0 1px 0 rgba(255,255,255,0.6);
             padding: 36px 32px;
-            transition: all 0.25s ease;
+            transition: all 0.28s ease;
             position: relative;
             overflow: hidden;
         }
         .benefit-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--card-hover-shadow);
+            transform: translateY(-6px) scale(1.01);
+            background: linear-gradient(165deg, rgba(255,255,255,0.92), rgba(248,247,252,0.86));
+            border-color: transparent;
+            box-shadow:
+                0 20px 60px rgba(138,58,223,0.14),
+                0 8px 28px rgba(120,70,200,0.10),
+                0 0 0 1.5px rgba(138,80,220,0.18),
+                inset 0 1px 0 rgba(255,255,255,0.8);
         }
+        /* Benefit icon glow on hover */
+        .benefit-card:hover .benefit-icon {
+            box-shadow:
+                0 4px 20px rgba(0,82,217,0.15),
+                0 0 12px rgba(0,130,240,0.1),
+                inset 0 1px 0 rgba(255,255,255,0.6);
+            filter: brightness(1.05);
+        }
+        .benefit-card.career:hover .benefit-icon { box-shadow: 0 4px 20px rgba(0,82,217,0.2), 0 0 16px rgba(0,120,230,0.15), inset 0 1px 0 rgba(255,255,255,0.7); }
+        .benefit-card.exposure:hover .benefit-icon { box-shadow: 0 4px 20px rgba(139,58,223,0.2), 0 0 16px rgba(139,58,223,0.15), inset 0 1px 0 rgba(255,255,255,0.7); }
+        .benefit-card.tech:hover .benefit-icon { box-shadow: 0 4px 20px rgba(0,168,112,0.2), 0 0 16px rgba(0,168,112,0.15), inset 0 1px 0 rgba(255,255,255,0.7); }
         .benefit-card::after {
             content: '';
             position: absolute;
@@ -1178,6 +1212,7 @@
             justify-content: center;
             font-size: 22px;
             flex-shrink: 0;
+            transition: all 0.35s cubic-bezier(0.22,1,0.36,1);
         }
         .benefit-card.career .benefit-icon { background: var(--blue-bg); }
         .benefit-card.exposure .benefit-icon { background: var(--purple-bg); }
@@ -1470,15 +1505,31 @@
             margin-top: 56px;
         }
         .activity-card {
-            background: #fff;
-            border: 1px solid var(--border-color);
+            background: linear-gradient(165deg, rgba(255,255,255,0.78), rgba(245,248,255,0.68));
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1.5px solid rgba(255,255,255,0.65);
             border-radius: var(--radius-card);
+            box-shadow:
+                0 4px 24px rgba(0,82,217,0.05),
+                inset 0 1px 0 rgba(255,255,255,0.6);
             overflow: hidden;
-            transition: all 0.25s ease;
+            transition: all 0.35s cubic-bezier(0.22,1,0.36,1);
         }
         .activity-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--card-hover-shadow);
+            transform: translateY(-6px) scale(1.01);
+            background: linear-gradient(165deg, rgba(255,255,255,0.92), rgba(245,248,255,0.85));
+            border-color: transparent;
+            box-shadow:
+                0 20px 60px rgba(0,82,217,0.15),
+                0 8px 28px rgba(0,120,230,0.10),
+                0 0 0 1.5px rgba(0,130,240,0.2),
+                inset 0 1px 0 rgba(255,255,255,0.8);
+        }
+        /* Activity card icon glow on hover */
+        .activity-card:hover .acv-icon {
+            filter: drop-shadow(0 4px 12px rgba(0,100,220,0.25)) drop-shadow(0 0 20px rgba(0,140,255,0.15));
+            transform: scale(1.08) translateY(-2px);
         }
         .activity-card-visual {
             height: 160px;
@@ -1492,6 +1543,8 @@
         .acv-icon {
             font-size: 48px;
             z-index: 1;
+            transition: all 0.35s cubic-bezier(0.22,1,0.36,1);
+            display: inline-block;
         }
         .acv-pattern {
             position: absolute;
@@ -1815,9 +1868,14 @@
             min-width: 420px;
             max-width: 420px;
             flex-shrink: 0;
-            background: #fff;
+            background: linear-gradient(165deg, rgba(255,255,255,0.78), rgba(248,247,252,0.68));
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-radius: var(--radius-card);
-            border: 1px solid var(--border-color);
+            border: 1px solid rgba(255,255,255,0.65);
+            box-shadow:
+                0 4px 24px rgba(138,58,223,0.04),
+                inset 0 1px 0 rgba(255,255,255,0.6);
             overflow: hidden;
             transition: all 0.28s ease;
             text-decoration: none;
@@ -1827,11 +1885,18 @@
             align-items: stretch;
         }
         .ai-prod-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--card-hover-shadow);
+            transform: translateY(-6px) scale(1.01);
+            background: linear-gradient(165deg, rgba(255,255,255,0.92), rgba(248,247,252,0.86));
+            border-color: transparent;
+            box-shadow:
+                0 20px 60px rgba(138,58,223,0.14),
+                0 8px 28px rgba(120,70,200,0.10),
+                0 0 0 1.5px rgba(138,80,220,0.18),
+                inset 0 1px 0 rgba(255,255,255,0.8);
         }
         .ai-prod-card:hover .ai-prod-icon-wrap .ai-prod-logo {
-            transform: scale(1.08);
+            transform: scale(1.1);
+            filter: drop-shadow(0 4px 12px rgba(100,70,180,0.2)) drop-shadow(0 0 20px rgba(139,58,223,0.1));
         }
 
         /* Icon area - left sidebar with real logo */
@@ -1850,7 +1915,7 @@
             height: 64px;
             object-fit: contain;
             border-radius: 14px;
-            transition: transform 0.35s ease;
+            transition: all 0.35s cubic-bezier(0.22,1,0.36,1);
             filter: drop-shadow(0 2px 6px rgba(0,0,0,0.08));
         }
 
