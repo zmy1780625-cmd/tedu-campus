@@ -130,10 +130,42 @@
         }
         .btn-large { padding: 18px 44px; font-size: 17px; }
 
+        /* ========== Activity Banner ========== */
+        .wb-banner {
+            position: relative;
+            z-index: 1001;
+            background: linear-gradient(135deg, #0052D9 0%, #00A3FF 100%);
+            padding: 10px 24px;
+            text-align: center;
+        }
+        .wb-banner-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+            font-size: 14px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .wb-banner-link:hover { opacity: 0.88; }
+        .wb-banner-icon { font-size: 16px; }
+        .wb-banner-text strong { font-weight: 700; }
+        .wb-banner-close {
+            margin-left: 16px;
+            cursor: pointer;
+            font-size: 13px;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+            padding: 2px 6px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 4px;
+        }
+        .wb-banner-close:hover { opacity: 1; background: rgba(255,255,255,0.35); }
+
         /* ========== Navbar ========== */
         .navbar {
             position: fixed;
-            top: 0;
+            top: 40px;
             left: 0;
             right: 0;
             z-index: 1000;
@@ -878,10 +910,10 @@
             padding: 24px;
         }
         .case-card-body h4 {
-            font-size: 17px;
-            font-weight: 600;
+            font-size: 16px;
+            font-weight: 500;
             color: var(--text-title);
-            margin-bottom: 14px;
+            margin-bottom: 12px;
             line-height: 1.5;
         }
         .case-meta {
@@ -893,33 +925,23 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: #FFF7ED;
-            color: #C2410C;
+            background: var(--blue-bg);
+            color: var(--blue);
             font-size: 13px;
             font-weight: 600;
             padding: 5px 14px;
             border-radius: 999px;
         }
-        .case-date {
-            font-size: 14px;
-            color: var(--blue);
-            background: var(--blue-bg);
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 20px;
-            margin-bottom: 10px;
-            font-weight: 500;
-        }
         .case-link {
             font-size: 13px;
             color: var(--blue);
-            font-weight: 600;
-            display: inline-flex;
+            font-weight: 500;
+            display: flex;
             align-items: center;
             gap: 4px;
-            transition: gap 0.2s ease, color 0.2s ease;
+            transition: gap 0.2s ease;
         }
-        .case-link:hover { gap: 8px; color: var(--blue-light); }
+        .case-link:hover { gap: 8px; }
         .carousel-nav {
             display: flex;
             justify-content: center;
@@ -1018,13 +1040,13 @@
         .ambassadors-carousel:hover { animation-play-state: paused; }
         .amb-card {
             flex-shrink: 0;
-            width: 210px;
+            width: 170px;
             background: rgba(255,255,255,0.75);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255,255,255,0.8);
             border-radius: var(--radius-card);
-            padding: 34px 22px 24px;
+            padding: 30px 18px 20px;
             text-align: center;
             transition: all 0.3s ease;
             scroll-snap-align: center;
@@ -1038,9 +1060,9 @@
         /* Avatar with gradient halo ring */
         .amb-avatar-wrap {
             position: relative;
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 20px;
+            width: 84px;
+            height: 84px;
+            margin: 0 auto 18px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1071,13 +1093,13 @@
         .amb-card:hover .amb-avatar-wrap::before { opacity: 0.8; }
         .amb-avatar-lg {
             position: relative;
-            width: 86px;
-            height: 86px;
+            width: 72px;
+            height: 72px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 30px;
+            font-size: 26px;
             font-weight: 700;
             color: #fff;
             transition: transform 0.3s ease;
@@ -1087,8 +1109,8 @@
         .amb-card:hover .amb-avatar-lg { transform: scale(1.05); }
         .amb-avatar-img {
             position: relative;
-            width: 86px;
-            height: 86px;
+            width: 72px;
+            height: 72px;
             border-radius: 50%;
             object-fit: cover;
             transition: transform 0.3s ease;
@@ -1097,13 +1119,13 @@
         }
         .amb-card:hover .amb-avatar-img { transform: scale(1.05); }
         .amb-name {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 700;
             color: var(--text-title);
-            margin-bottom: 5px;
+            margin-bottom: 4px;
         }
         .amb-school {
-            font-size: 13px;
+            font-size: 12px;
             color: var(--text-muted);
             line-height: 1.5;
         }
@@ -2059,16 +2081,10 @@
         }
         .footer-links a:hover { color: #fff; }
         .footer-qr {
-            display: flex;
-            flex-direction: row;
-            gap: 24px;
-            justify-content: center;
-        }
-        .footer-qr-item {
+            text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
-            text-align: center;
         }
         .footer-qr-img {
             width: 110px;
@@ -2190,9 +2206,9 @@
             }
             /* Card sizes */
             .case-card { min-width: 260px; max-width: 280px; }
-            .amb-card { width: 170px; padding: 28px 16px 20px; }
-            .amb-avatar-wrap { width: 86px; height: 86px; }
-            .amb-avatar-lg { width: 72px; height: 72px; font-size: 24px; }
+            .amb-card { width: 140px; padding: 24px 14px 18px; }
+            .amb-avatar-wrap { width: 72px; height: 72px; }
+            .amb-avatar-lg { width: 60px; height: 60px; font-size: 22px; }
             .amb-name { font-size: 14px; }
             .amb-school { font-size: 11px; }
             /* Ring anchor */
@@ -2257,7 +2273,7 @@
             .amb-ring-anchor { display: none; }
             /* Smaller marquee cards */
             .case-card { min-width: 240px; max-width: 260px; }
-            .amb-card { width: 155px; }
+            .amb-card { width: 130px; }
         }
         @media (max-width: 640px) {
             .hero-title { font-size: 26px; }
@@ -2270,6 +2286,15 @@
     </style>
 </head>
 <body>
+
+<!-- ==================== Banner 活动推荐 ==================== -->
+<div class="wb-banner" id="wbBanner">
+    <a href="https://docs.qq.com/aio/DWG5qeE5ORGRRb0dE?nlc=1&p=8CQrkw4lXZCehGiv37MDPG&client_hint=0" target="_blank" class="wb-banner-link">
+        <span class="wb-banner-icon">🎯</span>
+        <span class="wb-banner-text"><strong>WorkBuddy 校园活动方案</strong>，一键解锁AI提效新姿势 →</span>
+        <span class="wb-banner-close" onclick="event.preventDefault(); document.getElementById('wbBanner').style.display='none';">✕</span>
+    </a>
+</div>
 
 <!-- ==================== Navbar ==================== -->
 <nav class="navbar" id="navbar">
@@ -2390,7 +2415,7 @@
             </div>
             <div class="hero-buttons">
                 <a href="https://doc.weixin.qq.com/forms/AJEAIQdfAAoABoATAZGACkCNe3NPP2fnf#/fill" target="_blank" class="btn btn-primary btn-large">
-                    🎯 活动申请
+                    🎯 立即申请
                 </a>
                 <a href="#about" class="btn btn-outline btn-large">了解更多 ↓</a>
             </div>
@@ -2671,7 +2696,6 @@
                     <span class="case-school">上海交通大学</span>
                 </div>
                 <div class="case-card-body">
-                    <div class="case-date">📅 2026年3月29日</div>
                     <h4>腾讯 AI 百校行「科学养虾实训营」<br>三环节教学 + WorkBuddy 实操</h4>
                     <div class="case-meta">
                         <span class="case-count">👥 200+ 人参与</span>
@@ -2686,7 +2710,6 @@
                     <span class="case-school">南京理工大学</span>
                 </div>
                 <div class="case-card-body">
-                    <div class="case-date">📅 2026年3月25日</div>
                     <h4>腾讯 AI 百校行养虾实训<br>聚焦 AI 智能体部署与应用</h4>
                     <div class="case-meta">
                         <span class="case-count">👥 300+ 人参与</span>
@@ -2701,7 +2724,6 @@
                     <span class="case-school">大连理工大学</span>
                 </div>
                 <div class="case-card-body">
-                    <div class="case-date">📅 2026年4月15日</div>
                     <h4>科学养虾实训营<br>OpenClaw + WorkBuddy 实操教学</h4>
                     <div class="case-meta">
                         <span class="case-count">👥 165 人参与</span>
@@ -2716,7 +2738,6 @@
                     <span class="case-school">深圳大学传播学院</span>
                 </div>
                 <div class="case-card-body">
-                    <div class="case-date">📅 2025年11月11日</div>
                     <h4>AIGC Workshop<br>AI 创作实战 + 腾讯混元文生图/视频</h4>
                     <div class="case-meta">
                         <span class="case-count">👥 传腾班全员参与</span>
@@ -2731,7 +2752,6 @@
                     <span class="case-school">深圳职业技术大学</span>
                 </div>
                 <div class="case-card-body">
-                    <div class="case-date">📅 2025年12月17日</div>
                     <h4>智能体实训营<br>Agent 概念→案例拆解→平台实操</h4>
                     <div class="case-meta">
                         <span class="case-count">👥 近百名师生参与</span>
@@ -3217,11 +3237,11 @@
     <div class="fcta-glow fcta-glow-1"></div>
     <div class="fcta-glow fcta-glow-2"></div>
     <div class="container">
-        <h2 class="fcta-title">邀请同学加入校园大使</h2>
+        <h2 class="fcta-title">准备好成为校园大使了吗？</h2>
         <p class="fcta-subtitle">加入我们，用技术影响力定义属于你的未来</p>
         <div class="fcta-buttons">
             <a href="https://docs.qq.com/form/page/DQnBIUXVuaUZVQnFC#/fill" target="_blank" class="btn btn-primary btn-large">
-                🚀 报名链接
+                🚀 立即申请加入
             </a>
             <a href="#about" class="btn btn-white btn-large">再看看详情 ↑</a>
         </div>
@@ -3245,18 +3265,10 @@
             </ul>
         </div>
         <div class="footer-qr">
-            <div class="footer-qr-item">
-                <div class="footer-qr-img">
-                    <img src="img_assistant_qr.jpg" alt="小助手二维码" style="width:110px;height:110px;border-radius:12px;object-fit:cover;">
-                </div>
-                <p>更多问题，扫码添加小助手咨询</p>
+            <div class="footer-qr-img">
+                <img src="腾讯教育公众号1.png" alt="腾讯教育公众号二维码" style="width:110px;height:110px;border-radius:12px;object-fit:cover;">
             </div>
-            <div class="footer-qr-item">
-                <div class="footer-qr-img">
-                    <img src="腾讯教育公众号1.png" alt="腾讯教育公众号二维码" style="width:110px;height:110px;border-radius:12px;object-fit:cover;">
-                </div>
-                <p>扫码关注「腾讯教育」公众号</p>
-            </div>
+            <p>扫码关注「腾讯教育」公众号</p>
         </div>
     </div>
     <div class="container footer-bottom">
