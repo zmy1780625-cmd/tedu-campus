@@ -130,10 +130,42 @@
         }
         .btn-large { padding: 18px 44px; font-size: 17px; }
 
+        /* ========== Activity Banner ========== */
+        .wb-banner {
+            position: relative;
+            z-index: 1001;
+            background: linear-gradient(135deg, #0052D9 0%, #00A3FF 100%);
+            padding: 10px 24px;
+            text-align: center;
+        }
+        .wb-banner-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+            font-size: 14px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .wb-banner-link:hover { opacity: 0.88; }
+        .wb-banner-icon { font-size: 16px; }
+        .wb-banner-text strong { font-weight: 700; }
+        .wb-banner-close {
+            margin-left: 16px;
+            cursor: pointer;
+            font-size: 13px;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+            padding: 2px 6px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 4px;
+        }
+        .wb-banner-close:hover { opacity: 1; background: rgba(255,255,255,0.35); }
+
         /* ========== Navbar ========== */
         .navbar {
             position: fixed;
-            top: 0;
+            top: 40px;
             left: 0;
             right: 0;
             z-index: 1000;
@@ -2254,6 +2286,15 @@
     </style>
 </head>
 <body>
+
+<!-- ==================== Banner 活动推荐 ==================== -->
+<div class="wb-banner" id="wbBanner">
+    <a href="https://docs.qq.com/aio/DWG5qeE5ORGRRb0dE?nlc=1&p=8CQrkw4lXZCehGiv37MDPG&client_hint=0" target="_blank" class="wb-banner-link">
+        <span class="wb-banner-icon">🎯</span>
+        <span class="wb-banner-text"><strong>WorkBuddy 校园玩法</strong>，一键解锁AI提效新姿势 →</span>
+        <span class="wb-banner-close" onclick="event.preventDefault(); document.getElementById('wbBanner').style.display='none';">✕</span>
+    </a>
+</div>
 
 <!-- ==================== Navbar ==================== -->
 <nav class="navbar" id="navbar">

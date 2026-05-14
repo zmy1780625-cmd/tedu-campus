@@ -130,10 +130,42 @@
         }
         .btn-large { padding: 18px 44px; font-size: 17px; }
 
+        /* ========== Activity Banner ========== */
+        .wb-banner {
+            position: relative;
+            z-index: 1001;
+            background: linear-gradient(135deg, #0052D9 0%, #00A3FF 100%);
+            padding: 10px 24px;
+            text-align: center;
+        }
+        .wb-banner-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+            font-size: 14px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .wb-banner-link:hover { opacity: 0.88; }
+        .wb-banner-icon { font-size: 16px; }
+        .wb-banner-text strong { font-weight: 700; }
+        .wb-banner-close {
+            margin-left: 16px;
+            cursor: pointer;
+            font-size: 13px;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+            padding: 2px 6px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 4px;
+        }
+        .wb-banner-close:hover { opacity: 1; background: rgba(255,255,255,0.35); }
+
         /* ========== Navbar ========== */
         .navbar {
             position: fixed;
-            top: 0;
+            top: 40px;
             left: 0;
             right: 0;
             z-index: 1000;
@@ -814,17 +846,29 @@
             min-width: 340px;
             max-width: 360px;
             flex-shrink: 0;
-            background: #fff;
+            position: relative;
+            z-index: 0;
+            background: linear-gradient(165deg, rgba(255,255,255,0.78), rgba(245,248,255,0.68));
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-radius: var(--radius-card);
-            border: 1px solid var(--border-color);
+            border: 1.5px solid rgba(255,255,255,0.65);
+            box-shadow:
+                0 4px 24px rgba(0,82,217,0.05),
+                inset 0 1px 0 rgba(255,255,255,0.6);
             overflow: hidden;
             scroll-snap-align: start;
-            transition: all 0.25s ease;
+            transition: all 0.35s cubic-bezier(0.22,1,0.36,1);
             scroll-snap-align: start;
         }
         .case-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--card-hover-shadow);
+            transform: translateY(-6px) scale(1.01);
+            background: linear-gradient(165deg, rgba(255,255,255,0.92), rgba(245,248,255,0.85));
+            border-color: rgba(0,130,240,0.2);
+            box-shadow:
+                0 20px 60px rgba(0,82,217,0.15),
+                0 8px 28px rgba(0,120,230,0.10),
+                inset 0 1px 0 rgba(255,255,255,0.8);
         }
         .case-card-top {
             height: 180px;
@@ -866,10 +910,10 @@
             padding: 24px;
         }
         .case-card-body h4 {
-            font-size: 16px;
-            font-weight: 700;
+            font-size: 17px;
+            font-weight: 600;
             color: var(--text-title);
-            margin-bottom: 12px;
+            margin-bottom: 14px;
             line-height: 1.5;
         }
         .case-meta {
@@ -881,23 +925,33 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: var(--blue-bg);
-            color: var(--blue);
+            background: #FFF7ED;
+            color: #C2410C;
             font-size: 13px;
             font-weight: 600;
             padding: 5px 14px;
             border-radius: 999px;
         }
+        .case-date {
+            font-size: 14px;
+            color: var(--blue);
+            background: var(--blue-bg);
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
         .case-link {
             font-size: 13px;
             color: var(--blue);
-            font-weight: 500;
-            display: flex;
+            font-weight: 600;
+            display: inline-flex;
             align-items: center;
             gap: 4px;
-            transition: gap 0.2s ease;
+            transition: gap 0.2s ease, color 0.2s ease;
         }
-        .case-link:hover { gap: 8px; }
+        .case-link:hover { gap: 8px; color: var(--blue-light); }
         .carousel-nav {
             display: flex;
             justify-content: center;
@@ -996,13 +1050,13 @@
         .ambassadors-carousel:hover { animation-play-state: paused; }
         .amb-card {
             flex-shrink: 0;
-            width: 170px;
+            width: 210px;
             background: rgba(255,255,255,0.75);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255,255,255,0.8);
             border-radius: var(--radius-card);
-            padding: 30px 18px 20px;
+            padding: 34px 22px 24px;
             text-align: center;
             transition: all 0.3s ease;
             scroll-snap-align: center;
@@ -1016,9 +1070,9 @@
         /* Avatar with gradient halo ring */
         .amb-avatar-wrap {
             position: relative;
-            width: 84px;
-            height: 84px;
-            margin: 0 auto 18px;
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1049,13 +1103,13 @@
         .amb-card:hover .amb-avatar-wrap::before { opacity: 0.8; }
         .amb-avatar-lg {
             position: relative;
-            width: 72px;
-            height: 72px;
+            width: 86px;
+            height: 86px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 26px;
+            font-size: 30px;
             font-weight: 700;
             color: #fff;
             transition: transform 0.3s ease;
@@ -1063,14 +1117,25 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
         .amb-card:hover .amb-avatar-lg { transform: scale(1.05); }
+        .amb-avatar-img {
+            position: relative;
+            width: 86px;
+            height: 86px;
+            border-radius: 50%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+            z-index: 2;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .amb-card:hover .amb-avatar-img { transform: scale(1.05); }
         .amb-name {
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 700;
             color: var(--text-title);
-            margin-bottom: 4px;
+            margin-bottom: 5px;
         }
         .amb-school {
-            font-size: 12px;
+            font-size: 13px;
             color: var(--text-muted);
             line-height: 1.5;
         }
@@ -1126,18 +1191,40 @@
             margin-top: 56px;
         }
         .benefit-card {
-            background: #fff;
+            background: linear-gradient(165deg, rgba(255,255,255,0.78), rgba(248,247,252,0.68));
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-radius: var(--radius-card);
-            border: 1px solid var(--border-color);
+            border: 1px solid rgba(255,255,255,0.65);
+            box-shadow:
+                0 4px 24px rgba(138,58,223,0.04),
+                inset 0 1px 0 rgba(255,255,255,0.6);
             padding: 36px 32px;
-            transition: all 0.25s ease;
+            transition: all 0.28s ease;
             position: relative;
             overflow: hidden;
         }
         .benefit-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--card-hover-shadow);
+            transform: translateY(-6px) scale(1.01);
+            background: linear-gradient(165deg, rgba(255,255,255,0.92), rgba(248,247,252,0.86));
+            border-color: transparent;
+            box-shadow:
+                0 20px 60px rgba(138,58,223,0.14),
+                0 8px 28px rgba(120,70,200,0.10),
+                0 0 0 1.5px rgba(138,80,220,0.18),
+                inset 0 1px 0 rgba(255,255,255,0.8);
         }
+        /* Benefit icon glow on hover */
+        .benefit-card:hover .benefit-icon {
+            box-shadow:
+                0 4px 20px rgba(0,82,217,0.15),
+                0 0 12px rgba(0,130,240,0.1),
+                inset 0 1px 0 rgba(255,255,255,0.6);
+            filter: brightness(1.05);
+        }
+        .benefit-card.career:hover .benefit-icon { box-shadow: 0 4px 20px rgba(0,82,217,0.2), 0 0 16px rgba(0,120,230,0.15), inset 0 1px 0 rgba(255,255,255,0.7); }
+        .benefit-card.exposure:hover .benefit-icon { box-shadow: 0 4px 20px rgba(139,58,223,0.2), 0 0 16px rgba(139,58,223,0.15), inset 0 1px 0 rgba(255,255,255,0.7); }
+        .benefit-card.tech:hover .benefit-icon { box-shadow: 0 4px 20px rgba(0,168,112,0.2), 0 0 16px rgba(0,168,112,0.15), inset 0 1px 0 rgba(255,255,255,0.7); }
         .benefit-card::after {
             content: '';
             position: absolute;
@@ -1167,6 +1254,7 @@
             justify-content: center;
             font-size: 22px;
             flex-shrink: 0;
+            transition: all 0.35s cubic-bezier(0.22,1,0.36,1);
         }
         .benefit-card.career .benefit-icon { background: var(--blue-bg); }
         .benefit-card.exposure .benefit-icon { background: var(--purple-bg); }
@@ -1459,15 +1547,31 @@
             margin-top: 56px;
         }
         .activity-card {
-            background: #fff;
-            border: 1px solid var(--border-color);
+            background: linear-gradient(165deg, rgba(255,255,255,0.78), rgba(245,248,255,0.68));
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1.5px solid rgba(255,255,255,0.65);
             border-radius: var(--radius-card);
+            box-shadow:
+                0 4px 24px rgba(0,82,217,0.05),
+                inset 0 1px 0 rgba(255,255,255,0.6);
             overflow: hidden;
-            transition: all 0.25s ease;
+            transition: all 0.35s cubic-bezier(0.22,1,0.36,1);
         }
         .activity-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--card-hover-shadow);
+            transform: translateY(-6px) scale(1.01);
+            background: linear-gradient(165deg, rgba(255,255,255,0.92), rgba(245,248,255,0.85));
+            border-color: transparent;
+            box-shadow:
+                0 20px 60px rgba(0,82,217,0.15),
+                0 8px 28px rgba(0,120,230,0.10),
+                0 0 0 1.5px rgba(0,130,240,0.2),
+                inset 0 1px 0 rgba(255,255,255,0.8);
+        }
+        /* Activity card icon glow on hover */
+        .activity-card:hover .acv-icon {
+            filter: drop-shadow(0 4px 12px rgba(0,100,220,0.25)) drop-shadow(0 0 20px rgba(0,140,255,0.15));
+            transform: scale(1.08) translateY(-2px);
         }
         .activity-card-visual {
             height: 160px;
@@ -1481,6 +1585,8 @@
         .acv-icon {
             font-size: 48px;
             z-index: 1;
+            transition: all 0.35s cubic-bezier(0.22,1,0.36,1);
+            display: inline-block;
         }
         .acv-pattern {
             position: absolute;
@@ -1499,6 +1605,15 @@
             font-weight: 700;
             color: var(--text-title);
             margin-bottom: 8px;
+        }
+        .activity-title-link {
+            color: var(--blue) !important;
+            text-decoration: none;
+            transition: color 0.2s, text-decoration 0.2s;
+        }
+        .activity-title-link:hover {
+            color: #1556E0 !important;
+            text-decoration: underline;
         }
         .activity-badge {
             display: inline-block;
@@ -1795,9 +1910,14 @@
             min-width: 420px;
             max-width: 420px;
             flex-shrink: 0;
-            background: #fff;
+            background: linear-gradient(165deg, rgba(255,255,255,0.78), rgba(248,247,252,0.68));
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-radius: var(--radius-card);
-            border: 1px solid var(--border-color);
+            border: 1px solid rgba(255,255,255,0.65);
+            box-shadow:
+                0 4px 24px rgba(138,58,223,0.04),
+                inset 0 1px 0 rgba(255,255,255,0.6);
             overflow: hidden;
             transition: all 0.28s ease;
             text-decoration: none;
@@ -1807,11 +1927,18 @@
             align-items: stretch;
         }
         .ai-prod-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--card-hover-shadow);
+            transform: translateY(-6px) scale(1.01);
+            background: linear-gradient(165deg, rgba(255,255,255,0.92), rgba(248,247,252,0.86));
+            border-color: transparent;
+            box-shadow:
+                0 20px 60px rgba(138,58,223,0.14),
+                0 8px 28px rgba(120,70,200,0.10),
+                0 0 0 1.5px rgba(138,80,220,0.18),
+                inset 0 1px 0 rgba(255,255,255,0.8);
         }
         .ai-prod-card:hover .ai-prod-icon-wrap .ai-prod-logo {
-            transform: scale(1.08);
+            transform: scale(1.1);
+            filter: drop-shadow(0 4px 12px rgba(100,70,180,0.2)) drop-shadow(0 0 20px rgba(139,58,223,0.1));
         }
 
         /* Icon area - left sidebar with real logo */
@@ -1830,7 +1957,7 @@
             height: 64px;
             object-fit: contain;
             border-radius: 14px;
-            transition: transform 0.35s ease;
+            transition: all 0.35s cubic-bezier(0.22,1,0.36,1);
             filter: drop-shadow(0 2px 6px rgba(0,0,0,0.08));
         }
 
@@ -1964,10 +2091,16 @@
         }
         .footer-links a:hover { color: #fff; }
         .footer-qr {
-            text-align: center;
+            display: flex;
+            flex-direction: row;
+            gap: 24px;
+            justify-content: center;
+        }
+        .footer-qr-item {
             display: flex;
             flex-direction: column;
             align-items: center;
+            text-align: center;
         }
         .footer-qr-img {
             width: 110px;
@@ -2089,9 +2222,9 @@
             }
             /* Card sizes */
             .case-card { min-width: 260px; max-width: 280px; }
-            .amb-card { width: 140px; padding: 24px 14px 18px; }
-            .amb-avatar-wrap { width: 72px; height: 72px; }
-            .amb-avatar-lg { width: 60px; height: 60px; font-size: 22px; }
+            .amb-card { width: 170px; padding: 28px 16px 20px; }
+            .amb-avatar-wrap { width: 86px; height: 86px; }
+            .amb-avatar-lg { width: 72px; height: 72px; font-size: 24px; }
             .amb-name { font-size: 14px; }
             .amb-school { font-size: 11px; }
             /* Ring anchor */
@@ -2156,7 +2289,7 @@
             .amb-ring-anchor { display: none; }
             /* Smaller marquee cards */
             .case-card { min-width: 240px; max-width: 260px; }
-            .amb-card { width: 130px; }
+            .amb-card { width: 155px; }
         }
         @media (max-width: 640px) {
             .hero-title { font-size: 26px; }
@@ -2169,6 +2302,15 @@
     </style>
 </head>
 <body>
+
+<!-- ==================== Banner 活动推荐 ==================== -->
+<div class="wb-banner" id="wbBanner">
+    <a href="https://docs.qq.com/aio/DWG5qeE5ORGRRb0dE?nlc=1&p=8CQrkw4lXZCehGiv37MDPG&client_hint=0" target="_blank" class="wb-banner-link">
+        <span class="wb-banner-icon">🎯</span>
+        <span class="wb-banner-text"><strong>WorkBuddy 校园玩法</strong>，一键解锁AI提效新姿势 →</span>
+        <span class="wb-banner-close" onclick="event.preventDefault(); document.getElementById('wbBanner').style.display='none';">✕</span>
+    </a>
+</div>
 
 <!-- ==================== Navbar ==================== -->
 <nav class="navbar" id="navbar">
@@ -2289,7 +2431,7 @@
             </div>
             <div class="hero-buttons">
                 <a href="https://doc.weixin.qq.com/forms/AJEAIQdfAAoABoATAZGACkCNe3NPP2fnf#/fill" target="_blank" class="btn btn-primary btn-large">
-                    🎯 立即申请
+                    🎯 活动申请
                 </a>
                 <a href="#about" class="btn btn-outline btn-large">了解更多 ↓</a>
             </div>
@@ -2570,6 +2712,7 @@
                     <span class="case-school">上海交通大学</span>
                 </div>
                 <div class="case-card-body">
+                    <div class="case-date">📅 2026年3月29日</div>
                     <h4>腾讯 AI 百校行「科学养虾实训营」<br>三环节教学 + WorkBuddy 实操</h4>
                     <div class="case-meta">
                         <span class="case-count">👥 200+ 人参与</span>
@@ -2584,6 +2727,7 @@
                     <span class="case-school">南京理工大学</span>
                 </div>
                 <div class="case-card-body">
+                    <div class="case-date">📅 2026年3月25日</div>
                     <h4>腾讯 AI 百校行养虾实训<br>聚焦 AI 智能体部署与应用</h4>
                     <div class="case-meta">
                         <span class="case-count">👥 300+ 人参与</span>
@@ -2598,6 +2742,7 @@
                     <span class="case-school">大连理工大学</span>
                 </div>
                 <div class="case-card-body">
+                    <div class="case-date">📅 2026年4月15日</div>
                     <h4>科学养虾实训营<br>OpenClaw + WorkBuddy 实操教学</h4>
                     <div class="case-meta">
                         <span class="case-count">👥 165 人参与</span>
@@ -2605,31 +2750,33 @@
                     </div>
                 </div>
             </div>
-            <!-- Case 4: CCNU -->
+            <!-- Case 4: SZUC -->
             <div class="case-card">
                 <div class="case-card-top">
-                    <img src="img_ccnu.jpg" alt="华中师范大学活动" loading="lazy">
-                    <span class="case-school">华中师范大学</span>
+                    <img src="img_szuc.jpg" alt="深圳大学传播学院活动" loading="lazy">
+                    <span class="case-school">深圳大学传播学院</span>
                 </div>
                 <div class="case-card-body">
-                    <h4>AI Agent 智能体实训营<br>WorkBuddy 平台实操 + 数据分析闯关</h4>
+                    <div class="case-date">📅 2025年11月11日</div>
+                    <h4>AIGC Workshop<br>AI 创作实战 + 腾讯混元文生图/视频</h4>
                     <div class="case-meta">
-                        <span class="case-count">👥 230 人参与</span>
-                        <a href="https://mp.weixin.qq.com/s/-Gwngv2cOZc9UPZEkeGs1Q" target="_blank" class="case-link">查看详情 →</a>
+                        <span class="case-count">👥 传腾班全员参与</span>
+                        <a href="https://mp.weixin.qq.com/s/N4cTyAITUKKSJY_ZBAqA_Q" target="_blank" class="case-link">查看详情 →</a>
                     </div>
                 </div>
             </div>
-            <!-- Case 5: SUSTech -->
+            <!-- Case 5: SZPT -->
             <div class="case-card">
                 <div class="case-card-top">
-                    <img src="img_sustech.jpg" alt="南方科技大学活动" loading="lazy">
-                    <span class="case-school">南方科技大学</span>
+                    <img src="img_szpt.jpg" alt="深圳职业技术大学活动" loading="lazy">
+                    <span class="case-school">深圳职业技术大学</span>
                 </div>
                 <div class="case-card-body">
-                    <h4>科技文化节·科学养虾实训营<br>装机 + 互动 + 实操全链路</h4>
+                    <div class="case-date">📅 2025年12月17日</div>
+                    <h4>智能体实训营<br>Agent 概念→案例拆解→平台实操</h4>
                     <div class="case-meta">
-                        <span class="case-count">👥 211 人参与</span>
-                        <a href="https://mp.weixin.qq.com/s/M99pcbqz_5WPyjv35rPJjg" target="_blank" class="case-link">查看详情 →</a>
+                        <span class="case-count">👥 近百名师生参与</span>
+                        <a href="https://mp.weixin.qq.com/s/BSv8nwJFYPNygVeMDA6AKw" target="_blank" class="case-link">查看详情 →</a>
                     </div>
                 </div>
             </div>
@@ -2687,24 +2834,24 @@
     </div>
     <div class="container"><div class="ambassadors-wrapper reveal">
         <div class="ambassadors-carousel" id="ambCarousel">
-            <!-- 1 --><div class="amb-card" style="--halo:linear-gradient(135deg,#0052D9,#00A3FF);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#0052D9,#00A3FF);">杨</div></div><div class="amb-name">杨宝增</div><div class="amb-school">北京邮电大学</div></div>
-            <!-- 2 --><div class="amb-card" style="--halo:linear-gradient(135deg,#007D53,#00D68B);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#007D53,#00D68B);">饶</div></div><div class="amb-name">饶棋涛</div><div class="amb-school">北京邮电大学</div></div>
-            <!-- 3 --><div class="amb-card" style="--halo:linear-gradient(135deg,#8B3ADF,#B87AE6);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#8B3ADF,#B87AE6);">尼</div></div><div class="amb-name">尼尕热·玉散</div><div class="amb-school">北京邮电大学</div></div>
-            <!-- 4 --><div class="amb-card" style="--halo:linear-gradient(135deg,#E07B26,#FFA94D);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#E07B26,#FFA94D);">李</div></div><div class="amb-name">李政远</div><div class="amb-school">西安电子科技大学</div></div>
-            <!-- 5 --><div class="amb-card" style="--halo:linear-gradient(135deg,#0B7A7A,#3DBDB5);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#0B7A7A,#3DBDB5);">宋</div></div><div class="amb-name">宋欣莲</div><div class="amb-school">西安电子科技大学</div></div>
-            <!-- 6 --><div class="amb-card" style="--halo:linear-gradient(135deg,#B81B5D,#E86BA6);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#B81B5D,#E86BA6);">闫</div></div><div class="amb-name">闫鹏祥</div><div class="amb-school">西安电子科技大学</div></div>
-            <!-- 7 --><div class="amb-card" style="--halo:linear-gradient(135deg,#1E3A8A,#3B82F6);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#1E3A8A,#3B82F6);">张</div></div><div class="amb-name">张皓翔</div><div class="amb-school">北京航空航天大学</div></div>
-            <!-- 8 --><div class="amb-card" style="--halo:linear-gradient(135deg,#059669,#34D399);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#059669,#34D399);">卢</div></div><div class="amb-name">卢厚华</div><div class="amb-school">北京航空航天大学</div></div>
-            <!-- 9 --><div class="amb-card" style="--halo:linear-gradient(135deg,#7C3AED,#C4B5FD);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#7C3AED,#C4B5FD);">刘</div></div><div class="amb-name">刘雨菲</div><div class="amb-school">北京交通大学</div></div>
-            <!-- 10 --><div class="amb-card" style="--halo:linear-gradient(135deg,#F97316,#FDBA74);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#F97316,#FDBA74);">王</div></div><div class="amb-name">王世琦</div><div class="amb-school">香港科技大学（广州）</div></div>
-            <!-- 11 --><div class="amb-card" style="--halo:linear-gradient(135deg,#0891B2,#67E8F9);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#0891B2,#67E8F9);">肖</div></div><div class="amb-name">肖金鑫</div><div class="amb-school">华中科技大学</div></div>
-            <!-- 12 --><div class="amb-card" style="--halo:linear-gradient(135deg,#DB2777,#F9A8D4);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#DB2777,#F9A8D4);">董</div></div><div class="amb-name">董亚鹏</div><div class="amb-school">北京工业大学</div></div>
-            <!-- 13 --><div class="amb-card" style="--halo:linear-gradient(135deg,#2563EB,#93C5FD);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#2563EB,#93C5FD);">孙</div></div><div class="amb-name">孙正金</div><div class="amb-school">深圳大学</div></div>
-            <!-- 14 --><div class="amb-card" style="--halo:linear-gradient(135deg,#10B981,#86EFAC);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#10B981,#86EFAC);">吴</div></div><div class="amb-name">吴基融</div><div class="amb-school">深圳技术大学</div></div>
-            <!-- 15 --><div class="amb-card" style="--halo:linear-gradient(135deg,#9333EA,#D8B4FE);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#9333EA,#D8B4FE);">文</div></div><div class="amb-name">文章</div><div class="amb-school">四川大学</div></div>
-            <!-- 16 --><div class="amb-card" style="--halo:linear-gradient(135deg,#EA580C,#FED7AA);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#EA580C,#FED7AA);">穆</div></div><div class="amb-name">穆再排尔·穆合塔尔</div><div class="amb-school">南京航空航天大学</div></div>
-            <!-- 17 --><div class="amb-card" style="--halo:linear-gradient(135deg,#0D9488,#5EEAD4);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#0D9488,#5EEAD4);">胡</div></div><div class="amb-name">胡秀洋</div><div class="amb-school">南京理工大学</div></div>
-            <!-- 18 --><div class="amb-card" style="--halo:linear-gradient(135deg,#BE185D,#FBCFE8);"><div class="amb-avatar-wrap"><div class="amb-avatar-lg" style="background:linear-gradient(135deg,#BE185D,#FBCFE8);">李</div></div><div class="amb-name">李威俊</div><div class="amb-school">深圳信息职业技术学院</div></div>
+            <!-- 1 --><div class="amb-card" style="--halo:linear-gradient(135deg,#0052D9,#00A3FF);"><div class="amb-avatar-wrap"><img src="avatar-01-yang.png" alt="杨宝增" class="amb-avatar-img" /></div><div class="amb-name">杨宝增</div><div class="amb-school">北京邮电大学</div></div>
+            <!-- 2 --><div class="amb-card" style="--halo:linear-gradient(135deg,#007D53,#00D68B);"><div class="amb-avatar-wrap"><img src="avatar-02-rao.png" alt="饶棋涛" class="amb-avatar-img" /></div><div class="amb-name">饶棋涛</div><div class="amb-school">北京邮电大学</div></div>
+            <!-- 3 --><div class="amb-card" style="--halo:linear-gradient(135deg,#8B3ADF,#B87AE6);"><div class="amb-avatar-wrap"><img src="avatar-03-ni.png" alt="尼尕热·玉散" class="amb-avatar-img" /></div><div class="amb-name">尼尕热·玉散</div><div class="amb-school">北京邮电大学</div></div>
+            <!-- 4 --><div class="amb-card" style="--halo:linear-gradient(135deg,#E07B26,#FFA94D);"><div class="amb-avatar-wrap"><img src="avatar-04-li.png" alt="李政远" class="amb-avatar-img" /></div><div class="amb-name">李政远</div><div class="amb-school">西安电子科技大学</div></div>
+            <!-- 5 --><div class="amb-card" style="--halo:linear-gradient(135deg,#0B7A7A,#3DBDB5);"><div class="amb-avatar-wrap"><img src="avatar-05-song.png" alt="宋欣莲" class="amb-avatar-img" /></div><div class="amb-name">宋欣莲</div><div class="amb-school">西安电子科技大学</div></div>
+            <!-- 6 --><div class="amb-card" style="--halo:linear-gradient(135deg,#B81B5D,#E86BA6);"><div class="amb-avatar-wrap"><img src="avatar-06-yan.png" alt="闫鹏祥" class="amb-avatar-img" /></div><div class="amb-name">闫鹏祥</div><div class="amb-school">西安电子科技大学</div></div>
+            <!-- 7 --><div class="amb-card" style="--halo:linear-gradient(135deg,#1E3A8A,#3B82F6);"><div class="amb-avatar-wrap"><img src="avatar-07-zhang.png" alt="张皓翔" class="amb-avatar-img" /></div><div class="amb-name">张皓翔</div><div class="amb-school">北京航空航天大学</div></div>
+            <!-- 8 --><div class="amb-card" style="--halo:linear-gradient(135deg,#059669,#34D399);"><div class="amb-avatar-wrap"><img src="avatar-08-lu.png" alt="卢厚华" class="amb-avatar-img" /></div><div class="amb-name">卢厚华</div><div class="amb-school">北京航空航天大学</div></div>
+            <!-- 9 --><div class="amb-card" style="--halo:linear-gradient(135deg,#7C3AED,#C4B5FD);"><div class="amb-avatar-wrap"><img src="avatar-09-liu.png" alt="刘雨菲" class="amb-avatar-img" /></div><div class="amb-name">刘雨菲</div><div class="amb-school">北京交通大学</div></div>
+            <!-- 10 --><div class="amb-card" style="--halo:linear-gradient(135deg,#F97316,#FDBA74);"><div class="amb-avatar-wrap"><img src="avatar-10-wang.png" alt="王世琦" class="amb-avatar-img" /></div><div class="amb-name">王世琦</div><div class="amb-school">香港科技大学（广州）</div></div>
+            <!-- 11 --><div class="amb-card" style="--halo:linear-gradient(135deg,#0891B2,#67E8F9);"><div class="amb-avatar-wrap"><img src="avatar-11-xiao.png" alt="肖金鑫" class="amb-avatar-img" /></div><div class="amb-name">肖金鑫</div><div class="amb-school">华中科技大学</div></div>
+            <!-- 12 --><div class="amb-card" style="--halo:linear-gradient(135deg,#DB2777,#F9A8D4);"><div class="amb-avatar-wrap"><img src="avatar-12-dong.png" alt="董亚鹏" class="amb-avatar-img" /></div><div class="amb-name">董亚鹏</div><div class="amb-school">北京工业大学</div></div>
+            <!-- 13 --><div class="amb-card" style="--halo:linear-gradient(135deg,#2563EB,#93C5FD);"><div class="amb-avatar-wrap"><img src="avatar-13-sun.png" alt="孙正金" class="amb-avatar-img" /></div><div class="amb-name">孙正金</div><div class="amb-school">深圳大学</div></div>
+            <!-- 14 --><div class="amb-card" style="--halo:linear-gradient(135deg,#10B981,#86EFAC);"><div class="amb-avatar-wrap"><img src="avatar-14-wu.png" alt="吴基融" class="amb-avatar-img" /></div><div class="amb-name">吴基融</div><div class="amb-school">深圳技术大学</div></div>
+            <!-- 15 --><div class="amb-card" style="--halo:linear-gradient(135deg,#9333EA,#D8B4FE);"><div class="amb-avatar-wrap"><img src="avatar-15-wen.png" alt="文章" class="amb-avatar-img" /></div><div class="amb-name">文章</div><div class="amb-school">四川大学</div></div>
+            <!-- 16 --><div class="amb-card" style="--halo:linear-gradient(135deg,#EA580C,#FED7AA);"><div class="amb-avatar-wrap"><img src="avatar-16-mu.png" alt="穆再排尔·穆合塔尔" class="amb-avatar-img" /></div><div class="amb-name">穆再排尔·穆合塔尔</div><div class="amb-school">南京航空航天大学</div></div>
+            <!-- 17 --><div class="amb-card" style="--halo:linear-gradient(135deg,#0D9488,#5EEAD4);"><div class="amb-avatar-wrap"><img src="avatar-17-hu.png" alt="胡秀洋" class="amb-avatar-img" /></div><div class="amb-name">胡秀洋</div><div class="amb-school">南京理工大学</div></div>
+            <!-- 18 --><div class="amb-card" style="--halo:linear-gradient(135deg,#BE185D,#FBCFE8);"><div class="amb-avatar-wrap"><img src="avatar-18-liw.png" alt="李威俊" class="amb-avatar-img" /></div><div class="amb-name">李威俊</div><div class="amb-school">深圳信息职业技术学院</div></div>
         </div>
     </div>
 </div>
@@ -2876,7 +3023,7 @@
         <h2 class="section-title">考核标准</h2>
         <div class="assessment-intro">
             我们通过<strong style="color:var(--blue);">积分体系</strong>记录你的成长，而不是单一考核。社群建设、活动策划、技术服务等内容产出会积累积分，每学期对积分排名前三的大使进行激励。<br>
-            👉 <a href="https://docs.qq.com/aio/DWG5qeE5ORGRRb0dE?nlc=1&p=KFo33Jkoo20JEsdusNBph3" target="_blank">查看完整考核细则文档 →</a>
+            👉 <a href="https://docs.qq.com/aio/DWG5qeE5ORGRRb0dE?nlc=1&p=KFo33Jkoo20JEsdusNBph3&client_hint=0" target="_blank">查看完整考核细则文档 →</a>
         </div>
     </div>
     <div class="accordion-group reveal">
@@ -2953,7 +3100,7 @@
             </div>
             <div class="activity-card-body">
                 <span class="activity-badge">最受欢迎</span>
-                <h4>策划校园 AI 互动展</h4>
+                <h4><a href="https://docs.qq.com/aio/DWG5qeE5ORGRRb0dE?nlc=1&p=rwMUz1VUQPNsDvTqkwdEsY&client_hint=0" target="_blank" class="activity-title-link">策划校园 AI 互动展</a></h4>
                 <p class="activity-desc">打造沉浸式 AI 体验空间，让同学们近距离感受前沿技术的魅力，是吸引最多人参与的明星活动形式。</p>
                 <div class="activity-tags">
                     <span class="at-tag">AI Agent 体验站</span>
@@ -2970,7 +3117,7 @@
             </div>
             <div class="activity-card-body">
                 <span class="activity-badge">深度交流</span>
-                <h4>联合社团举办主题沙龙</h4>
+                <h4><a href="https://docs.qq.com/aio/DWG5qeE5ORGRRb0dE?nlc=1&p=9o2Vjf5mjfiCfpl8Uotdik&client_hint=0" target="_blank" class="activity-title-link">联合社团举办主题沙龙</a></h4>
                 <p class="activity-desc">携手校内社团举办深度技术沙龙，邀请感兴趣的同学一起探讨前沿话题，营造校园技术氛围。</p>
                 <div class="activity-tags">
                     <span class="at-tag">AI Coding 入门</span>
@@ -2987,7 +3134,7 @@
             </div>
             <div class="activity-card-body">
                 <span class="activity-badge">动手实操</span>
-                <h4>组织智能体体验工坊</h4>
+                <h4><a href="https://docs.qq.com/aio/DWG5qeE5ORGRRb0dE?nlc=1&p=UwgDEBjWlDGa9gwrxRRRGN&client_hint=0" target="_blank" class="activity-title-link">组织智能体体验工坊</a></h4>
                 <p class="activity-desc">手把手带同学从零搭建自己的 AI Agent，从概念到 Prompt 再到成品工具调用，最后来一场作品 PK。</p>
                 <div class="activity-tags">
                     <span class="at-tag">Agent 概念讲解</span>
@@ -3004,7 +3151,7 @@
             </div>
             <div class="activity-card-body">
                 <span class="activity-badge">高影响力</span>
-                <h4>发起应用创新大赛</h4>
+                <h4><a href="https://docs.qq.com/aio/DWG5qeE5ORGRRb0dE?nlc=1&p=yF262C5nJ0nlcJPCJXY8a1&client_hint=0" target="_blank" class="activity-title-link">发起应用创新大赛</a></h4>
                 <p class="activity-desc">组织校园级别的 AI 应用创新挑战赛，联动腾讯教育资源，为优秀作品提供全方位支持和曝光。</p>
                 <div class="activity-tags">
                     <span class="at-tag">AI Coding 挑战赛</span>
@@ -3111,11 +3258,11 @@
     <div class="fcta-glow fcta-glow-1"></div>
     <div class="fcta-glow fcta-glow-2"></div>
     <div class="container">
-        <h2 class="fcta-title">准备好成为校园大使了吗？</h2>
+        <h2 class="fcta-title">邀请同学加入校园大使</h2>
         <p class="fcta-subtitle">加入我们，用技术影响力定义属于你的未来</p>
         <div class="fcta-buttons">
             <a href="https://docs.qq.com/form/page/DQnBIUXVuaUZVQnFC#/fill" target="_blank" class="btn btn-primary btn-large">
-                🚀 立即申请加入
+                🚀 报名链接
             </a>
             <a href="#about" class="btn btn-white btn-large">再看看详情 ↑</a>
         </div>
@@ -3135,14 +3282,22 @@
                 <li><a href="https://docs.qq.com/form/page/DQnBIUXVuaUZVQnFC" target="_blank">校园大使申请</a></li>
                 <li><a href="https://doc.weixin.qq.com/forms/AJEAIQdfAAoABoATAZGACkCNe3NPP2fnf#/fill" target="_blank">校园活动申请</a></li>
                 <li><a href="https://docs.qq.com/aio/DWG5qeE5ORGRRb0dE?nlc=1&p=3y4au5XxHK7LoSijMImqnD" target="_blank">AI 提效工具</a></li>
-                <li><a href="https://docs.qq.com/aio/DQm5HREFzQUVDT1RX?p=ZNYqCVWN4PD87IYBUBFdIQ" target="_blank">考核细则</a></li>
+                <li><a href="https://docs.qq.com/aio/DWG5qeE5ORGRRb0dE?nlc=1&p=KFo33Jkoo20JEsdusNBph3&client_hint=0" target="_blank">考核细则</a></li>
             </ul>
         </div>
         <div class="footer-qr">
-            <div class="footer-qr-img">
-                <img src="腾讯教育公众号1.png" alt="腾讯教育公众号二维码" style="width:110px;height:110px;border-radius:12px;object-fit:cover;">
+            <div class="footer-qr-item">
+                <div class="footer-qr-img">
+                    <img src="img_assistant_qr.jpg" alt="小助手二维码" style="width:110px;height:110px;border-radius:12px;object-fit:cover;">
+                </div>
+                <p>更多问题，扫码添加小助手咨询</p>
             </div>
-            <p>扫码关注「腾讯教育」公众号</p>
+            <div class="footer-qr-item">
+                <div class="footer-qr-img">
+                    <img src="腾讯教育公众号1.png" alt="腾讯教育公众号二维码" style="width:110px;height:110px;border-radius:12px;object-fit:cover;">
+                </div>
+                <p>扫码关注「腾讯教育」公众号</p>
+            </div>
         </div>
     </div>
     <div class="container footer-bottom">
