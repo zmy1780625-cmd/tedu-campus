@@ -2284,24 +2284,24 @@
             .footer-qr { grid-column: auto; }
         }
 
-        /* ========== Reward Flow ========== */
+        /* ========== Assessment Module Flow (4 modules) ========== */
         .reward-flow {
-            max-width: 980px;
+            max-width: var(--max-w);
             margin: 16px auto 0;
             padding: 0 24px;
-            display: flex;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
             align-items: stretch;
-            gap: 16px;
+            gap: 12px;
         }
         .reward-tier {
-            flex: 1;
             background: linear-gradient(165deg, rgba(255,255,255,0.85), rgba(245,250,255,0.78));
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1.5px solid rgba(255,255,255,0.7);
             border-radius: 18px;
-            padding: 28px 26px;
-            position: relative;
+            padding: 32px 22px;
+            text-align: center;
             transition: all 0.3s cubic-bezier(0.22,1,0.36,1);
             box-shadow: 0 4px 24px rgba(0,82,217,0.05), inset 0 1px 0 rgba(255,255,255,0.6);
         }
@@ -2309,74 +2309,53 @@
             transform: translateY(-4px);
             box-shadow: 0 16px 48px rgba(0,82,217,0.12), inset 0 1px 0 rgba(255,255,255,0.8);
         }
-        .reward-tier.basic { border-color: rgba(0,168,112,0.25); }
-        .reward-tier.advanced { border-color: rgba(0,82,217,0.25); }
-        .reward-tier-head {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 18px;
-        }
-        .rt-num {
-            width: 36px; height: 36px;
-            border-radius: 10px;
+        .reward-tier.m1 { border-color: rgba(0,82,217,0.25); }
+        .reward-tier.m2 { border-color: rgba(139,58,223,0.25); }
+        .reward-tier.m3 { border-color: rgba(0,168,112,0.25); }
+        .reward-tier.m4 { border-color: rgba(224,123,38,0.25); }
+        .rt-icon {
+            width: 56px; height: 56px;
+            border-radius: 16px;
             display: flex; align-items: center; justify-content: center;
-            font-size: 15px; font-weight: 800; color: #fff;
-            flex-shrink: 0;
+            font-size: 26px;
+            margin: 0 auto 16px;
+            color: #fff;
         }
-        .reward-tier.basic .rt-num { background: linear-gradient(135deg, #00A870, #00D68B); }
-        .reward-tier.advanced .rt-num { background: linear-gradient(135deg, var(--blue), var(--blue-light)); }
+        .reward-tier.m1 .rt-icon { background: linear-gradient(135deg, var(--blue), var(--blue-light)); }
+        .reward-tier.m2 .rt-icon { background: linear-gradient(135deg, #8B3ADF, #B87AE6); }
+        .reward-tier.m3 .rt-icon { background: linear-gradient(135deg, #00A870, #00D68B); }
+        .reward-tier.m4 .rt-icon { background: linear-gradient(135deg, #E07B26, #FFA94D); }
         .rt-title {
             font-size: 17px;
             font-weight: 700;
             color: var(--text-title);
+            margin-bottom: 10px;
         }
         .rt-sub {
             display: inline-block;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 600;
-            padding: 3px 9px;
-            border-radius: 5px;
-            margin-top: 4px;
+            padding: 4px 12px;
+            border-radius: 999px;
         }
-        .reward-tier.basic .rt-sub { background: var(--green-bg); color: #00A870; }
-        .reward-tier.advanced .rt-sub { background: var(--blue-bg); color: var(--blue); }
-        .rt-list {
-            list-style: none;
-            margin: 0; padding: 0;
-        }
-        .rt-list li {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            padding: 8px 0;
-            font-size: 14px;
-            color: var(--text-body);
-            line-height: 1.6;
-        }
-        .rt-list li::before {
-            content: '✓';
-            flex-shrink: 0;
-            width: 18px; height: 18px;
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 11px; font-weight: 700;
-            margin-top: 2px;
-        }
-        .reward-tier.basic .rt-list li::before { background: var(--green-bg); color: #00A870; }
-        .reward-tier.advanced .rt-list li::before { background: var(--blue-bg); color: var(--blue); }
+        .reward-tier.m1 .rt-sub { background: var(--blue-bg); color: var(--blue); }
+        .reward-tier.m2 .rt-sub { background: var(--purple-bg); color: #8B3ADF; }
+        .reward-tier.m3 .rt-sub { background: var(--green-bg); color: #00A870; }
+        .reward-tier.m4 .rt-sub { background: #FFF5E6; color: #E07B26; }
         .reward-arrow {
             display: flex; align-items: center; justify-content: center;
             color: var(--blue);
-            font-size: 28px;
+            font-size: 22px;
             font-weight: 800;
-            flex-shrink: 0;
-            opacity: 0.6;
+            opacity: 0.5;
         }
-        @media (max-width: 768px) {
-            .reward-flow { flex-direction: column; gap: 12px; }
-            .reward-arrow { transform: rotate(90deg); padding: 4px 0; }
-            .reward-tier { padding: 22px 20px; }
+        @media (max-width: 1024px) {
+            .reward-flow { grid-template-columns: 1fr 1fr; gap: 14px; }
+            .reward-arrow { display: none; }
+        }
+        @media (max-width: 640px) {
+            .reward-flow { grid-template-columns: 1fr; }
+            .reward-tier { padding: 24px 20px; }
         }
     </style>
 </head>
@@ -3100,36 +3079,28 @@
         </div>
     </div>
     <div class="reward-flow reveal">
-        <div class="reward-tier basic">
-            <div class="reward-tier-head">
-                <div class="rt-num">1</div>
-                <div>
-                    <div class="rt-title">基础奖励</div>
-                    <span class="rt-sub">完成活动组织即可获得</span>
-                </div>
-            </div>
-            <ul class="rt-list">
-                <li>腾讯云 Tedu 校园大使官方证书</li>
-                <li>技术专家专属培训 & 产品讲解</li>
-                <li>新品/新功能优先试用资格</li>
-                <li>现场物料 + 鹅厂周边礼品</li>
-            </ul>
+        <div class="reward-tier m1">
+            <div class="rt-icon">👥</div>
+            <div class="rt-title">参与人数</div>
+            <span class="rt-sub">活动覆盖广度</span>
         </div>
         <div class="reward-arrow">→</div>
-        <div class="reward-tier advanced">
-            <div class="reward-tier-head">
-                <div class="rt-num">2</div>
-                <div>
-                    <div class="rt-title">进阶奖励</div>
-                    <span class="rt-sub">优秀组织者专享</span>
-                </div>
-            </div>
-            <ul class="rt-list">
-                <li>腾讯教育实习内推机会</li>
-                <li>腾讯数字生态大会等官方门票</li>
-                <li>官方大会/沙龙演讲分享席位</li>
-                <li>个人IP打造 + 定制化培养计划</li>
-            </ul>
+        <div class="reward-tier m2">
+            <div class="rt-icon">📋</div>
+            <div class="rt-title">活动策划</div>
+            <span class="rt-sub">方案完整度</span>
+        </div>
+        <div class="reward-arrow">→</div>
+        <div class="reward-tier m3">
+            <div class="rt-icon">💬</div>
+            <div class="rt-title">活动反馈</div>
+            <span class="rt-sub">参与者满意度</span>
+        </div>
+        <div class="reward-arrow">→</div>
+        <div class="reward-tier m4">
+            <div class="rt-icon">🚀</div>
+            <div class="rt-title">后续运营</div>
+            <span class="rt-sub">长效维护</span>
         </div>
     </div>
 </section>
