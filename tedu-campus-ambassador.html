@@ -906,8 +906,35 @@
             z-index: 2;
             text-shadow: 0 1px 4px rgba(0,0,0,0.3);
         }
+        .case-date-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 3;
+            font-size: 11px;
+            font-weight: 600;
+            color: #fff;
+            background: rgba(0,0,0,0.45);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            padding: 3px 9px;
+            border-radius: 20px;
+            letter-spacing: 0.3px;
+            pointer-events: none;
+            border: 1px solid rgba(255,255,255,0.18);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
         .case-card-body {
             padding: 24px;
+        }
+        .case-date {
+            font-size: 12px;
+            color: var(--blue);
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
         .case-card-body h4 {
             font-size: 17px;
@@ -2783,6 +2810,7 @@
             <div class="case-card">
                 <div class="case-card-top">
                     <img src="img_sjtu.jpg" alt="上海交通大学活动" loading="lazy">
+                    <span class="case-date-badge">📅 2026年3月29日</span>
                     <span class="case-school">上海交通大学</span>
                 </div>
                 <div class="case-card-body">
@@ -2798,6 +2826,7 @@
             <div class="case-card">
                 <div class="case-card-top">
                     <img src="img_njust.jpg" alt="南京理工大学活动" loading="lazy">
+                    <span class="case-date-badge">📅 2026年3月25日</span>
                     <span class="case-school">南京理工大学</span>
                 </div>
                 <div class="case-card-body">
@@ -2813,6 +2842,7 @@
             <div class="case-card">
                 <div class="case-card-top">
                     <img src="img_dlut.jpg" alt="大连理工大学活动" loading="lazy">
+                    <span class="case-date-badge">📅 2026年4月15日</span>
                     <span class="case-school">大连理工大学</span>
                 </div>
                 <div class="case-card-body">
@@ -2828,6 +2858,7 @@
             <div class="case-card">
                 <div class="case-card-top">
                     <img src="img_szuc.jpg" alt="深圳大学传播学院活动" loading="lazy">
+                    <span class="case-date-badge">📅 2025年11月11日</span>
                     <span class="case-school">深圳大学传播学院</span>
                 </div>
                 <div class="case-card-body">
@@ -2843,6 +2874,7 @@
             <div class="case-card">
                 <div class="case-card-top">
                     <img src="img_szpt.jpg" alt="深圳职业技术大学活动" loading="lazy">
+                    <span class="case-date-badge">📅 2025年12月17日</span>
                     <span class="case-school">深圳职业技术大学</span>
                 </div>
                 <div class="case-card-body">
